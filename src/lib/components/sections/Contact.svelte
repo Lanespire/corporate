@@ -54,12 +54,12 @@
 
 		try {
 			// Netlify Forms submission
-			const formData = new FormData(formElement);
+			const formBody = new FormData(formElement);
 			
 			const response = await fetch('/', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: new URLSearchParams(formData as any).toString()
+				body: new URLSearchParams(formBody as any).toString()
 			});
 
 			if (response.ok) {
@@ -485,3 +485,4 @@
 		}
 	}
 </style>
+
