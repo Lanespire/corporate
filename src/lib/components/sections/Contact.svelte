@@ -59,7 +59,7 @@
 			const response = await fetch('/', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: new URLSearchParams(formBody).toString()
+				body: new URLSearchParams(Array.from(formBody.entries()) as string[][]).toString()
 			});
 
 			if (response.ok) {
