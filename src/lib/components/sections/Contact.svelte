@@ -9,7 +9,7 @@
 		company: '',
 		message: ''
 	};
-	
+
 	let isSubmitting = false;
 	let submitStatus: 'idle' | 'success' | 'error' = 'idle';
 	let statusMessage = '';
@@ -43,7 +43,7 @@
 	// Form submission for Netlify Forms
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
-		
+
 		if (!validateForm()) {
 			submitStatus = 'error';
 			return;
@@ -55,24 +55,24 @@
 		try {
 			// Netlify Forms submission
 			const formBody = new FormData(formElement);
-			
+
 			const response = await fetch('/', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: new URLSearchParams(formBody as any).toString()
+				body: new URLSearchParams(formBody).toString()
 			});
 
 			if (response.ok) {
 				submitStatus = 'success';
 				statusMessage = 'お問い合わせありがとうございます。24時間以内にご返信いたします。';
-				
-			// Reset form
-			formData = {
-				name: '',
-				email: '',
-				company: '',
-				message: ''
-			};
+
+				// Reset form
+				formData = {
+					name: '',
+					email: '',
+					company: '',
+					message: ''
+				};
 			} else {
 				throw new Error('送信に失敗しました');
 			}
@@ -118,26 +118,26 @@
 						<div class="detail-item">
 							<span class="material-icons">business</span>
 							<div>
-								<strong>資本金</strong><br>
+								<strong>資本金</strong><br />
 								10万円
 							</div>
 						</div>
 						<div class="detail-item">
 							<span class="material-icons">location_on</span>
 							<div>
-								<strong>所在地</strong><br>
-								〒104-0061<br>
-								東京都中央区銀座１丁目１２番４号<br>
+								<strong>所在地</strong><br />
+								〒104-0061<br />
+								東京都中央区銀座１丁目１２番４号<br />
 								Ｎ＆ＥＢＬＤ．６Ｆ
 							</div>
 						</div>
 						<div class="detail-item">
 							<span class="material-icons">work</span>
 							<div>
-								<strong>事業内容</strong><br>
-								Web制作、ITコンサルタント・AI導入支援、<br>
-								n8nによる業務効率支援、業務委託、<br>
-								NoCode・LowCodeによるサービス開発、<br>
+								<strong>事業内容</strong><br />
+								Web制作、ITコンサルタント・AI導入支援、<br />
+								n8nによる業務効率支援、業務委託、<br />
+								NoCode・LowCodeによるサービス開発、<br />
 								モバイルアプリケーション開発、受託開発
 							</div>
 						</div>
@@ -159,18 +159,18 @@
 			</div>
 
 			<div class="contact-form-container">
-				<form 
-					class="contact-form" 
-					bind:this={formElement} 
-					name="contact" 
-					method="POST" 
+				<form
+					class="contact-form"
+					bind:this={formElement}
+					name="contact"
+					method="POST"
 					data-netlify="true"
 					data-netlify-honeypot="bot-field"
 					on:submit={handleSubmit}
 				>
 					<!-- Netlify form detection -->
 					<input type="hidden" name="form-name" value="contact" />
-					
+
 					<!-- Honeypot field for spam protection -->
 					<div style="display: none;">
 						<label>Don't fill this out if you're human: <input name="bot-field" /></label>
@@ -188,7 +188,9 @@
 					</div>
 
 					<div class="form-group">
-						<label for="email" class="form-label">メールアドレス <span class="required">*</span></label>
+						<label for="email" class="form-label"
+							>メールアドレス <span class="required">*</span></label
+						>
 						<input
 							type="email"
 							id="email"
@@ -211,7 +213,9 @@
 					</div>
 
 					<div class="form-group">
-						<label for="message" class="form-label">メッセージ <span class="required">*</span></label>
+						<label for="message" class="form-label"
+							>メッセージ <span class="required">*</span></label
+						>
 						<textarea
 							id="message"
 							name="message"
@@ -223,7 +227,11 @@
 					</div>
 
 					{#if submitStatus !== 'idle'}
-						<div class="status-message" class:success={submitStatus === 'success'} class:error={submitStatus === 'error'}>
+						<div
+							class="status-message"
+							class:success={submitStatus === 'success'}
+							class:error={submitStatus === 'error'}
+						>
 							{statusMessage}
 						</div>
 					{/if}
@@ -257,7 +265,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: 
+		background:
 			radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
 			radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
 		pointer-events: none;
@@ -452,8 +460,12 @@
 	}
 
 	@keyframes spin {
-		from { transform: rotate(0deg); }
-		to { transform: rotate(360deg); }
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	/* Responsive Design */
@@ -485,4 +497,3 @@
 		}
 	}
 </style>
-
