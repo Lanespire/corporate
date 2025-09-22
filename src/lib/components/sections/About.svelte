@@ -35,12 +35,12 @@
 
 		// Initialize scroll animations
 		if (sectionElement) {
-			createScrollAnimation(sectionElement.querySelector('.section-header'), {
+			createScrollAnimation(sectionElement.querySelector('.section-header') as HTMLElement, {
 				duration: 0.8,
 				easing: 'power3.out'
 			});
 
-			createScrollAnimation(sectionElement.querySelector('.about-content'), {
+			createScrollAnimation(sectionElement.querySelector('.about-content') as HTMLElement, {
 				duration: 0.8,
 				easing: 'power3.out',
 				delay: 0.2
@@ -103,9 +103,12 @@
 							class="value-card"
 							bind:this={valueCards[index]}
 						>
-							<div class="value-icon">
-								<img src={value.icon} alt={value.title} class="custom-icon" />
-							</div>
+							<div 
+								class="value-icon" 
+								style="background-image: url({value.icon})"
+								role="img"
+								aria-label={value.title}
+							></div>
 							
 							<h4 class="value-title">{value.title}</h4>
 							
@@ -269,31 +272,36 @@
 	.value-icon {
 		width: 80px;
 		height: 80px;
-		background: var(--gradient-primary);
+		background-size: 50px 50px;
+		background-position: center;
+		background-repeat: no-repeat;
 		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		margin: 0 auto var(--spacing-lg);
 		transition: all var(--transition-normal);
+		position: relative;
+		overflow: hidden;
 	}
 
-	.value-icon .material-icons {
-		font-size: 2.5rem;
-		color: var(--color-background);
-	}
-
-	.value-icon .custom-icon {
-		width: 50px;
-		height: 50px;
-		object-fit: contain;
-		filter: none;
-		background: transparent;
+	.value-icon::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: var(--gradient-primary);
+		border-radius: 50%;
+		opacity: 0.2;
+		transition: opacity var(--transition-normal);
 	}
 
 	.value-card:hover .value-icon {
 		transform: scale(1.1);
 		box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+	}
+
+	.value-card:hover .value-icon::before {
+		opacity: 0.4;
 	}
 
 	.value-title {

@@ -38,7 +38,7 @@
 
 		// Initialize scroll animations
 		if (sectionElement) {
-			createScrollAnimation(sectionElement.querySelector('.section-header'), {
+			createScrollAnimation(sectionElement.querySelector('.section-header') as HTMLElement, {
 				duration: 0.8,
 				easing: 'power3.out'
 			});
@@ -66,9 +66,12 @@
 					data-philosophy={philosophy.id}
 					bind:this={philosophyCards[index]}
 				>
-					<div class="philosophy-icon">
-						<img src={philosophy.icon} alt={philosophy.title} class="custom-icon" />
-					</div>
+					<div 
+						class="philosophy-icon" 
+						style="background-image: url({philosophy.icon})"
+						role="img"
+						aria-label={philosophy.title}
+					></div>
 					
 					<h3 class="philosophy-title">{philosophy.title}</h3>
 					<p class="philosophy-subtitle">{philosophy.subtitle}</p>
@@ -198,21 +201,18 @@
 		opacity: 1;
 	}
 
-	.philosophy-icon .material-icons {
-		font-size: 3rem;
-		color: var(--color-background);
+	.philosophy-icon {
+		width: 100px;
+		height: 100px;
+		background-size: 60px 60px;
+		background-position: center;
+		background-repeat: no-repeat;
+		border-radius: 50%;
+		margin: 0 auto var(--spacing-lg);
+		transition: all var(--transition-normal);
 		position: relative;
-		z-index: 1;
-	}
-
-	.philosophy-icon .custom-icon {
-		width: 60px;
-		height: 60px;
-		object-fit: contain;
-		position: relative;
-		z-index: 1;
-		filter: none;
-		background: transparent;
+		overflow: hidden;
+		filter: drop-shadow(0 4px 8px rgba(255, 0, 255, 0.3));
 	}
 
 	.philosophy-card:hover .philosophy-icon {

@@ -66,10 +66,13 @@
 
 		// Initialize scroll animations
 		if (sectionElement) {
-			createScrollAnimation(sectionElement.querySelector('.section-header'), {
-				duration: 0.8,
-				easing: 'power3.out'
-			});
+			const headerElement = sectionElement.querySelector('.section-header') as HTMLElement;
+			if (headerElement) {
+				createScrollAnimation(headerElement, {
+					duration: 0.8,
+					easing: 'power3.out'
+				});
+			}
 
 			createStaggerAnimation(serviceCards, {
 				duration: 0.6,
@@ -101,14 +104,12 @@
 					data-service={service.id}
 					bind:this={serviceCards[index]}
 				>
-					<div class="service-icon">
-						<img 
-							src={service.icon} 
-							alt={service.title} 
-							class="service-icon-img"
-							loading="lazy"
-						/>
-					</div>
+					<div 
+						class="service-icon" 
+						style="background-image: url({service.icon})"
+						role="img"
+						aria-label={service.title}
+					></div>
 					
 					<h3 class="service-title">{service.title}</h3>
 					
@@ -215,15 +216,15 @@
 	.service-icon {
 		width: 80px;
 		height: 80px;
-		background: var(--gradient-primary);
-		border-radius: var(--radius-xl);
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		background-size: 50px 50px;
+		background-position: center;
+		background-repeat: no-repeat;
+		border-radius: 50%;
 		margin: 0 auto var(--spacing-lg);
 		transition: all var(--transition-normal);
 		position: relative;
 		overflow: hidden;
+		filter: drop-shadow(0 4px 8px rgba(0, 255, 255, 0.3));
 	}
 
 	.service-icon::before {
@@ -233,22 +234,20 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: var(--gradient-primary);
+		background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+		border-radius: 50%;
 		opacity: 0.8;
 		transition: opacity var(--transition-normal);
 	}
 
 	.service-card:hover .service-icon::before {
 		opacity: 1;
+		background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%);
 	}
 
-	.service-icon-img {
-		width: 50px;
-		height: 50px;
-		object-fit: contain;
-		filter: brightness(0) invert(1);
-		position: relative;
-		z-index: 1;
+	.service-card:hover .service-icon {
+		transform: scale(1.1);
+		filter: drop-shadow(0 8px 16px rgba(0, 255, 255, 0.5));
 	}
 
 	.service-title {

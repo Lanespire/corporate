@@ -66,11 +66,13 @@
 				submitStatus = 'success';
 				statusMessage = 'お問い合わせありがとうございます。24時間以内にご返信いたします。';
 				
-				// Reset form
-				formData.name = '';
-				formData.email = '';
-				formData.company = '';
-				formData.message = '';
+			// Reset form
+			formData = {
+				name: '',
+				email: '',
+				company: '',
+				message: ''
+			};
 			} else {
 				throw new Error('送信に失敗しました');
 			}
@@ -87,12 +89,12 @@
 
 		// Initialize scroll animations
 		if (sectionElement) {
-			createScrollAnimation(sectionElement.querySelector('.section-header'), {
+			createScrollAnimation(sectionElement.querySelector('.section-header') as HTMLElement, {
 				duration: 0.8,
 				easing: 'power3.out'
 			});
 
-			createScrollAnimation(sectionElement.querySelector('.contact-content'), {
+			createScrollAnimation(sectionElement.querySelector('.contact-content') as HTMLElement, {
 				duration: 0.8,
 				easing: 'power3.out',
 				delay: 0.2
@@ -148,7 +150,7 @@
 						width="100%"
 						height="300"
 						style="border:0; border-radius: 12px; filter: invert(90%) hue-rotate(180deg);"
-						allowfullscreen=""
+						allowfullscreen
 						loading="lazy"
 						referrerpolicy="no-referrer-when-downgrade"
 						title="株式会社Lanespire所在地"
@@ -163,7 +165,7 @@
 					name="contact" 
 					method="POST" 
 					data-netlify="true"
-					netlify-honeypot="bot-field"
+					data-netlify-honeypot="bot-field"
 					on:submit={handleSubmit}
 				>
 					<!-- Netlify form detection -->
