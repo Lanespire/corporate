@@ -67,12 +67,10 @@
 				statusMessage = 'お問い合わせありがとうございます。24時間以内にご返信いたします。';
 				
 				// Reset form
-				formData = {
-					name: '',
-					email: '',
-					company: '',
-					message: ''
-				};
+				formData.name = '';
+				formData.email = '';
+				formData.company = '';
+				formData.message = '';
 			} else {
 				throw new Error('送信に失敗しました');
 			}
