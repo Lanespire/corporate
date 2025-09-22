@@ -9,19 +9,19 @@
 			id: 'innovation',
 			title: '革新性',
 			description: '最新技術を積極的に取り入れ、常に革新的なソリューションを提供します。',
-			icon: 'lightbulb'
+			icon: '/icon_innovation.png'
 		},
 		{
 			id: 'efficiency',
 			title: '効率性',
 			description: '無駄を省き、最短経路でお客様の目標達成をサポートします。',
-			icon: 'speed'
+			icon: '/icon_efficiency.png'
 		},
 		{
 			id: 'collaboration',
 			title: '協働性',
 			description: 'お客様との密接な連携により、共に成長し続けるパートナーシップを築きます。',
-			icon: 'handshake'
+			icon: '/icon_collaboration.png'
 		}
 	];
 
@@ -104,15 +104,7 @@
 							bind:this={valueCards[index]}
 						>
 							<div class="value-icon">
-								{#if value.id === 'innovation'}
-									<img src="/icon_innovation.png" alt="革新性" class="custom-icon" />
-								{:else if value.id === 'efficiency'}
-									<img src="/icon_efficiency.png" alt="効率性" class="custom-icon" />
-								{:else if value.id === 'collaboration'}
-									<img src="/icon_collaboration.png" alt="協働性" class="custom-icon" />
-								{:else}
-									<span class="material-icons">{value.icon}</span>
-								{/if}
+								<img src={value.icon} alt={value.title} class="custom-icon" />
 							</div>
 							
 							<h4 class="value-title">{value.title}</h4>
@@ -295,6 +287,8 @@
 		width: 50px;
 		height: 50px;
 		object-fit: contain;
+		filter: none;
+		background: transparent;
 	}
 
 	.value-card:hover .value-icon {

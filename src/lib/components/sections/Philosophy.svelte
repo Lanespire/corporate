@@ -10,21 +10,21 @@
 			title: '洗練',
 			subtitle: 'Refinement',
 			description: '美しく機能的なデザインで、ユーザー体験を向上させます。細部にまでこだわり抜いた洗練されたソリューションを提供します。',
-			icon: 'diamond'
+			icon: '/philosophy_refinement.png'
 		},
 		{
 			id: 'affinity',
 			title: '親和',
 			subtitle: 'Affinity',
 			description: 'お客様との深い信頼関係を築き、共に成長するパートナーシップを大切にします。親しみやすさと専門性を両立させます。',
-			icon: 'favorite'
+			icon: '/philosophy_affinity.png'
 		},
 		{
 			id: 'innovation',
 			title: '革新',
 			subtitle: 'Innovation',
 			description: '常に最新技術を追求し、従来の枠を超えた革新的なアプローチで課題解決に取り組みます。',
-			icon: 'rocket_launch'
+			icon: '/philosophy_innovation.png'
 		}
 	];
 
@@ -67,15 +67,7 @@
 					bind:this={philosophyCards[index]}
 				>
 					<div class="philosophy-icon">
-						{#if philosophy.id === 'refinement'}
-							<img src="/icon_innovation.png" alt="洗練" class="custom-icon" />
-						{:else if philosophy.id === 'affinity'}
-							<img src="/icon_collaboration.png" alt="親和" class="custom-icon" />
-						{:else if philosophy.id === 'innovation'}
-							<img src="/icon_efficiency.png" alt="革新" class="custom-icon" />
-						{:else}
-							<span class="material-icons">{philosophy.icon}</span>
-						{/if}
+						<img src={philosophy.icon} alt={philosophy.title} class="custom-icon" />
 					</div>
 					
 					<h3 class="philosophy-title">{philosophy.title}</h3>
@@ -219,6 +211,8 @@
 		object-fit: contain;
 		position: relative;
 		z-index: 1;
+		filter: none;
+		background: transparent;
 	}
 
 	.philosophy-card:hover .philosophy-icon {
