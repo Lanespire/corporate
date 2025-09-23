@@ -31,7 +31,7 @@
 	// Component state
 	let mounted = false;
 	let sectionElement: HTMLElement;
-	let philosophyCards: HTMLElement[] = [];
+	const philosophyCards: HTMLElement[] = [];
 
 	onMount(() => {
 		mounted = true;
@@ -262,9 +262,7 @@
 			height: 80px;
 		}
 
-		.philosophy-icon .material-icons {
-			font-size: 2.5rem;
-		}
+
 	}
 
 	@media (max-width: 480px) {
@@ -277,9 +275,7 @@
 			height: 70px;
 		}
 
-		.philosophy-icon .material-icons {
-			font-size: 2rem;
-		}
+
 
 		.philosophy-title {
 			font-size: var(--font-size-xl);

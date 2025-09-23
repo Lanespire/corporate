@@ -28,7 +28,7 @@
 	// Component state
 	let mounted = false;
 	let sectionElement: HTMLElement;
-	let valueCards: HTMLElement[] = [];
+	const valueCards: HTMLElement[] = [];
 
 	onMount(() => {
 		mounted = true;
@@ -352,9 +352,7 @@
 			height: 60px;
 		}
 
-		.value-icon .material-icons {
-			font-size: 2rem;
-		}
+
 
 		.lead-text {
 			font-size: var(--font-size-lg);

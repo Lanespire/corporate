@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import favicon from '$lib/assets/favicon.svg';
 
-	let { children } = $props();
+	const { children } = $props();
 
 	// Performance monitoring
 	onMount(() => {

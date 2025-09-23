@@ -59,7 +59,7 @@
 	// Component state
 	let mounted = false;
 	let sectionElement: HTMLElement;
-	let serviceCards: HTMLElement[] = [];
+	const serviceCards: HTMLElement[] = [];
 
 	onMount(() => {
 		mounted = true;
@@ -313,10 +313,7 @@
 			height: 60px;
 		}
 
-		.service-icon-img {
-			width: 35px;
-			height: 35px;
-		}
+
 
 		.service-title {
 			font-size: var(--font-size-lg);

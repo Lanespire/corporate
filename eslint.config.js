@@ -45,6 +45,7 @@ export default [
     // .svelteファイルでは、グローバルで登録したsvelteプラグインのルールを適用
     rules: {
       ...sveltePlugin.configs.recommended.rules,
+      "no-inner-declarations": "off",
       "@typescript-eslint/no-unused-vars": "off", // SvelteファイルではSvelteのルールで処理されるためオフ
     },
   },
