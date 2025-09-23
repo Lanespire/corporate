@@ -9,36 +9,39 @@
 			id: 'refinement',
 			title: '洗練',
 			subtitle: 'Refinement',
-			description: '美しく機能的なデザインで、ユーザー体験を向上させます。細部にまでこだわり抜いた洗練されたソリューションを提供します。',
-			icon: 'diamond'
+			description:
+				'美しく機能的なデザインで、ユーザー体験を向上させます。細部にまでこだわり抜いた洗練されたソリューションを提供します。',
+			icon: '/philosophy_refinement.png'
 		},
 		{
 			id: 'affinity',
 			title: '親和',
 			subtitle: 'Affinity',
-			description: 'お客様との深い信頼関係を築き、共に成長するパートナーシップを大切にします。親しみやすさと専門性を両立させます。',
-			icon: 'favorite'
+			description:
+				'お客様との深い信頼関係を築き、共に成長するパートナーシップを大切にします。親しみやすさと専門性を両立させます。',
+			icon: '/philosophy_affinity.png'
 		},
 		{
 			id: 'innovation',
 			title: '革新',
 			subtitle: 'Innovation',
-			description: '常に最新技術を追求し、従来の枠を超えた革新的なアプローチで課題解決に取り組みます。',
-			icon: 'rocket_launch'
+			description:
+				'常に最新技術を追求し、従来の枠を超えた革新的なアプローチで課題解決に取り組みます。',
+			icon: '/philosophy_innovation.png'
 		}
 	];
 
 	// Component state
 	let mounted = false;
 	let sectionElement: HTMLElement;
-	let philosophyCards: HTMLElement[] = [];
+	const philosophyCards: HTMLElement[] = [];
 
 	onMount(() => {
 		mounted = true;
 
 		// Initialize scroll animations
 		if (sectionElement) {
-			createScrollAnimation(sectionElement.querySelector('.section-header'), {
+			createScrollAnimation(sectionElement.querySelector('.section-header') as HTMLElement, {
 				duration: 0.8,
 				easing: 'power3.out'
 			});
@@ -61,26 +64,21 @@
 
 		<div class="philosophy-grid">
 			{#each philosophies as philosophy, index}
-				<div 
-					class="philosophy-card" 
+				<div
+					class="philosophy-card"
 					data-philosophy={philosophy.id}
 					bind:this={philosophyCards[index]}
 				>
-					<div class="philosophy-icon">
-						{#if philosophy.id === 'refinement'}
-							<img src="/icon_innovation.png" alt="洗練" class="custom-icon" />
-						{:else if philosophy.id === 'affinity'}
-							<img src="/icon_collaboration.png" alt="親和" class="custom-icon" />
-						{:else if philosophy.id === 'innovation'}
-							<img src="/icon_efficiency.png" alt="革新" class="custom-icon" />
-						{:else}
-							<span class="material-icons">{philosophy.icon}</span>
-						{/if}
-					</div>
-					
+					<div
+						class="philosophy-icon"
+						style="background-image: url({philosophy.icon})"
+						role="img"
+						aria-label={philosophy.title}
+					></div>
+
 					<h3 class="philosophy-title">{philosophy.title}</h3>
 					<p class="philosophy-subtitle">{philosophy.subtitle}</p>
-					
+
 					<p class="philosophy-description">{philosophy.description}</p>
 				</div>
 			{/each}
@@ -102,7 +100,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: 
+		background:
 			radial-gradient(circle at 30% 40%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
 			radial-gradient(circle at 70% 60%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
 		pointer-events: none;
@@ -171,7 +169,7 @@
 	.philosophy-card:hover {
 		transform: translateY(-10px);
 		border-color: rgba(0, 255, 255, 0.3);
-		box-shadow: 
+		box-shadow:
 			0 20px 40px rgba(0, 0, 0, 0.3),
 			0 0 30px rgba(0, 255, 255, 0.2);
 	}
@@ -206,19 +204,18 @@
 		opacity: 1;
 	}
 
-	.philosophy-icon .material-icons {
-		font-size: 3rem;
-		color: var(--color-background);
+	.philosophy-icon {
+		width: 100px;
+		height: 100px;
+		background-size: 60px 60px;
+		background-position: center;
+		background-repeat: no-repeat;
+		border-radius: 50%;
+		margin: 0 auto var(--spacing-lg);
+		transition: all var(--transition-normal);
 		position: relative;
-		z-index: 1;
-	}
-
-	.philosophy-icon .custom-icon {
-		width: 60px;
-		height: 60px;
-		object-fit: contain;
-		position: relative;
-		z-index: 1;
+		overflow: hidden;
+		filter: drop-shadow(0 4px 8px rgba(255, 0, 255, 0.3));
 	}
 
 	.philosophy-card:hover .philosophy-icon {
@@ -267,10 +264,6 @@
 			width: 80px;
 			height: 80px;
 		}
-
-		.philosophy-icon .material-icons {
-			font-size: 2.5rem;
-		}
 	}
 
 	@media (max-width: 480px) {
@@ -281,10 +274,6 @@
 		.philosophy-icon {
 			width: 70px;
 			height: 70px;
-		}
-
-		.philosophy-icon .material-icons {
-			font-size: 2rem;
 		}
 
 		.philosophy-title {

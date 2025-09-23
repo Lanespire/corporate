@@ -5,12 +5,9 @@
 	import type { ThreeSceneConfig } from '$types/global';
 
 	// Props
-	export let title: string[] = [
-		'コードで、',
-		'ビジネスの未来を',
-		'実装する。'
-	];
-	export let subtitle = '最新技術と豊富な経験で、あなたのアイデアを現実に。Web制作からAI導入まで、ワンストップで支援します。';
+	export let title: string[] = ['コードで、', 'ビジネスの未来を', '実装する。'];
+	export let subtitle =
+		'最新技術と豊富な経験で、あなたのアイデアを現実に。Web制作からAI導入まで、ワンストップで支援します。';
 
 	// Component state
 	let mounted = false;
@@ -33,7 +30,7 @@
 
 	onMount(async () => {
 		mounted = true;
-		
+
 		// Initialize Three.js scene
 		if (threeContainer) {
 			try {
@@ -71,21 +68,21 @@
 
 <section class="hero" bind:this={heroContainer}>
 	<div class="hero-background" bind:this={threeContainer}></div>
-	
+
 	<div class="hero-content">
 		<div class="container">
 			<div class="hero-text">
 				<h1 class="hero-title" bind:this={titleElement}>
 					<!-- Typing animation will populate this -->
 				</h1>
-				
+
 				<p class="hero-subtitle">
 					{subtitle}
 				</p>
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="scroll-indicator">
 		<div class="scroll-text">Scroll</div>
 		<div class="scroll-arrow"></div>
@@ -217,7 +214,11 @@
 	}
 
 	@keyframes scrollBounce {
-		0%, 20%, 50%, 80%, 100% {
+		0%,
+		20%,
+		50%,
+		80%,
+		100% {
 			transform: translateY(0);
 		}
 		40% {

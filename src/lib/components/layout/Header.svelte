@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { isMenuOpen, activeSection, navigationItems, navigationActions } from '$stores/navigation';
+	import {
+		isMenuOpen,
+		activeSection,
+		navigationItems,
+		navigationActions
+	} from '$stores/navigation';
 
 	// Component state
 	let scrolled = false;
@@ -10,17 +15,17 @@
 	function handleScroll() {
 		if (typeof window === 'undefined') return;
 		scrolled = window.scrollY > 50;
-		
+
 		// Update active section based on scroll position
 		updateActiveSection();
 	}
 
 	function updateActiveSection() {
 		if (typeof window === 'undefined') return;
-		
+
 		const sections = ['home', 'about', 'services', 'philosophy', 'contact'];
 		const scrollPosition = window.scrollY + 100; // Offset for header
-		
+
 		for (const sectionId of sections) {
 			const element = document.getElementById(sectionId);
 			if (element) {
@@ -53,13 +58,13 @@
 	onMount(() => {
 		// Add scroll listener
 		window.addEventListener('scroll', handleScroll, { passive: true });
-		
+
 		// Add click outside listener
 		document.addEventListener('click', handleClickOutside);
-		
+
 		// Initial scroll check
 		handleScroll();
-		
+
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 			document.removeEventListener('click', handleClickOutside);
@@ -67,20 +72,12 @@
 	});
 </script>
 
-<header 
-	class="header" 
-	class:scrolled 
-	bind:this={headerElement}
->
+<header class="header" class:scrolled bind:this={headerElement}>
 	<div class="container">
 		<div class="header-content">
 			<!-- Logo -->
 			<div class="logo">
-				<img 
-					src="/images/lanespire_logo.png" 
-					alt="Lanespire" 
-					class="logo-image"
-				/>
+				<img src="/images/lanespire_logo.png" alt="Lanespire" class="logo-image" />
 				<span class="logo-text">Lanespire</span>
 			</div>
 
@@ -102,7 +99,7 @@
 			</nav>
 
 			<!-- Mobile Menu Button -->
-			<button 
+			<button
 				class="mobile-menu-button"
 				class:active={$isMenuOpen}
 				on:click={toggleMobileMenu}
