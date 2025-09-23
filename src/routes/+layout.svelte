@@ -9,14 +9,17 @@
 	onMount(() => {
 		// Register service worker for caching
 		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('/service-worker.js')
-				.catch(err => console.log('Service worker registration failed:', err));
+			navigator.serviceWorker
+				.register('/service-worker.js')
+				.catch((err) => console.log('Service worker registration failed:', err));
 		}
 
 		// Performance metrics
 		if (typeof window !== 'undefined' && 'performance' in window) {
 			window.addEventListener('load', () => {
-				const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+				const perfData = performance.getEntriesByType(
+					'navigation'
+				)[0] as PerformanceNavigationTiming;
 				console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
 			});
 		}
@@ -25,13 +28,16 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	
+
 	<!-- Preload critical fonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+		rel="stylesheet"
+	/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
 	<!-- Critical CSS for above-the-fold content -->
 	<style>
 		/* Critical CSS inlined for performance */
@@ -43,7 +49,7 @@
 			color: #ffffff;
 			overflow-x: hidden;
 		}
-		
+
 		/* Prevent FOUC */
 		.hero {
 			min-height: 100vh;

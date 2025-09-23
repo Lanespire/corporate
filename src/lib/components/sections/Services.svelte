@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { createScrollAnimation, createStaggerAnimation, createHoverAnimation } from '$utils/animations';
+	import {
+		createScrollAnimation,
+		createStaggerAnimation,
+		createHoverAnimation
+	} from '$utils/animations';
 	import type { Service } from '$types/global';
 
 	// Services data
@@ -8,49 +12,56 @@
 		{
 			id: 'web-development',
 			title: 'Web制作',
-			description: 'レスポンシブデザインとSEO対策を標準装備した、ビジネス成果に直結するWebサイトを制作します。',
+			description:
+				'レスポンシブデザインとSEO対策を標準装備した、ビジネス成果に直結するWebサイトを制作します。',
 			icon: '/icon_web_development.png',
 			technologies: ['React', 'Vue.js', 'SvelteKit']
 		},
 		{
 			id: 'ai-consulting',
 			title: 'ITコンサルタント・AI導入支援',
-			description: '業務効率化とコスト削減を実現するAIソリューションの企画から実装まで一貫してサポートします。',
+			description:
+				'業務効率化とコスト削減を実現するAIソリューションの企画から実装まで一貫してサポートします。',
 			icon: '/icon_ai_consulting.png',
 			technologies: ['ChatGPT', 'Claude', 'Gemini']
 		},
 		{
 			id: 'automation',
 			title: 'n8nによる業務効率支援',
-			description: 'ワークフロー自動化プラットフォームn8nを活用し、反復作業を自動化して生産性を向上させます。',
+			description:
+				'ワークフロー自動化プラットフォームn8nを活用し、反復作業を自動化して生産性を向上させます。',
 			icon: '/icon_automation.png',
 			technologies: ['n8n', 'Zapier', 'API連携']
 		},
 		{
 			id: 'outsourcing',
 			title: '業務委託',
-			description: '専門性の高い技術者による業務委託サービスで、お客様のプロジェクトを成功に導きます。',
+			description:
+				'専門性の高い技術者による業務委託サービスで、お客様のプロジェクトを成功に導きます。',
 			icon: '/icon_outsourcing.png',
 			technologies: ['フルスタック', 'DevOps', 'PM']
 		},
 		{
 			id: 'nocode',
 			title: 'NoCode、LowCodeによるサービス開発',
-			description: '迅速なプロトタイピングから本格運用まで、NoCode/LowCodeツールを活用した効率的な開発を提供します。',
+			description:
+				'迅速なプロトタイピングから本格運用まで、NoCode/LowCodeツールを活用した効率的な開発を提供します。',
 			icon: '/icon_nocode.png',
 			technologies: ['Bubble', 'Webflow', 'Airtable']
 		},
 		{
 			id: 'mobile',
 			title: 'モバイルアプリケーション開発',
-			description: 'iOS・Android対応のネイティブアプリから、React Nativeを使用したクロスプラットフォーム開発まで対応します。',
+			description:
+				'iOS・Android対応のネイティブアプリから、React Nativeを使用したクロスプラットフォーム開発まで対応します。',
 			icon: '/icon_mobile_app.png',
 			technologies: ['React Native', 'Flutter', 'Swift']
 		},
 		{
 			id: 'custom-development',
 			title: '受託開発',
-			description: 'お客様の要件に合わせたカスタムシステム開発を、企画から運用まで一貫してサポートします。',
+			description:
+				'お客様の要件に合わせたカスタムシステム開発を、企画から運用まで一貫してサポートします。',
 			icon: '/icon_custom_development.png',
 			technologies: ['Python', 'Node.js', 'Go']
 		}
@@ -82,7 +93,7 @@
 		}
 
 		// Initialize hover animations for service cards
-		serviceCards.forEach(card => {
+		serviceCards.forEach((card) => {
 			if (card) {
 				createHoverAnimation(card);
 			}
@@ -93,28 +104,24 @@
 <section id="services" class="services section" bind:this={sectionElement}>
 	<div class="container">
 		<div class="section-header">
-				<h2 class="section-title">サービス</h2>
+			<h2 class="section-title">サービス</h2>
 			<p class="section-subtitle">Services</p>
 		</div>
 
 		<div class="services-grid">
 			{#each services as service, index}
-				<div 
-					class="service-card" 
-					data-service={service.id}
-					bind:this={serviceCards[index]}
-				>
-					<div 
-						class="service-icon" 
+				<div class="service-card" data-service={service.id} bind:this={serviceCards[index]}>
+					<div
+						class="service-icon"
 						style="background-image: url({service.icon})"
 						role="img"
 						aria-label={service.title}
 					></div>
-					
+
 					<h3 class="service-title">{service.title}</h3>
-					
+
 					<p class="service-description">{service.description}</p>
-					
+
 					<div class="service-tech">
 						{#each service.technologies as tech}
 							<span class="tech-tag">{tech}</span>
@@ -140,7 +147,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: 
+		background:
 			radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
 			radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
 		pointer-events: none;
@@ -208,7 +215,7 @@
 
 	.service-card:hover {
 		border-color: rgba(0, 255, 255, 0.3);
-		box-shadow: 
+		box-shadow:
 			0 20px 40px rgba(0, 0, 0, 0.3),
 			0 0 30px rgba(0, 255, 255, 0.2);
 	}
@@ -312,8 +319,6 @@
 			width: 60px;
 			height: 60px;
 		}
-
-
 
 		.service-title {
 			font-size: var(--font-size-lg);

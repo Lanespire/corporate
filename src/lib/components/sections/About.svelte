@@ -69,25 +69,23 @@
 						株式会社Lanespireは、最新のテクノロジーを駆使して、
 						お客様のビジネスに革新をもたらすWeb開発会社です。
 					</p>
-					
+
 					<p>
 						私たちは単なる技術提供者ではありません。お客様のビジネスパートナーとして、
 						共に課題を解決し、新たな価値を創造していきます。
-						Web制作からAI導入支援、業務自動化まで、幅広い技術領域で
-						お客様の成功を支援いたします。
+						Web制作からAI導入支援、業務自動化まで、幅広い技術領域で お客様の成功を支援いたします。
 					</p>
 
 					<p>
 						立ち上げたばかりの私たちだからこそ、フットワークの軽さと
-						最新技術への感度の高さで、お客様に最適なソリューションを
-						迅速に提供することができます。
+						最新技術への感度の高さで、お客様に最適なソリューションを 迅速に提供することができます。
 					</p>
 				</div>
 
 				<div class="about-image">
-					<img 
-						src="/images/cyberpunk_company_values.png" 
-						alt="私たちの価値観" 
+					<img
+						src="/images/cyberpunk_company_values.png"
+						alt="私たちの価値観"
 						class="showcase-image"
 						loading="lazy"
 					/>
@@ -96,22 +94,19 @@
 
 			<div class="company-values">
 				<h3 class="values-title">私たちの価値観</h3>
-				
+
 				<div class="values-grid">
 					{#each values as value, index}
-						<div 
-							class="value-card"
-							bind:this={valueCards[index]}
-						>
-							<div 
-								class="value-icon" 
+						<div class="value-card" bind:this={valueCards[index]}>
+							<div
+								class="value-icon"
 								style="background-image: url({value.icon})"
 								role="img"
 								aria-label={value.title}
 							></div>
-							
+
 							<h4 class="value-title">{value.title}</h4>
-							
+
 							<p class="value-description">{value.description}</p>
 						</div>
 					{/each}
@@ -135,7 +130,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: 
+		background:
 			radial-gradient(circle at 70% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
 			radial-gradient(circle at 30% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
 		pointer-events: none;
@@ -202,7 +197,7 @@
 		max-width: 500px;
 		height: auto;
 		border-radius: var(--radius-xl);
-		box-shadow: 
+		box-shadow:
 			0 20px 40px rgba(0, 0, 0, 0.3),
 			0 0 30px rgba(0, 255, 255, 0.2);
 		transition: all var(--transition-normal);
@@ -210,7 +205,7 @@
 
 	.showcase-image:hover {
 		transform: scale(1.02);
-		box-shadow: 
+		box-shadow:
 			0 30px 60px rgba(0, 0, 0, 0.4),
 			0 0 50px rgba(0, 255, 255, 0.3);
 	}
@@ -264,7 +259,7 @@
 	.value-card:hover {
 		transform: translateY(-10px);
 		border-color: rgba(0, 255, 255, 0.3);
-		box-shadow: 
+		box-shadow:
 			0 20px 40px rgba(0, 0, 0, 0.3),
 			0 0 30px rgba(0, 255, 255, 0.2);
 	}
@@ -351,8 +346,6 @@
 			width: 60px;
 			height: 60px;
 		}
-
-
 
 		.lead-text {
 			font-size: var(--font-size-lg);

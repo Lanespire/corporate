@@ -15,7 +15,7 @@ export class ThreeScene {
 	constructor(container: HTMLElement, config: ThreeSceneConfig) {
 		this.container = container;
 		this.scene = new THREE.Scene();
-		
+
 		// Setup camera
 		this.camera = new THREE.PerspectiveCamera(
 			75,
@@ -32,7 +32,7 @@ export class ThreeScene {
 		});
 		this.renderer.setSize(container.clientWidth, container.clientHeight);
 		this.renderer.setPixelRatio(window.devicePixelRatio);
-		
+
 		container.appendChild(this.renderer.domElement);
 
 		// Create original effects
@@ -57,7 +57,7 @@ export class ThreeScene {
 				(Math.random() - 0.5) * 20,
 				(Math.random() - 0.5) * 20
 			);
-			
+
 			// Cyan and magenta colors
 			const color = new THREE.Color();
 			color.setHSL(Math.random() > 0.5 ? 0.5 : 0.8, 1, 0.5);
@@ -101,11 +101,7 @@ export class ThreeScene {
 				(Math.random() - 0.5) * 10,
 				(Math.random() - 0.5) * 10
 			);
-			mesh.rotation.set(
-				Math.random() * Math.PI,
-				Math.random() * Math.PI,
-				Math.random() * Math.PI
-			);
+			mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
 
 			this.wireframeObjects.push(mesh);
 			this.scene.add(mesh);
@@ -167,7 +163,7 @@ export class ThreeScene {
 			if (object instanceof THREE.Mesh || object instanceof THREE.Points) {
 				object.geometry.dispose();
 				if (Array.isArray(object.material)) {
-					object.material.forEach(material => material.dispose());
+					object.material.forEach((material) => material.dispose());
 				} else {
 					object.material.dispose();
 				}

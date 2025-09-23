@@ -16,21 +16,21 @@ const config = {
 			precompress: true,
 			strict: true
 		}),
-		
+
 		// Prerender all pages for optimal performance
 		prerender: {
 			handleHttpError: 'warn',
 			entries: ['*']
 		},
-		
+
 		// Alias for clean imports
 		alias: {
-			'$components': 'src/lib/components',
-			'$stores': 'src/lib/stores',
-			'$utils': 'src/lib/utils',
-			'$types': 'src/lib/types',
-			'$styles': 'src/lib/styles',
-			'$assets': 'src/lib/assets'
+			$components: 'src/lib/components',
+			$stores: 'src/lib/stores',
+			$utils: 'src/lib/utils',
+			$types: 'src/lib/types',
+			$styles: 'src/lib/styles',
+			$assets: 'src/lib/assets'
 		}
 	}
 };

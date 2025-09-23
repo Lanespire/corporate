@@ -16,12 +16,7 @@ export class TypingAnimation {
 	private speed: number;
 	private onComplete?: () => void;
 
-	constructor(
-		element: HTMLElement, 
-		lines: string[], 
-		speed = 100, 
-		onComplete?: () => void
-	) {
+	constructor(element: HTMLElement, lines: string[], speed = 100, onComplete?: () => void) {
 		this.element = element;
 		this.lines = lines;
 		this.speed = speed;
@@ -47,13 +42,15 @@ export class TypingAnimation {
 		if (this.isComplete) return;
 
 		const currentLine = this.lines[this.currentLineIndex];
-		const lineElement = this.element.querySelector(`[data-line="${this.currentLineIndex}"]`) as HTMLElement;
+		const lineElement = this.element.querySelector(
+			`[data-line="${this.currentLineIndex}"]`
+		) as HTMLElement;
 
 		if (this.currentCharIndex < currentLine.length) {
 			// Type next character
 			lineElement.textContent = currentLine.substring(0, this.currentCharIndex + 1);
 			this.currentCharIndex++;
-			
+
 			setTimeout(() => this.typeNextChar(), this.speed);
 		} else {
 			// Move to next line
@@ -65,12 +62,12 @@ export class TypingAnimation {
 				if (this.currentLineIndex < this.lines.length) {
 					lineElement.style.textShadow = '0 0 20px rgba(0, 255, 255, 0.8)';
 				}
-				
+
 				setTimeout(() => this.typeNextChar(), this.speed * 10); // Pause between lines
 			} else {
 				// Animation complete - handle last line specially
 				this.isComplete = true;
-				
+
 				// Add highlight class for gradient effect (no text-shadow)
 				lineElement.classList.add('highlight');
 				lineElement.style.background = 'linear-gradient(45deg, #00ffff, #ff00ff)';
@@ -78,7 +75,7 @@ export class TypingAnimation {
 				lineElement.style.webkitTextFillColor = 'transparent';
 				lineElement.style.backgroundClip = 'text';
 				lineElement.style.textShadow = 'none'; // Remove any text shadow
-				
+
 				if (this.onComplete) {
 					this.onComplete();
 				}
@@ -91,13 +88,11 @@ export class TypingAnimation {
 	}
 }
 
-export function createScrollAnimation(
-	element: HTMLElement | string,
-	config: AnimationConfig
-) {
+export function createScrollAnimation(element: HTMLElement | string, config: AnimationConfig) {
 	if (typeof window === 'undefined') return;
 
-	return gsap.fromTo(element, 
+	return gsap.fromTo(
+		element,
 		{
 			opacity: 0,
 			y: 50
@@ -118,13 +113,11 @@ export function createScrollAnimation(
 	);
 }
 
-export function createStaggerAnimation(
-	elements: HTMLElement[] | string,
-	config: AnimationConfig
-) {
+export function createStaggerAnimation(elements: HTMLElement[] | string, config: AnimationConfig) {
 	if (typeof window === 'undefined') return;
 
-	return gsap.fromTo(elements,
+	return gsap.fromTo(
+		elements,
 		{
 			opacity: 0,
 			y: 30
@@ -148,7 +141,7 @@ export function createHoverAnimation(element: HTMLElement) {
 	if (typeof window === 'undefined') return;
 
 	const tl = gsap.timeline({ paused: true });
-	
+
 	tl.to(element, {
 		scale: 1.05,
 		y: -10,

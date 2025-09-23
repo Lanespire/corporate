@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
-	
+
 	// Alias configuration
 	resolve: {
 		alias: {
@@ -13,7 +13,7 @@ export default defineConfig({
 			$types: '/src/lib/types'
 		}
 	},
-	
+
 	// Build optimization for performance
 	build: {
 		target: 'es2022',
@@ -41,18 +41,18 @@ export default defineConfig({
 		chunkSizeWarningLimit: 500,
 		sourcemap: false
 	},
-	
+
 	// Optimize dependencies
 	optimizeDeps: {
 		include: ['three', 'gsap'],
 		exclude: []
 	},
-	
+
 	// CSS optimization
 	css: {
 		devSourcemap: false
 	},
-	
+
 	// Server configuration for development
 	server: {
 		fs: {
