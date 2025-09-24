@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
-	import type { CompanyValue } from '$types/global';
+	import type { CompanyValue, OptimizedPicture } from '$types/global';
+	// @ts-expect-error - Provided by the SvelteKit image optimizer plugin
+	import valuesIllustrationImport from '$assets/images/cyberpunk_company_values.png?w=640;960&format=webp;png&as=picture';
+
+	const valuesIllustration: OptimizedPicture = valuesIllustrationImport;
 
 	// Company values data
 	export let values: CompanyValue[] = [
@@ -83,12 +87,28 @@
 				</div>
 
 				<div class="about-image">
-					<img
-						src="/images/cyberpunk_company_values.png"
-						alt="私たちの価値観"
-						class="showcase-image"
-						loading="lazy"
-					/>
+					<picture>
+						{#if valuesIllustration.sources}
+							{#each valuesIllustration.sources as source}
+								<source
+									srcset={source.srcset}
+									type={source.type}
+									sizes={source.sizes ?? valuesIllustration.img.sizes ?? '100vw'}
+								/>
+							{/each}
+						{/if}
+						<img
+							src={valuesIllustration.img.src}
+							alt="私たちの価値観"
+							width={valuesIllustration.img.width}
+							height={valuesIllustration.img.height}
+							class="showcase-image"
+							loading="lazy"
+							decoding="async"
+							srcset={valuesIllustration.img.srcset}
+							sizes={valuesIllustration.img.sizes ?? '100vw'}
+						/>
+					</picture>
 				</div>
 			</div>
 
@@ -100,7 +120,7 @@
 						<div class="value-card" bind:this={valueCards[index]}>
 							<div
 								class="value-icon"
-								style="background-image: url({value.icon})"
+								style={`background-image: url(${value.icon})`}
 								role="img"
 								aria-label={value.title}
 							></div>
@@ -267,14 +287,18 @@
 	.value-icon {
 		width: 80px;
 		height: 80px;
-		background-size: 50px 50px;
-		background-position: center;
-		background-repeat: no-repeat;
 		border-radius: 50%;
 		margin: 0 auto var(--spacing-lg);
 		transition: all var(--transition-normal);
 		position: relative;
 		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0, 0, 0, 0.4);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 
 	.value-icon::before {

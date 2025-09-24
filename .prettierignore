@@ -1,2 +1,4 @@
 .github/workflows/ci.yml
+static/images
+src/lib/assets
 

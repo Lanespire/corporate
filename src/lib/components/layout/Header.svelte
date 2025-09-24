@@ -6,6 +6,10 @@
 		navigationItems,
 		navigationActions
 	} from '$stores/navigation';
+	// @ts-expect-error - Resolved via SvelteKit images query parameters
+	import lanespireLogoPicture from '$assets/images/lanespire_logo.png?w=80;160&format=webp;png&as=picture';
+
+	const { sources: logoSources, img: logoImage } = lanespireLogoPicture;
 
 	// Component state
 	let scrolled = false;
@@ -77,7 +81,20 @@
 		<div class="header-content">
 			<!-- Logo -->
 			<div class="logo">
-				<img src="/images/lanespire_logo.png" alt="Lanespire" class="logo-image" />
+				<picture>
+					{#each logoSources as source}
+						<source srcset={source.srcset} sizes={source.sizes} type={source.type} />
+					{/each}
+					<img
+						src={logoImage.src}
+						alt="Lanespire"
+						width={logoImage.width}
+						height={logoImage.height}
+						class="logo-image"
+						loading="lazy"
+						decoding="async"
+					/>
+				</picture>
 				<span class="logo-text">Lanespire</span>
 			</div>
 
