@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import {
-		isMenuOpen,
-		activeSection,
-		navigationItems,
-		navigationActions
-	} from '$stores/navigation';
-
-	const lanespireLogoUrl = '/images/lanespire_logo.png';
+        import {
+                isMenuOpen,
+                activeSection,
+                navigationItems,
+                navigationActions
+        } from '$stores/navigation';
+        import { LANESPIRE_LOGO_URL } from '$lib/constants/branding';
 
 	// Component state
 	let scrolled = false;
@@ -80,7 +79,7 @@
 			<!-- Logo -->
 			<div class="logo">
 				<img
-					src={lanespireLogoUrl}
+                                        src={LANESPIRE_LOGO_URL}
 					alt="Lanespire"
 					class="logo-image"
 					loading="lazy"

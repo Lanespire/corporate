@@ -1,7 +1,7 @@
 <script lang="ts">
-	import '$lib/styles/global.css';
-	import { onMount } from 'svelte';
-	import favicon from '$lib/assets/favicon.svg';
+        import '$lib/styles/global.css';
+        import { onMount } from 'svelte';
+        import { LANESPIRE_LOGO_URL } from '$lib/constants/branding';
 
 	const { children } = $props();
 
@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+        <link rel="icon" type="image/png" href={LANESPIRE_LOGO_URL} />
 
 	<!-- Preload critical fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
