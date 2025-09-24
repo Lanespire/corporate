@@ -9,19 +9,19 @@
 			id: 'innovation',
 			title: '革新性',
 			description: '最新技術を積極的に取り入れ、常に革新的なソリューションを提供します。',
-			icon: '/icon_innovation.png'
+			icon: 'icon_innovation.png'
 		},
 		{
 			id: 'efficiency',
 			title: '効率性',
 			description: '無駄を省き、最短経路でお客様の目標達成をサポートします。',
-			icon: '/icon_efficiency.png'
+			icon: 'icon_efficiency.png'
 		},
 		{
 			id: 'collaboration',
 			title: '協働性',
 			description: 'お客様との密接な連携により、共に成長し続けるパートナーシップを築きます。',
-			icon: '/icon_collaboration.png'
+			icon: 'icon_collaboration.png'
 		}
 	];
 
@@ -96,18 +96,18 @@
 
 				<div class="values-grid">
 					{#each values as value, index}
-						<div class="value-card" bind:this={valueCards[index]}>
-							<div
-								class="value-icon"
-								style={`background-image: url(${value.icon})`}
-								role="img"
-								aria-label={value.title}
-							></div>
+					<div class="value-card" bind:this={valueCards[index]}>
+						<div
+							class="value-icon"
+							style={`background-image: url(${value.icon})`}
+							role="img"
+							aria-label={value.title}
+						></div>
 
-							<h4 class="value-title">{value.title}</h4>
+						<h4 class="value-title">{value.title}</h4>
 
-							<p class="value-description">{value.description}</p>
-						</div>
+						<p class="value-description">{value.description}</p>
+					</div>
 					{/each}
 				</div>
 			</div>
