@@ -11,7 +11,7 @@
 			subtitle: 'Refinement',
 			description:
 				'美しく機能的なデザインで、ユーザー体験を向上させます。細部にまでこだわり抜いた洗練されたソリューションを提供します。',
-			icon: '/philosophy_refinement.png'
+			icon: '/images/philosophy_refinement.png'
 		},
 		{
 			id: 'affinity',
@@ -19,7 +19,7 @@
 			subtitle: 'Affinity',
 			description:
 				'お客様との深い信頼関係を築き、共に成長するパートナーシップを大切にします。親しみやすさと専門性を両立させます。',
-			icon: '/philosophy_affinity.png'
+			icon: '/images/philosophy_affinity.png'
 		},
 		{
 			id: 'innovation',
@@ -27,7 +27,7 @@
 			subtitle: 'Innovation',
 			description:
 				'常に最新技術を追求し、従来の枠を超えた革新的なアプローチで課題解決に取り組みます。',
-			icon: '/philosophy_innovation.png'
+			icon: '/images/philosophy_innovation.png'
 		}
 	];
 

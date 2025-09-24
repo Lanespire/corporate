@@ -7,7 +7,7 @@
 		navigationActions
 	} from '$stores/navigation';
 
-	const lanespireLogoUrl = '/images/lanespire_logo.png';
+
 
 	// Component state
 	let scrolled = false;
@@ -79,12 +79,10 @@
 		<div class="header-content">
 			<!-- Logo -->
 			<div class="logo">
-				<img
-					src={lanespireLogoUrl}
+				<enhanced:img
+					src="$lib/assets/images/lanespire_logo.png"
 					alt="Lanespire"
 					class="logo-image"
-					loading="lazy"
-					decoding="async"
 				/>
 				<span class="logo-text">Lanespire</span>
 			</div>

@@ -3,7 +3,7 @@
 	import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
 	import type { CompanyValue } from '$types/global';
 
-	const missionIllustrationUrl = '/images/about_illustration.png';
+
 
 	// Company values data
 	export let values: CompanyValue[] = [
@@ -85,12 +85,10 @@
 				</div>
 
 				<div class="about-image">
-					<img
-						src={missionIllustrationUrl}
+					<enhanced:img
+						src="$lib/assets/images/about_illustration.png"
 						alt="私たちの使命"
 						class="showcase-image"
-						loading="lazy"
-						decoding="async"
 					/>
 				</div>
 			</div>

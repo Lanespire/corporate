@@ -8,20 +8,7 @@
 	import { onMount } from 'svelte';
 
 	const siteUrl = 'https://lanespire-corporate.netlify.app';
-	const lanespireLogoUrl = '/images/lanespire_logo.png';
-	const socialLogoUrl = `${siteUrl}${lanespireLogoUrl}`;
-	onMount(() => {
-		// Preload critical images
-		const criticalImages = [lanespireLogoUrl];
-
-		criticalImages.forEach((src) => {
-			const link = document.createElement('link');
-			link.rel = 'preload';
-			link.as = 'image';
-			link.href = src;
-			document.head.appendChild(link);
-		});
-	});
+	const socialLogoUrl = `${siteUrl}/images/lanespire_logo.png`;
 </script>
 
 <svelte:head>
@@ -56,7 +43,6 @@
 	<meta name="theme-color" content="#00ffff" />
 
 	<!-- Preload critical resources -->
-	<link rel="preload" href={lanespireLogoUrl} as="image" />
 	<link
 		rel="preload"
 		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
