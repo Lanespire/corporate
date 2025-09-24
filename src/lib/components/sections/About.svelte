@@ -1,11 +1,8 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
-	import type { CompanyValue, OptimizedPicture } from '$types/global';
-	// @ts-expect-error - Provided by the SvelteKit image optimizer plugin
-	import valuesIllustrationImport from '$assets/images/cyberpunk_company_values.png?w=640;960&format=webp;png&as=picture';
-
-	const valuesIllustration: OptimizedPicture = valuesIllustrationImport;
+        import { onMount } from 'svelte';
+        import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
+        import type { CompanyValue } from '$types/global';
+        import valuesIllustrationUrl from '$lib/assets/images/cyberpunk_company_values.png?url';
 
 	// Company values data
 	export let values: CompanyValue[] = [
@@ -86,30 +83,15 @@
 					</p>
 				</div>
 
-				<div class="about-image">
-					<picture>
-						{#if valuesIllustration.sources}
-							{#each valuesIllustration.sources as source}
-								<source
-									srcset={source.srcset}
-									type={source.type}
-									sizes={source.sizes ?? valuesIllustration.img.sizes ?? '100vw'}
-								/>
-							{/each}
-						{/if}
-						<img
-							src={valuesIllustration.img.src}
-							alt="私たちの価値観"
-							width={valuesIllustration.img.width}
-							height={valuesIllustration.img.height}
-							class="showcase-image"
-							loading="lazy"
-							decoding="async"
-							srcset={valuesIllustration.img.srcset}
-							sizes={valuesIllustration.img.sizes ?? '100vw'}
-						/>
-					</picture>
-				</div>
+                                <div class="about-image">
+                                        <img
+                                                src={valuesIllustrationUrl}
+                                                alt="私たちの価値観"
+                                                class="showcase-image"
+                                                loading="lazy"
+                                                decoding="async"
+                                        />
+                                </div>
 			</div>
 
 			<div class="company-values">

@@ -110,10 +110,13 @@
 
 		<div class="services-grid">
 			{#each services as service, index}
-				<div class="service-card" data-service={service.id} bind:this={serviceCards[index]}>
-					<div class="service-icon" role="img" aria-label={service.title}>
-						<img src={service.icon} alt={service.title} loading="lazy" decoding="async" />
-					</div>
+                                <div class="service-card" data-service={service.id} bind:this={serviceCards[index]}>
+                                        <div
+                                                class="service-icon"
+                                                role="img"
+                                                aria-label={service.title}
+                                                style={`background-image: url(${service.icon})`}
+                                        ></div>
 
 					<h3 class="service-title">{service.title}</h3>
 
@@ -217,28 +220,23 @@
 			0 0 30px rgba(0, 255, 255, 0.2);
 	}
 
-	.service-icon {
-		width: 80px;
-		height: 80px;
-		border-radius: 50%;
-		margin: 0 auto var(--spacing-lg);
-		transition: all var(--transition-normal);
-		position: relative;
-		overflow: hidden;
-		filter: drop-shadow(0 4px 8px rgba(0, 255, 255, 0.3));
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: rgba(0, 0, 0, 0.4);
-	}
-
-	.service-icon img {
-		width: 48px;
-		height: 48px;
-		object-fit: contain;
-		position: relative;
-		z-index: 1;
-	}
+        .service-icon {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                margin: 0 auto var(--spacing-lg);
+                transition: all var(--transition-normal);
+                position: relative;
+                overflow: hidden;
+                filter: drop-shadow(0 4px 8px rgba(0, 255, 255, 0.3));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.4);
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+        }
 
 	.service-icon::before {
 		content: '';

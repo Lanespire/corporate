@@ -69,15 +69,25 @@ declare module '$assets/*?as=src' {
 }
 
 declare module '$assets/*&as=src' {
-	const src: string;
-	export default src;
+        const src: string;
+        export default src;
+}
+
+declare module '*?url' {
+        const src: string;
+        export default src;
+}
+
+declare module '$assets/*?url' {
+        const src: string;
+        export default src;
 }
 
 declare module '*?*' {
-	const data:
-		| OptimizedPicture
-		| OptimizedSrcset
-		| { src: string; width: number; height: number; srcset?: string; sizes?: string }
+        const data:
+                | OptimizedPicture
+                | OptimizedSrcset
+                | { src: string; width: number; height: number; srcset?: string; sizes?: string }
 		| string;
 	export default data;
 }
