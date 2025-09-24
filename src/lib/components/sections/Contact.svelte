@@ -116,13 +116,6 @@
 					<h3 class="company-name">株式会社Lanespire</h3>
 					<div class="company-details">
 						<div class="detail-item">
-							<span class="material-icons">business</span>
-							<div>
-								<strong>資本金</strong><br />
-								10万円
-							</div>
-						</div>
-						<div class="detail-item">
 							<span class="material-icons">location_on</span>
 							<div>
 								<strong>所在地</strong><br />
@@ -139,6 +132,13 @@
 								n8nによる業務効率支援、業務委託、<br />
 								NoCode・LowCodeによるサービス開発、<br />
 								モバイルアプリケーション開発、受託開発
+							</div>
+						</div>
+						<div class="detail-item">
+							<span class="material-icons">person</span>
+							<div>
+								<strong>代表取締役</strong><br />
+								高橋 元希
 							</div>
 						</div>
 					</div>
