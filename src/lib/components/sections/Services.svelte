@@ -27,11 +27,11 @@
 		},
 		{
 			id: 'automation',
-			title: 'n8nによる業務効率支援',
+			title: '業務効率支援',
 			description:
-				'ワークフロー自動化プラットフォームn8nを活用し、反復作業を自動化して生産性を向上させます。',
+				'ワークフロー自動化プラットフォームを活用し、反復作業を自動化して生産性を向上させます。',
 			icon: '/images/icon_automation.png',
-			technologies: ['n8n', 'Zapier', 'API連携']
+			technologies: ['n8n', 'Zapier', 'lark']
 		},
 		{
 			id: 'outsourcing',
