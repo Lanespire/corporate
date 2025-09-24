@@ -12,7 +12,7 @@ export class ThreeScene {
 	private mouseX = 0;
 	private mouseY = 0;
 
-	constructor(container: HTMLElement, config: ThreeSceneConfig) {
+	constructor(container: HTMLElement, _config: ThreeSceneConfig) {
 		this.container = container;
 		this.scene = new THREE.Scene();
 

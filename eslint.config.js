@@ -6,7 +6,7 @@ import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
 	{
-		ignores: ['build/**', '.svelte-kit/**', 'dist/**', 'scripts/optimize-images.js']
+		ignores: ['build/**', '.svelte-kit/**', 'dist/**']
 	},
 	js.configs.recommended,
 	...tseslint.configs.recommended,

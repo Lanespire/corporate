@@ -1,5 +1,30 @@
 // Global type definitions for Lanespire website
 
+export interface OptimizedSource {
+	type?: string;
+	srcset: string;
+	sizes?: string;
+}
+
+export interface OptimizedPicture {
+	img: {
+		src: string;
+		width: number;
+		height: number;
+		srcset?: string;
+		sizes?: string;
+	};
+	sources?: OptimizedSource[];
+}
+
+export interface OptimizedSrcset {
+	src: string;
+	width: number;
+	height: number;
+	srcset: string;
+	sizes?: string;
+}
+
 export interface Service {
 	id: string;
 	title: string;

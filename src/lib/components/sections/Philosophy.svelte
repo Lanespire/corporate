@@ -71,7 +71,7 @@
 				>
 					<div
 						class="philosophy-icon"
-						style="background-image: url({philosophy.icon})"
+						style={`background-image: url(${philosophy.icon})`}
 						role="img"
 						aria-label={philosophy.title}
 					></div>
@@ -177,15 +177,19 @@
 	.philosophy-icon {
 		width: 100px;
 		height: 100px;
-		background: var(--gradient-primary);
 		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		margin: 0 auto var(--spacing-lg);
 		transition: all var(--transition-normal);
 		position: relative;
 		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		filter: drop-shadow(0 4px 8px rgba(255, 0, 255, 0.3));
+		background: rgba(0, 0, 0, 0.4);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 
 	.philosophy-icon::before {
@@ -196,26 +200,12 @@
 		right: 0;
 		bottom: 0;
 		background: var(--gradient-primary);
-		opacity: 0.8;
+		opacity: 0.6;
 		transition: opacity var(--transition-normal);
 	}
 
 	.philosophy-card:hover .philosophy-icon::before {
-		opacity: 1;
-	}
-
-	.philosophy-icon {
-		width: 100px;
-		height: 100px;
-		background-size: 60px 60px;
-		background-position: center;
-		background-repeat: no-repeat;
-		border-radius: 50%;
-		margin: 0 auto var(--spacing-lg);
-		transition: all var(--transition-normal);
-		position: relative;
-		overflow: hidden;
-		filter: drop-shadow(0 4px 8px rgba(255, 0, 255, 0.3));
+		opacity: 0.9;
 	}
 
 	.philosophy-card:hover .philosophy-icon {
