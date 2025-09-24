@@ -1,8 +1,9 @@
 <script lang="ts">
-        import { onMount } from 'svelte';
-        import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
-        import type { CompanyValue } from '$types/global';
-        import valuesIllustrationUrl from '$lib/assets/images/cyberpunk_company_values.png?url';
+	import { onMount } from 'svelte';
+	import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
+	import type { CompanyValue } from '$types/global';
+
+	const missionIllustrationUrl = '/images/about_illustration.png';
 
 	// Company values data
 	export let values: CompanyValue[] = [
@@ -83,15 +84,15 @@
 					</p>
 				</div>
 
-                                <div class="about-image">
-                                        <img
-                                                src={valuesIllustrationUrl}
-                                                alt="私たちの価値観"
-                                                class="showcase-image"
-                                                loading="lazy"
-                                                decoding="async"
-                                        />
-                                </div>
+				<div class="about-image">
+					<img
+						src={missionIllustrationUrl}
+						alt="私たちの使命"
+						class="showcase-image"
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
 			</div>
 
 			<div class="company-values">

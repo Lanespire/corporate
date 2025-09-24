@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-        import {
-                isMenuOpen,
-                activeSection,
-                navigationItems,
-                navigationActions
-        } from '$stores/navigation';
-        import lanespireLogoUrl from '$lib/assets/images/lanespire_logo.png?url';
+	import {
+		isMenuOpen,
+		activeSection,
+		navigationItems,
+		navigationActions
+	} from '$stores/navigation';
+
+	const lanespireLogoUrl = '/images/lanespire_logo.png';
 
 	// Component state
 	let scrolled = false;
@@ -77,15 +78,15 @@
 	<div class="container">
 		<div class="header-content">
 			<!-- Logo -->
-                        <div class="logo">
-                                <img
-                                        src={lanespireLogoUrl}
-                                        alt="Lanespire"
-                                        class="logo-image"
-                                        loading="lazy"
-                                        decoding="async"
-                                />
-                                <span class="logo-text">Lanespire</span>
+			<div class="logo">
+				<img
+					src={lanespireLogoUrl}
+					alt="Lanespire"
+					class="logo-image"
+					loading="lazy"
+					decoding="async"
+				/>
+				<span class="logo-text">Lanespire</span>
 			</div>
 
 			<!-- Desktop Navigation -->
