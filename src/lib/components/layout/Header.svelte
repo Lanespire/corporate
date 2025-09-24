@@ -7,8 +7,6 @@
 		navigationActions
 	} from '$stores/navigation';
 
-
-
 	// Component state
 	let scrolled = false;
 	let headerElement: HTMLElement;

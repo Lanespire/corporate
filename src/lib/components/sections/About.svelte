@@ -3,8 +3,6 @@
 	import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
 	import type { CompanyValue } from '$types/global';
 
-
-
 	// Company values data
 	export let values: CompanyValue[] = [
 		{
