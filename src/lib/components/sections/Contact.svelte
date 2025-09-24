@@ -115,34 +115,34 @@
 				<div class="company-info">
 					<h3 class="company-name">株式会社Lanespire</h3>
 					<div class="company-details">
-                                                <div class="detail-item">
-                                                        <span class="material-icons">location_on</span>
-                                                        <div>
-                                                                <strong>所在地</strong><br />
+						<div class="detail-item">
+							<span class="material-icons">location_on</span>
+							<div>
+								<strong>所在地</strong><br />
 								〒104-0061<br />
 								東京都中央区銀座１丁目１２番４号<br />
 								Ｎ＆ＥＢＬＤ．６Ｆ
 							</div>
 						</div>
-                                                <div class="detail-item">
-                                                        <span class="material-icons">work</span>
-                                                        <div>
-                                                                <strong>事業内容</strong><br />
-                                                                Web制作、ITコンサルタント・AI導入支援、<br />
-                                                                n8nによる業務効率支援、業務委託、<br />
-                                                                NoCode・LowCodeによるサービス開発、<br />
-                                                                モバイルアプリケーション開発、受託開発
-                                                        </div>
-                                                </div>
-                                                <div class="detail-item">
-                                                        <span class="material-icons">person</span>
-                                                        <div>
-                                                                <strong>代表取締役</strong><br />
-                                                                高橋 元希
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
+						<div class="detail-item">
+							<span class="material-icons">work</span>
+							<div>
+								<strong>事業内容</strong><br />
+								Web制作、ITコンサルタント・AI導入支援、<br />
+								n8nによる業務効率支援、業務委託、<br />
+								NoCode・LowCodeによるサービス開発、<br />
+								モバイルアプリケーション開発、受託開発
+							</div>
+						</div>
+						<div class="detail-item">
+							<span class="material-icons">person</span>
+							<div>
+								<strong>代表取締役</strong><br />
+								高橋 元希
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div class="map-container">
 					<iframe
