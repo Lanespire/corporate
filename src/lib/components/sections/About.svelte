@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
-	import type { CompanyValue, OptimizedPicture } from '$types/global';
-	// @ts-expect-error - Provided by the SvelteKit image optimizer plugin
-	import valuesIllustrationImport from '$assets/images/cyberpunk_company_values.png?w=640;960&format=webp;png&as=picture';
+	import type { CompanyValue } from '$types/global';
 
-	const valuesIllustration: OptimizedPicture = valuesIllustrationImport;
+	const missionIllustrationUrl = '/images/about_illustration.png';
 
 	// Company values data
 	export let values: CompanyValue[] = [
@@ -87,28 +85,13 @@
 				</div>
 
 				<div class="about-image">
-					<picture>
-						{#if valuesIllustration.sources}
-							{#each valuesIllustration.sources as source}
-								<source
-									srcset={source.srcset}
-									type={source.type}
-									sizes={source.sizes ?? valuesIllustration.img.sizes ?? '100vw'}
-								/>
-							{/each}
-						{/if}
-						<img
-							src={valuesIllustration.img.src}
-							alt="私たちの価値観"
-							width={valuesIllustration.img.width}
-							height={valuesIllustration.img.height}
-							class="showcase-image"
-							loading="lazy"
-							decoding="async"
-							srcset={valuesIllustration.img.srcset}
-							sizes={valuesIllustration.img.sizes ?? '100vw'}
-						/>
-					</picture>
+					<img
+						src={missionIllustrationUrl}
+						alt="私たちの使命"
+						class="showcase-image"
+						loading="lazy"
+						decoding="async"
+					/>
 				</div>
 			</div>
 

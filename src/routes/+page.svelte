@@ -6,14 +6,13 @@
 	import Philosophy from '$lib/components/sections/Philosophy.svelte';
 	import Contact from '$lib/components/sections/Contact.svelte';
 	import { onMount } from 'svelte';
-	import type { OptimizedPicture } from '$types/global';
-	// @ts-expect-error - Provided by the SvelteKit image optimizer plugin
-	import lanespireLogoImport from '$assets/images/lanespire_logo.png?w=320;640&format=webp;png&as=picture';
 
-	const lanespireLogo: OptimizedPicture = lanespireLogoImport;
+	const siteUrl = 'https://lanespire-corporate.netlify.app';
+	const lanespireLogoUrl = '/images/lanespire_logo.png';
+	const socialLogoUrl = `${siteUrl}${lanespireLogoUrl}`;
 	onMount(() => {
 		// Preload critical images
-		const criticalImages = [lanespireLogo.img.src];
+		const criticalImages = [lanespireLogoUrl];
 
 		criticalImages.forEach((src) => {
 			const link = document.createElement('link');
@@ -41,14 +40,14 @@
 	<meta property="og:title" content="株式会社Lanespire - コードで、ビジネスの未来を実装する" />
 	<meta property="og:description" content="最新技術でお客様のビジネスに革新をもたらすWeb開発会社" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://lanespire.com" />
-	<meta property="og:image" content={lanespireLogo.img.src} />
+	<meta property="og:url" content={siteUrl} />
+	<meta property="og:image" content={socialLogoUrl} />
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="株式会社Lanespire" />
 	<meta name="twitter:description" content="コードで、ビジネスの未来を実装する" />
-	<meta name="twitter:image" content={lanespireLogo.img.src} />
+	<meta name="twitter:image" content={socialLogoUrl} />
 
 	<!-- Viewport -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -57,13 +56,7 @@
 	<meta name="theme-color" content="#00ffff" />
 
 	<!-- Preload critical resources -->
-	<link
-		rel="preload"
-		href={lanespireLogo.img.src}
-		as="image"
-		imagesrcset={lanespireLogo.img.srcset}
-		imagesizes={lanespireLogo.img.sizes ?? '100vw'}
-	/>
+	<link rel="preload" href={lanespireLogoUrl} as="image" />
 	<link
 		rel="preload"
 		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"

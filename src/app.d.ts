@@ -73,6 +73,16 @@ declare module '$assets/*&as=src' {
 	export default src;
 }
 
+declare module '*?url' {
+	const src: string;
+	export default src;
+}
+
+declare module '$assets/*?url' {
+	const src: string;
+	export default src;
+}
+
 declare module '*?*' {
 	const data:
 		| OptimizedPicture
