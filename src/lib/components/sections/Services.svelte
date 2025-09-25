@@ -7,6 +7,15 @@
 	} from '$utils/animations';
 	import type { Service } from '$types/global';
 
+	// Import service icons using enhanced-img
+	import webDevIcon from '$lib/assets/images/icon_web_development.png?enhanced';
+	import aiConsultingIcon from '$lib/assets/images/icon_ai_consulting.png?enhanced';
+	import automationIcon from '$lib/assets/images/icon_automation.png?enhanced';
+	import outsourcingIcon from '$lib/assets/images/icon_outsourcing.png?enhanced';
+	import nocodeIcon from '$lib/assets/images/icon_nocode.png?enhanced';
+	import mobileAppIcon from '$lib/assets/images/icon_mobile_app.png?enhanced';
+	import customDevIcon from '$lib/assets/images/icon_custom_development.png?enhanced';
+
 	// Services data
 	export let services: Service[] = [
 		{
@@ -14,7 +23,7 @@
 			title: 'Web制作',
 			description:
 				'レスポンシブデザインとSEO対策を標準装備した、ビジネス成果に直結するWebサイトを制作します。',
-			icon: '/images/icon_web_development.png',
+			icon: webDevIcon,
 			technologies: ['React', 'Vue.js', 'SvelteKit']
 		},
 		{
@@ -22,7 +31,7 @@
 			title: 'ITコンサルタント・AI導入支援',
 			description:
 				'業務効率化とコスト削減を実現するAIソリューションの企画から実装まで一貫してサポートします。',
-			icon: '/images/icon_ai_consulting.png',
+			icon: aiConsultingIcon,
 			technologies: ['ChatGPT', 'Claude', 'Gemini']
 		},
 		{
@@ -30,7 +39,7 @@
 			title: '業務効率支援',
 			description:
 				'ワークフロー自動化プラットフォームを活用し、反復作業を自動化して生産性を向上させます。',
-			icon: '/images/icon_automation.png',
+			icon: automationIcon,
 			technologies: ['n8n', 'Zapier', 'lark']
 		},
 		{
@@ -38,7 +47,7 @@
 			title: '業務委託',
 			description:
 				'専門性の高い技術者による業務委託サービスで、お客様のプロジェクトを成功に導きます。',
-			icon: '/images/icon_outsourcing.png',
+			icon: outsourcingIcon,
 			technologies: ['フルスタック', 'DevOps', 'PM']
 		},
 		{
@@ -46,7 +55,7 @@
 			title: 'NoCode、LowCodeによるサービス開発',
 			description:
 				'迅速なプロトタイピングから本格運用まで、NoCode/LowCodeツールを活用した効率的な開発を提供します。',
-			icon: '/images/icon_nocode.png',
+			icon: nocodeIcon,
 			technologies: ['Bubble', 'Webflow', 'Airtable']
 		},
 		{
@@ -54,7 +63,7 @@
 			title: 'モバイルアプリケーション開発',
 			description:
 				'iOS・Android対応のネイティブアプリから、React Nativeを使用したクロスプラットフォーム開発まで対応します。',
-			icon: '/images/icon_mobile_app.png',
+			icon: mobileAppIcon,
 			technologies: ['React Native', 'Flutter', 'Swift']
 		},
 		{
@@ -62,7 +71,7 @@
 			title: '受託開発',
 			description:
 				'お客様の要件に合わせたカスタムシステム開発を、企画から運用まで一貫してサポートします。',
-			icon: '/images/icon_custom_development.png',
+			icon: customDevIcon,
 			technologies: ['Python', 'Node.js', 'Go']
 		}
 	];
@@ -111,12 +120,9 @@
 		<div class="services-grid">
 			{#each services as service, index}
 				<div class="service-card" data-service={service.id} bind:this={serviceCards[index]}>
-					<div
-						class="service-icon"
-						role="img"
-						aria-label={service.title}
-						style={`background-image: url(${service.icon})`}
-					></div>
+					<div class="service-icon" role="img" aria-label={service.title}>
+						<enhanced:img src={service.icon} alt={service.title} class="service-icon-image" />
+					</div>
 
 					<h3 class="service-title">{service.title}</h3>
 
@@ -233,9 +239,12 @@
 		align-items: center;
 		justify-content: center;
 		background: rgba(0, 0, 0, 0.4);
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center;
+	}
+
+	.service-icon-image {
+		width: 60px;
+		height: 60px;
+		object-fit: contain;
 	}
 
 	.service-icon::before {
