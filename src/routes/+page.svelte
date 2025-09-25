@@ -8,7 +8,7 @@
 	import { onMount } from 'svelte';
 
 	const siteUrl = 'https://lanespire-corporate.netlify.app';
-	const socialLogoUrl = `${siteUrl}/images/lanespire_logo.png`;
+	const socialLogoUrl = `${siteUrl}/lanespire_logo.png`;
 </script>
 
 <svelte:head>
