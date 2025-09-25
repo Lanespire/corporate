@@ -3,25 +3,30 @@
 	import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
 	import type { CompanyValue } from '$types/global';
 
+	// Import icons using enhanced-img
+	import innovationIcon from '$lib/assets/images/icon_innovation.png?enhanced';
+	import efficiencyIcon from '$lib/assets/images/icon_efficiency.png?enhanced';
+	import collaborationIcon from '$lib/assets/images/icon_collaboration.png?enhanced';
+
 	// Company values data
 	export let values: CompanyValue[] = [
 		{
 			id: 'innovation',
 			title: '革新性',
 			description: '最新技術を積極的に取り入れ、常に革新的なソリューションを提供します。',
-			icon: '/icon_innovation.png'
+			icon: innovationIcon
 		},
 		{
 			id: 'efficiency',
 			title: '効率性',
 			description: '無駄を省き、最短経路でお客様の目標達成をサポートします。',
-			icon: '/icon_efficiency.png'
+			icon: efficiencyIcon
 		},
 		{
 			id: 'collaboration',
 			title: '協働性',
 			description: 'お客様との密接な連携により、共に成長し続けるパートナーシップを築きます。',
-			icon: '/icon_collaboration.png'
+			icon: collaborationIcon
 		}
 	];
 
@@ -97,12 +102,9 @@
 				<div class="values-grid">
 					{#each values as value, index}
 						<div class="value-card" bind:this={valueCards[index]}>
-							<div
-								class="value-icon"
-								style={`background-image: url(${value.icon})`}
-								role="img"
-								aria-label={value.title}
-							></div>
+							<div class="value-icon" role="img" aria-label={value.title}>
+								<enhanced:img src={value.icon} alt={value.title} class="icon-image" />
+							</div>
 
 							<h4 class="value-title">{value.title}</h4>
 
@@ -275,9 +277,12 @@
 		align-items: center;
 		justify-content: center;
 		background: rgba(0, 0, 0, 0.4);
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center;
+	}
+
+	.icon-image {
+		width: 60px;
+		height: 60px;
+		object-fit: contain;
 	}
 
 	.value-icon::before {

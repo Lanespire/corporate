@@ -29,7 +29,7 @@ export interface Service {
 	id: string;
 	title: string;
 	description: string;
-	icon: string;
+	icon: any;
 	technologies: string[];
 }
 
@@ -37,7 +37,7 @@ export interface CompanyValue {
 	id: string;
 	title: string;
 	description: string;
-	icon: string;
+	icon: any;
 }
 
 export interface Philosophy {
@@ -45,7 +45,7 @@ export interface Philosophy {
 	title: string;
 	subtitle: string;
 	description: string;
-	icon: string;
+	icon: any;
 }
 
 export interface AnimationConfig {

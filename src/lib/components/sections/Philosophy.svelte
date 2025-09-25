@@ -3,6 +3,11 @@
 	import { createScrollAnimation, createStaggerAnimation } from '$utils/animations';
 	import type { Philosophy } from '$types/global';
 
+	// Import philosophy icons using enhanced-img
+	import refinementIcon from '$lib/assets/images/philosophy_refinement.png?enhanced';
+	import affinityIcon from '$lib/assets/images/philosophy_affinity.png?enhanced';
+	import innovationIcon from '$lib/assets/images/philosophy_innovation.png?enhanced';
+
 	// Philosophy data
 	export let philosophies: Philosophy[] = [
 		{
@@ -11,7 +16,7 @@
 			subtitle: 'Refinement',
 			description:
 				'美しく機能的なデザインで、ユーザー体験を向上させます。細部にまでこだわり抜いた洗練されたソリューションを提供します。',
-			icon: '/images/philosophy_refinement.png'
+			icon: refinementIcon
 		},
 		{
 			id: 'affinity',
@@ -19,7 +24,7 @@
 			subtitle: 'Affinity',
 			description:
 				'お客様との深い信頼関係を築き、共に成長するパートナーシップを大切にします。親しみやすさと専門性を両立させます。',
-			icon: '/images/philosophy_affinity.png'
+			icon: affinityIcon
 		},
 		{
 			id: 'innovation',
@@ -27,7 +32,7 @@
 			subtitle: 'Innovation',
 			description:
 				'常に最新技術を追求し、従来の枠を超えた革新的なアプローチで課題解決に取り組みます。',
-			icon: '/images/philosophy_innovation.png'
+			icon: innovationIcon
 		}
 	];
 
@@ -69,12 +74,13 @@
 					data-philosophy={philosophy.id}
 					bind:this={philosophyCards[index]}
 				>
-					<div
-						class="philosophy-icon"
-						style={`background-image: url(${philosophy.icon})`}
-						role="img"
-						aria-label={philosophy.title}
-					></div>
+					<div class="philosophy-icon" role="img" aria-label={philosophy.title}>
+						<enhanced:img
+							src={philosophy.icon}
+							alt={philosophy.title}
+							class="philosophy-icon-image"
+						/>
+					</div>
 
 					<h3 class="philosophy-title">{philosophy.title}</h3>
 					<p class="philosophy-subtitle">{philosophy.subtitle}</p>
@@ -187,9 +193,12 @@
 		justify-content: center;
 		filter: drop-shadow(0 4px 8px rgba(255, 0, 255, 0.3));
 		background: rgba(0, 0, 0, 0.4);
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center;
+	}
+
+	.philosophy-icon-image {
+		width: 80px;
+		height: 80px;
+		object-fit: contain;
 	}
 
 	.philosophy-icon::before {

@@ -23,6 +23,11 @@ const config = {
 			entries: ['*']
 		},
 
+		// Service worker configuration
+		serviceWorker: {
+			register: true
+		},
+
 		// Alias for clean imports
 		alias: {
 			$components: 'src/lib/components',
