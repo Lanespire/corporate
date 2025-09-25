@@ -12,7 +12,12 @@ const ASSETS = [
 	...build, // the app itself
 	...files.filter((file) => {
 		// Skip files that might cause issues
-		return !file.includes(".DS_Store") && !file.includes("Thumbs.db") && !file.endsWith(".map") && !file.startsWith("chrome-extension://");
+		return (
+			!file.includes('.DS_Store') &&
+			!file.includes('Thumbs.db') &&
+			!file.endsWith('.map') &&
+			!file.startsWith('chrome-extension://')
+		);
 	})
 ];
 
