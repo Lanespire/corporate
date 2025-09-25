@@ -196,9 +196,10 @@
 	}
 
 	.philosophy-icon-image {
-		width: 80px;
-		height: 80px;
-		object-fit: contain;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 50%;
 	}
 
 	.philosophy-icon::before {

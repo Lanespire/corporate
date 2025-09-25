@@ -280,9 +280,10 @@
 	}
 
 	.icon-image {
-		width: 60px;
-		height: 60px;
-		object-fit: contain;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 50%;
 	}
 
 	.value-icon::before {
