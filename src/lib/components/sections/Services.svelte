@@ -244,9 +244,8 @@
 	.service-icon-image {
 		width: 100%;
 		height: 100%;
-		object-fit: contain;
+		object-fit: cover;
 		border-radius: 50%;
-		padding: 10%; /* アイコンが丸い枠に収まるようにパディングを追加 */
 	}
 
 	.service-icon::before {
