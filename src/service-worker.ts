@@ -7,15 +7,34 @@ import { build, files, version } from '$service-worker';
 
 const CACHE = `cache-${version}`;
 
+// Filter out any potentially problematic assets
 const ASSETS = [
 	...build, // the app itself
-	...files // everything in `static` directory
+	...files.filter((file) => {
+		// Skip files that might cause issues
+		return !file.includes('.DS_Store') && !file.includes('Thumbs.db') && !file.endsWith('.map');
+	})
 ];
 
 self.addEventListener('install', (event) => {
 	async function addFilesToCache() {
 		const cache = await caches.open(CACHE);
-		await cache.addAll(ASSETS);
+
+		// Add files one by one with error handling
+		const promises = ASSETS.map(async (asset) => {
+			try {
+				const response = await fetch(asset);
+				if (response.ok) {
+					await cache.put(asset, response);
+				} else {
+					console.warn(`Failed to cache asset: ${asset} - Status: ${response.status}`);
+				}
+			} catch (error) {
+				console.warn(`Failed to fetch asset: ${asset}`, error);
+			}
+		});
+
+		await Promise.allSettled(promises);
 	}
 
 	event.waitUntil(addFilesToCache());
@@ -42,17 +61,26 @@ self.addEventListener('fetch', (event) => {
 
 		// `build`/`files` can always be served from cache
 		if (ASSETS.includes(url.pathname)) {
-			return cache.match(event.request);
+			const cached = await cache.match(event.request);
+			if (cached) {
+				return cached;
+			}
 		}
 
 		// for everything else, try the network first, but
 		// fall back to the cache if we're offline
 		try {
 			const response = await fetch(event.request);
-			cache.put(event.request, response.clone());
+			if (response.ok) {
+				cache.put(event.request, response.clone());
+			}
 			return response;
 		} catch (err) {
-			return cache.match(event.request);
+			const cached = await cache.match(event.request);
+			if (cached) {
+				return cached;
+			}
+			throw err;
 		}
 	}
 
