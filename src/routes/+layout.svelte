@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '$lib/styles/global.css';
 	import { onMount } from 'svelte';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/images/lanespire_logo.png';
 
 	const { children } = $props();
 
