@@ -97,4 +97,10 @@ declare module '$assets/*' {
 	export default src;
 }
 
+declare module 'svelte/elements' {
+	interface HTMLAttributes<T extends EventTarget> {
+		'netlify-honeypot'?: string;
+	}
+}
+
 export {};
