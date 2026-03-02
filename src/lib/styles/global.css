@@ -34,8 +34,7 @@ body {
 	color: var(--ink);
 	background:
 		radial-gradient(circle at 15% 10%, rgba(26, 115, 232, 0.15), transparent 38%),
-		radial-gradient(circle at 86% 2%, rgba(24, 128, 56, 0.14), transparent 34%),
-		var(--bg);
+		radial-gradient(circle at 86% 2%, rgba(24, 128, 56, 0.14), transparent 34%), var(--bg);
 	-webkit-font-smoothing: antialiased;
 	text-rendering: optimizeLegibility;
 }

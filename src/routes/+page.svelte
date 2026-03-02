@@ -82,6 +82,7 @@
 			</a>
 			<nav class="nav" aria-label="Main navigation">
 				{#each navItems as item}
+					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 					<a href={item.href}>{item.label}</a>
 				{/each}
 			</nav>
@@ -144,9 +145,7 @@
 			<div class="section-head">
 				<p class="eyebrow">Services</p>
 				<h2>サービス事例をMarkdownで管理</h2>
-				<p>
-					`src/content/services/*.md` に追加すると、ビルド時にカードとして自動反映されます。
-				</p>
+				<p>`src/content/services/*.md` に追加すると、ビルド時にカードとして自動反映されます。</p>
 			</div>
 			<div class="card-grid">
 				{#each data.services as service}
@@ -165,8 +164,10 @@
 								{/each}
 							</div>
 						{/if}
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 						<div class="markdown">{@html service.html}</div>
 						{#if service.ctaUrl}
+							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 							<a href={service.ctaUrl} class="inline-link">{service.ctaLabel ?? '詳しく見る'}</a>
 						{/if}
 					</article>
@@ -178,9 +179,7 @@
 			<div class="section-head">
 				<p class="eyebrow">Case Studies</p>
 				<h2>導入事例</h2>
-				<p>
-					`src/content/case-studies/*.md` に実績を追加するだけで表示内容を差し替え可能です。
-				</p>
+				<p>`src/content/case-studies/*.md` に実績を追加するだけで表示内容を差し替え可能です。</p>
 			</div>
 			<div class="card-grid case-grid">
 				{#each data.caseStudies as caseStudy}
@@ -214,12 +213,20 @@
 							{/if}
 						</dl>
 
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 						<div class="markdown">{@html caseStudy.html}</div>
 
 						{#if getMeta(caseStudy, 'site_url')}
-							<a class="inline-link" href={getMeta(caseStudy, 'site_url')} target="_blank" rel="noreferrer">
+							<!-- eslint-disable svelte/no-navigation-without-resolve -->
+							<a
+								class="inline-link"
+								href={getMeta(caseStudy, 'site_url')}
+								target="_blank"
+								rel="noreferrer"
+							>
 								サービスサイトを見る
 							</a>
+							<!-- eslint-enable svelte/no-navigation-without-resolve -->
 						{/if}
 					</article>
 				{/each}
@@ -247,9 +254,7 @@
 				<div class="section-head compact">
 					<p class="eyebrow">Contact</p>
 					<h2>新しいコーポレートサイトを一緒に設計しましょう</h2>
-					<p>
-						初回ヒアリングで現状課題を整理し、最短2週間でデザイン提案まで進めます。
-					</p>
+					<p>初回ヒアリングで現状課題を整理し、最短2週間でデザイン提案まで進めます。</p>
 				</div>
 				<ul>
 					<li>会社名:株式会社Lanespire</li>
