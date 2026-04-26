@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import {
 		ArrowRight,
 		Bot,
@@ -7,6 +8,7 @@
 		CheckCircle2,
 		ClipboardCheck,
 		Code2,
+		ExternalLink,
 		FilePenLine,
 		LineChart,
 		Mail,
@@ -18,16 +20,31 @@
 		Star,
 		UsersRound,
 		WandSparkles,
-		Workflow
+		Workflow,
+		X
 	} from 'lucide-svelte';
 	import heroImage from '$lib/assets/images/lp-hero-generated-transparent-v2.png';
 	import ctaImage from '$lib/assets/images/lp-cta-generated-transparent-v2.png';
-	import darkCaseImage from '$lib/assets/images/business_automation.png';
-	import aiImage from '$lib/assets/images/ai_consulting_service.png';
-	import webImage from '$lib/assets/images/web_development_service.png';
-	import automationImage from '$lib/assets/images/service_web_design.png';
-	import dashboardImage from '$lib/assets/images/hero_tech_background.png';
-	import teamImage from '$lib/assets/images/about_illustration.png';
+	import nightTableImage from '$lib/assets/images/work-nighttable-og.png';
+	import sakuEditImage from '$lib/assets/images/work-sakuedit-og.png';
+	import extensionImage from '$lib/assets/images/work-anon-extension.png';
+	import crmImage from '$lib/assets/images/work-anon-crm.png';
+	import schedulingImage from '$lib/assets/images/work-anon-scheduling.png';
+	import roleplayImage from '$lib/assets/images/work-anon-roleplay.png';
+	import launchLpImage from '$lib/assets/images/work-launch-lp-og.png';
+
+	type Work = {
+		image: string;
+		title: string;
+		tag: string;
+		body: string;
+		url?: string;
+		featured?: boolean;
+		role: string;
+		summary: string;
+		points: string[];
+		result: string;
+	};
 
 	const promises = [
 		{ icon: CheckCircle2, title: '相談無料', text: '仕様未確定OK' },
@@ -84,50 +101,142 @@
 		}
 	];
 
-	const works = [
+	const works: Work[] = [
 		{
-			image: darkCaseImage,
+			image: nightTableImage,
 			title: 'NightTable',
-			tag: 'SaaS / 予約・店舗体験',
-			body: '飲食店の予約・テーブル・POSを統合した店舗SaaSプラットフォーム。'
+			tag: 'SaaS / 店舗運営DX',
+			body: 'ナイトワーク向けに予約・テーブル・POS・キャスト管理を一体化した業務SaaS。',
+			url: 'https://night-table.com/',
+			featured: true,
+			role: 'プロダクト企画 / UI設計 / SaaS開発 / LP制作',
+			summary:
+				'紙台帳、口頭共有、手計算に分散しがちな店舗運営を、スマホとPCで扱える一つの業務基盤に整理。予約、卓状況、延長、会計、キャスト管理まで現場の流れに沿って設計しました。',
+			points: [
+				'予約・卓管理・POS・バック計算を一画面の業務導線に統合',
+				'夜業態の料金体系、延長、指名、税サ、インボイスに合わせた計算ルールを設計',
+				'30日無料トライアルや料金比較まで含むSaaS LPを構築'
+			],
+			result:
+				'締め作業の短縮、会計ミス削減、スタッフ間のリアルタイム共有を訴求できるプロダクト体験に整備。'
 		},
 		{
-			image: aiImage,
+			image: sakuEditImage,
 			title: 'SakuEdit',
-			tag: 'Web / AI動画体験',
-			body: 'AIで写真をUIUXに編集できるオンライン編集サービス。'
+			tag: 'AI / 動画編集SaaS',
+			body: '動画アップロード後に無音カット・字幕生成・サムネイル作成まで進めるAI編集ツール。',
+			url: 'https://sakuedit.com/',
+			featured: true,
+			role: 'AI機能設計 / Webアプリ開発 / 料金導線設計',
+			summary:
+				'YouTube・SNS動画の編集負担を減らすため、アップロード後の自動処理から微調整、書き出しまでを一連の体験として設計しました。',
+			points: [
+				'日本語音声解析によるタイムコード付き字幕生成',
+				'無音・フィラー区間の自動検出とカット編集導線',
+				'無料プランとProプランの比較・登録導線を整備'
+			],
+			result:
+				'編集作業を「動画を上げたら、編集は終わっている」と伝えられるプロダクトLPと体験に整理。'
 		},
 		{
-			image: webImage,
+			image: launchLpImage,
+			title: 'Launch LP',
+			tag: 'LP立ち上げサービス',
+			body: '低価格・短納期でLPを立ち上げる制作サービス。料金プラン、FAQ、CTAまで一式を整備。',
+			url: '/launch-lp',
+			featured: true,
+			role: 'サービス設計 / LP制作 / 価格設計 / CV導線設計',
+			summary:
+				'はじめてLPを発注する事業者でも依頼しやすいよう、制作範囲、料金、納期、運用サポートを明確にしたサービスページを構築しました。',
+			points: [
+				'Light / Standard / Pro の3プランを比較しやすく整理',
+				'無料相談、制作フロー、FAQを1ページ内に集約',
+				'スマホでも問い合わせまで迷わないCTA配置に調整'
+			],
+			result: 'サービス内容と価格の不安を減らし、無料相談へ進みやすいLPとして公開。'
+		},
+		{
+			image: extensionImage,
 			title: 'Chrome拡張',
 			tag: 'Extension / 自動化',
-			body: 'AIマッチングアプリの操作を自動化し効率的な活動をサポート。'
+			body: '日常的なブラウザ操作を効率化するChrome拡張機能。',
+			role: '拡張機能開発 / UI実装',
+			summary:
+				'定型的な入力、確認、画面操作をブラウザ上で扱いやすくするための軽量な拡張機能を実装しました。',
+			points: [
+				'繰り返し操作のショートカット化',
+				'既存Webサービスの操作導線に合わせたUI',
+				'小さく導入できる業務補助ツールとして設計'
+			],
+			result: '日々の作業時間を削減し、属人的な操作手順を標準化。'
 		},
 		{
-			image: teamImage,
-			title: 'AI写真編集',
-			tag: 'AI / 画像生成',
-			body: 'ワンクリックで商品写真に背景補正・加工を行うAIサービス。'
-		},
-		{
-			image: dashboardImage,
+			image: crmImage,
 			title: '営業CRM',
 			tag: '業務システム / CRM',
-			body: '営業活動を可視化し、見積や顧客フォローを一元管理。'
+			body: '営業活動、見積、顧客フォローを一元管理する社内CRM。',
+			role: '業務設計 / Webアプリ開発',
+			summary:
+				'案件管理がスプレッドシートやチャットに分散している状態から、営業チームで同じ情報を見られるCRMへ整理しました。',
+			points: [
+				'顧客・案件・ステータスの一元管理',
+				'見積とフォロー予定の可視化',
+				'営業会議で使えるダッシュボード設計'
+			],
+			result: '抜け漏れを減らし、営業状況をチームで確認できる状態に改善。'
 		},
 		{
-			image: automationImage,
+			image: schedulingImage,
 			title: '日程調整SaaS',
 			tag: 'SaaS / スケジューリング',
-			body: 'ダブルブッキングを防ぐ日程調整SaaSプロダクト。'
+			body: '候補日提示から予約確定までを自動化する日程調整プロダクト。',
+			role: 'SaaS設計 / フロントエンド開発',
+			summary:
+				'商談、面談、サポート予約など、複数人が関わる日程調整をスムーズにする予約導線を設計しました。',
+			points: [
+				'空き時間の提示と予約確定フロー',
+				'ダブルブッキングを防ぐ状態管理',
+				'通知やリマインドを想定した設計'
+			],
+			result: '調整の往復を減らし、予約完了までの摩擦を削減。'
 		},
 		{
-			image: darkCaseImage,
+			image: roleplayImage,
 			title: 'AI営業ロープレ',
 			tag: 'AI / 教育・トレーニング',
-			body: 'AIが顧客役となり、実践的な営業トレーニングを実現。'
+			body: 'AIが顧客役になり、営業トークを反復練習できるトレーニングツール。',
+			role: 'AIプロトタイプ開発 / UX設計',
+			summary:
+				'新人教育や商談準備で使えるよう、AIとの対話を通じて営業トークを練習し、改善点を振り返れる体験を設計しました。',
+			points: [
+				'顧客役AIとのロープレ会話',
+				'会話ログをもとにした振り返り',
+				'業界・商材ごとのシナリオ展開を想定'
+			],
+			result: 'トレーニング機会を増やし、実商談前の準備品質を底上げ。'
 		}
 	];
+
+	let selectedWork: Work | null = null;
+
+	function openWork(work: Work) {
+		selectedWork = work;
+	}
+
+	function closeWork() {
+		selectedWork = null;
+	}
+
+	function openSelectedWorkUrl() {
+		if (!selectedWork?.url || typeof window === 'undefined') return;
+
+		if (selectedWork.url.startsWith('http')) {
+			window.open(selectedWork.url, '_blank', 'noopener,noreferrer');
+			return;
+		}
+
+		window.location.href = selectedWork.url;
+	}
 
 	const flow = [
 		{
@@ -165,7 +274,22 @@
 		if (typeof document === 'undefined') return;
 		document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	}
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') closeWork();
+	}
+
+	function handleModalBackdropClick(event: MouseEvent) {
+		if (event.target === event.currentTarget) closeWork();
+	}
+
+	function closeWorkAndGoToContact() {
+		closeWork();
+		requestAnimationFrame(() => goToSection('contact'));
+	}
 </script>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <svelte:head>
 	<title>Lanespire - AIを、現場の人が使える形にする。</title>
@@ -293,21 +417,82 @@
 
 		<section class="works-section" id="works">
 			<h2 class="section-title">実績・プロダクト事例 <span>⌄</span></h2>
-			<p class="section-lead">公開できるプロダクトの一部をご紹介します。</p>
+			<p class="section-lead">公開できるプロダクトと、近い支援領域の一部をご紹介します。</p>
 			<div class="works-row">
 				{#each works as work}
-					<article class="work-card">
+					<button
+						type="button"
+						class:featured={work.featured}
+						class="work-card"
+						on:click={() => openWork(work)}
+						aria-label={`${work.title} の詳細を見る`}
+					>
 						<img src={work.image} alt={work.title} loading="lazy" />
 						<div>
+							<span class="work-kicker">{work.role}</span>
 							<h3>{work.title}</h3>
 							<strong>{work.tag}</strong>
 							<p>{work.body}</p>
-							<a href="#contact">事例を読む <ArrowRight size={13} /></a>
+							<span class="work-more">詳細を見る <ArrowRight size={13} /></span>
 						</div>
-					</article>
+					</button>
 				{/each}
 			</div>
 		</section>
+
+		{#if selectedWork}
+			<div
+				class="modal-backdrop"
+				role="presentation"
+				on:click={handleModalBackdropClick}
+				transition:fade={{ duration: 120 }}
+			>
+				<div
+					class="work-modal"
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="work-modal-title"
+					tabindex="-1"
+				>
+					<button class="modal-close" type="button" aria-label="閉じる" on:click={closeWork}>
+						<X size={20} />
+					</button>
+					<div class="modal-visual">
+						<img src={selectedWork.image} alt={selectedWork.title} />
+					</div>
+					<div class="modal-copy">
+						<p class="modal-tag">{selectedWork.tag}</p>
+						<h3 id="work-modal-title">{selectedWork.title}</h3>
+						<p class="modal-role">{selectedWork.role}</p>
+						<p class="modal-summary">{selectedWork.summary}</p>
+						<div class="modal-detail-grid">
+							<div>
+								<h4>支援内容</h4>
+								<ul>
+									{#each selectedWork.points as point}
+										<li>{point}</li>
+									{/each}
+								</ul>
+							</div>
+							<div>
+								<h4>ポイント</h4>
+								<p>{selectedWork.result}</p>
+							</div>
+						</div>
+						<div class="modal-actions">
+							{#if selectedWork.url}
+								<button type="button" class="primary" on:click={openSelectedWorkUrl}>
+									サイトを見る <ExternalLink size={17} />
+								</button>
+							{/if}
+							<button class="secondary" type="button" on:click={closeWorkAndGoToContact}
+								>相談する <ArrowRight size={17} /></button
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		{/if}
 
 		<section class="flow-section" id="flow">
 			<h2 class="section-title">導入・開発の進め方 <span>⌄</span></h2>
@@ -534,8 +719,11 @@
 	.primary,
 	.secondary {
 		align-items: center;
+		border: 0;
 		border-radius: 8px;
+		cursor: pointer;
 		display: inline-flex;
+		font: inherit;
 		font-weight: 850;
 		gap: 10px;
 		justify-content: center;
@@ -886,45 +1074,206 @@
 	}
 	.works-row {
 		display: grid;
-		gap: 14px;
-		grid-template-columns: repeat(7, minmax(0, 1fr));
-		margin: 26px calc(50% - 50vw) 0;
-		padding: 0 38px;
+		gap: 18px;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		margin: 28px auto 0;
+		max-width: 1320px;
 	}
 	.work-card {
+		background: #fff;
+		border: 1px solid var(--line);
+		border-radius: 10px;
+		box-shadow: 0 18px 42px rgba(31, 50, 58, 0.05);
+		color: inherit;
+		cursor: pointer;
+		font: inherit;
 		min-width: 0;
 		overflow: hidden;
+		padding: 0;
+		text-align: left;
+		transition:
+			border-color 160ms ease,
+			box-shadow 160ms ease,
+			transform 160ms ease;
+	}
+	.work-card.featured {
+		border-color: rgba(28, 154, 145, 0.24);
+	}
+	.work-card:hover {
+		border-color: rgba(28, 154, 145, 0.38);
+		box-shadow: 0 24px 50px rgba(31, 50, 58, 0.09);
+		transform: translateY(-3px);
 	}
 	.work-card img {
-		aspect-ratio: 1.55 / 1;
+		aspect-ratio: 1.74 / 1;
 		display: block;
 		height: auto;
 		object-fit: cover;
 		width: 100%;
 	}
 	.work-card div {
-		padding: 14px 14px 16px;
+		padding: 18px 18px 20px;
+	}
+	.work-kicker {
+		color: var(--teal);
+		display: block;
+		font-size: 11px;
+		font-weight: 850;
+		line-height: 1.5;
+		margin-bottom: 7px;
 	}
 	.work-card h3 {
-		font-size: 15px;
-		margin-bottom: 6px;
+		font-size: 19px;
+		margin-bottom: 7px;
+	}
+	.work-card.featured h3 {
+		font-size: 19px;
 	}
 	.work-card strong {
 		color: #277ec4;
 		display: block;
-		font-size: 11px;
+		font-size: 12px;
 		margin-bottom: 9px;
 	}
 	.work-card p {
 		color: #5a6878;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 650;
 		line-height: 1.75;
-		min-height: 58px;
+		min-height: 62px;
 	}
-	.work-card a {
+	.work-more {
+		align-items: center;
 		color: var(--teal);
+		display: inline-flex;
+		font-size: 13px;
+		font-weight: 850;
+		gap: 5px;
 		margin-top: 12px;
+	}
+
+	.modal-backdrop {
+		align-items: center;
+		background: rgba(10, 24, 35, 0.42);
+		display: flex;
+		inset: 0;
+		justify-content: center;
+		padding: 28px;
+		position: fixed;
+		z-index: 80;
+	}
+
+	.work-modal {
+		background: #fff;
+		border: 1px solid rgba(220, 232, 230, 0.9);
+		border-radius: 14px;
+		box-shadow: 0 30px 90px rgba(10, 24, 35, 0.28);
+		display: grid;
+		grid-template-columns: minmax(300px, 0.95fr) minmax(420px, 1.05fr);
+		max-height: min(820px, calc(100vh - 56px));
+		max-width: 1040px;
+		overflow: auto;
+		position: relative;
+		width: min(100%, 1040px);
+	}
+
+	.modal-close {
+		align-items: center;
+		background: #fff;
+		border: 1px solid var(--line);
+		border-radius: 999px;
+		color: var(--ink);
+		cursor: pointer;
+		display: flex;
+		height: 38px;
+		justify-content: center;
+		position: absolute;
+		right: 16px;
+		top: 16px;
+		width: 38px;
+		z-index: 2;
+	}
+
+	.modal-visual {
+		background:
+			radial-gradient(circle at 28% 22%, rgba(28, 154, 145, 0.14), transparent 32%), #f5faf8;
+		min-height: 100%;
+		padding: 28px;
+	}
+
+	.modal-visual img {
+		border: 1px solid var(--line);
+		border-radius: 10px;
+		display: block;
+		height: 100%;
+		max-height: 560px;
+		object-fit: cover;
+		width: 100%;
+	}
+
+	.modal-copy {
+		padding: 44px 42px 38px;
+	}
+
+	.modal-tag {
+		color: var(--teal);
+		font-size: 13px;
+		font-weight: 900;
+		margin-bottom: 10px;
+	}
+
+	.modal-copy h3 {
+		font-size: 34px;
+		line-height: 1.2;
+		margin-bottom: 12px;
+	}
+
+	.modal-role {
+		color: #277ec4;
+		font-size: 14px;
+		font-weight: 850;
+		margin-bottom: 18px;
+	}
+
+	.modal-summary {
+		color: #415264;
+		font-size: 15px;
+		font-weight: 650;
+		line-height: 1.9;
+		margin-bottom: 24px;
+	}
+
+	.modal-detail-grid {
+		display: grid;
+		gap: 22px;
+		grid-template-columns: 1.15fr 0.85fr;
+		margin-bottom: 28px;
+	}
+
+	.modal-detail-grid h4 {
+		font-size: 14px;
+		margin-bottom: 10px;
+	}
+
+	.modal-detail-grid ul {
+		display: grid;
+		gap: 9px;
+		margin: 0;
+		padding-left: 18px;
+	}
+
+	.modal-detail-grid li,
+	.modal-detail-grid p {
+		color: #526374;
+		font-size: 13px;
+		font-weight: 650;
+		line-height: 1.75;
+	}
+
+	.modal-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
 	}
 
 	.flow-grid {
@@ -1174,9 +1523,19 @@
 			display: none;
 		}
 		.works-row {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 			margin: 26px 0 0;
-			padding: 0;
+		}
+		.work-modal {
+			grid-template-columns: 1fr;
+			max-width: 760px;
+		}
+		.modal-visual {
+			min-height: 0;
+		}
+		.modal-visual img {
+			aspect-ratio: 1.75 / 1;
+			max-height: none;
 		}
 		.flow-grid,
 		.reason-grid {
@@ -1264,6 +1623,28 @@
 		}
 		.works-row {
 			grid-template-columns: 1fr;
+		}
+		.work-card.featured {
+			border-color: rgba(28, 154, 145, 0.24);
+		}
+		.modal-backdrop {
+			align-items: stretch;
+			padding: 14px;
+		}
+		.work-modal {
+			max-height: calc(100vh - 28px);
+		}
+		.modal-copy {
+			padding: 26px 22px 24px;
+		}
+		.modal-copy h3 {
+			font-size: 27px;
+		}
+		.modal-detail-grid {
+			grid-template-columns: 1fr;
+		}
+		.modal-actions {
+			display: grid;
 		}
 		.cta-band {
 			grid-template-columns: 1fr;
