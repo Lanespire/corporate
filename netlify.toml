@@ -26,6 +26,17 @@
 
 # Redirect rules for SPA
 [[redirects]]
+  from = "https://launch-lp.lanespire.com/"
+  to = "/launch-lp"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://launch-lp.lanespire.com/*"
+  to = "/launch-lp"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
