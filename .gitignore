@@ -24,3 +24,25 @@ vite.config.ts.timestamp-*
 
 # Enhanced images cache
 node_modules/.cache/imagetools
+
+# Local tooling state
+.agents/
+.claude/
+.omx/
+tools/
+skills-lock.json
+
+# Local work drafts / design proposals
+renewal-directions-20/
+renewal-proposals/
+
+# Test artifacts (Playwright / agent-browser screenshots)
+test-results/
+
+# Reference / superseded image assets (not used in code)
+src/lib/assets/images/launch_lp_icons.png
+src/lib/assets/images/launch_lp_ref_cta.png
+src/lib/assets/images/lp-cta-generated.png
+src/lib/assets/images/lp-cta-generated-transparent.png
+src/lib/assets/images/lp-hero-generated.png
+src/lib/assets/images/lp-hero-generated-transparent.png
