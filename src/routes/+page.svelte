@@ -1499,13 +1499,13 @@
 		border: 1px solid rgba(220, 232, 230, 0.9);
 		border-radius: 14px;
 		box-shadow: 0 30px 90px rgba(10, 24, 35, 0.28);
-		display: grid;
-		grid-template-columns: minmax(300px, 0.95fr) minmax(420px, 1.05fr);
-		max-height: min(820px, calc(100vh - 56px));
-		max-width: 1040px;
+		display: flex;
+		flex-direction: column;
+		max-height: min(880px, calc(100vh - 56px));
+		max-width: 720px;
 		overflow: auto;
 		position: relative;
-		width: min(100%, 1040px);
+		width: min(100%, 720px);
 	}
 
 	.modal-close {
@@ -1526,20 +1526,22 @@
 	}
 
 	.modal-visual {
+		align-items: center;
 		background:
 			radial-gradient(circle at 28% 22%, rgba(28, 154, 145, 0.14), transparent 32%), #f5faf8;
-		min-height: 100%;
-		padding: 28px;
+		display: flex;
+		justify-content: center;
+		padding: 28px 28px 24px;
 	}
 
 	.modal-visual img {
 		border: 1px solid var(--line);
 		border-radius: 10px;
 		display: block;
-		height: 100%;
-		max-height: 560px;
-		object-fit: cover;
-		width: 100%;
+		max-height: 260px;
+		max-width: 100%;
+		object-fit: contain;
+		width: auto;
 	}
 
 	.modal-copy {
@@ -1576,8 +1578,8 @@
 
 	.modal-detail-grid {
 		display: grid;
-		gap: 22px;
-		grid-template-columns: 1.15fr 0.85fr;
+		gap: 18px;
+		grid-template-columns: 1fr;
 		margin-bottom: 28px;
 	}
 
@@ -1654,9 +1656,9 @@
 
 	.service-detail-grid {
 		align-items: stretch;
-		gap: 16px;
-		grid-template-columns: 1fr 1fr;
-		margin-top: 28px;
+		gap: 14px;
+		grid-template-columns: 1fr;
+		margin-top: 24px;
 		position: relative;
 	}
 	.service-problem-card,
@@ -1723,8 +1725,9 @@
 		background: #fff;
 		border: 1px solid #c8e4c9;
 		border-radius: 999px;
+		box-shadow: 0 4px 10px rgba(53, 168, 83, 0.18);
 		color: #35a853;
-		content: '→';
+		content: '↓';
 		display: flex;
 		font-size: 18px;
 		font-weight: 900;
@@ -2201,17 +2204,6 @@
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 			margin: 26px 0 0;
 		}
-		.work-modal {
-			grid-template-columns: 1fr;
-			max-width: 760px;
-		}
-		.modal-visual {
-			min-height: 0;
-		}
-		.modal-visual img {
-			aspect-ratio: 1.75 / 1;
-			max-height: none;
-		}
 		.flow-grid,
 		.reason-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2313,17 +2305,6 @@
 		}
 		.modal-copy h3 {
 			font-size: 27px;
-		}
-		.modal-detail-grid {
-			grid-template-columns: 1fr;
-		}
-		.service-detail-grid {
-			grid-template-columns: 1fr;
-		}
-		.service-detail-grid::before {
-			content: '↓';
-			left: 50%;
-			top: 50%;
 		}
 		.modal-actions {
 			display: grid;
