@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import ctaImage from '$lib/assets/images/launch_lp_cta_consultant.png';
 	import heroImage from '$lib/assets/images/launch_lp_ref_hero.png';
 	import problemImage from '$lib/assets/images/launch_lp_ref_problem.png';
 	import BadgeJapaneseYen from 'lucide-svelte/icons/badge-japanese-yen';
@@ -105,7 +104,7 @@
 		{
 			icon: MessageCircle,
 			title: '相談',
-			body: 'LINEで目的や希望納期をお知らせください。'
+			body: 'フォームから目的や希望納期をお知らせください。'
 		},
 		{
 			icon: ClipboardList,
@@ -182,8 +181,7 @@
 		</nav>
 
 		<a class="header-cta" href="#contact">
-			<span class="line-mark" aria-hidden="true">□</span>
-			LINEで無料相談
+			導入相談
 		</a>
 	</header>
 
@@ -206,8 +204,7 @@
 					<p class="hero-lead">初めてでも頼みやすい<br />短納期のLP制作サービス</p>
 
 					<a class="line-button" href="#contact">
-						<span class="line-mark" aria-hidden="true">□</span>
-						無料で相談する
+						導入相談する
 					</a>
 				</div>
 
@@ -342,14 +339,119 @@
 
 		<section class="dark-cta" id="contact">
 			<div class="cta-copy">
-				<h2>まずは無料で相談してみませんか？</h2>
+				<h2>まずは導入相談してみませんか？</h2>
 				<p>LP制作のプロが、目的に合わせて最適なプランをご提案します。</p>
-				<a class="line-button" href="https://line.me" target="_blank" rel="noreferrer">
-					<span class="line-mark" aria-hidden="true">□</span>
-					LINEで無料相談する
-				</a>
 			</div>
-			<img class="cta-illustration" src={ctaImage} alt="" aria-hidden="true" loading="lazy" />
+
+			<form
+				class="contact-form"
+				name="launch-lp-contact"
+				method="POST"
+				data-netlify="true"
+				data-netlify-honeypot="bot-field"
+			>
+				<input type="hidden" name="form-name" value="launch-lp-contact" />
+				<p class="hp-field">
+					<label>Don't fill this out if you're human: <input name="bot-field" /></label>
+				</p>
+
+				<div class="form-grid">
+					<div class="form-group full">
+						<label for="purpose">LPの目的 <span class="required">*</span></label>
+						<textarea
+							id="purpose"
+							name="purpose"
+							rows="3"
+							placeholder="例：新サービス申込みの獲得、資料請求の獲得 など"
+							required
+						></textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="deadline">希望納期</label>
+						<input
+							type="text"
+							id="deadline"
+							name="deadline"
+							placeholder="例：2週間以内 / 〇月〇日まで"
+						/>
+					</div>
+
+					<div class="form-group">
+						<label for="plan">検討プラン</label>
+						<select id="plan" name="plan">
+							<option value="">選択してください</option>
+							<option value="Light">Light（19,800円）</option>
+							<option value="Standard">Standard（49,800円）</option>
+							<option value="Pro">Pro（98,000円）</option>
+							<option value="未定">未定 / 相談したい</option>
+						</select>
+					</div>
+
+					<div class="form-group full">
+						<label for="target">ターゲット</label>
+						<textarea
+							id="target"
+							name="target"
+							rows="2"
+							placeholder="例：30代女性、中小企業の経営者 など"
+						></textarea>
+					</div>
+
+					<div class="form-group full">
+						<label for="strengths">商品・サービスの強み</label>
+						<textarea
+							id="strengths"
+							name="strengths"
+							rows="2"
+							placeholder="競合と比べた優位性、訴求したいポイント"
+						></textarea>
+					</div>
+
+					<div class="form-group full">
+						<label for="references">競合 / 参考URL</label>
+						<textarea
+							id="references"
+							name="references"
+							rows="2"
+							placeholder="参考にしたいサイトや競合のURL（複数可）"
+						></textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="assets">素材の準備状況</label>
+						<select id="assets" name="assets">
+							<option value="">選択してください</option>
+							<option value="原稿・画像とも用意済み">原稿・画像とも用意済み</option>
+							<option value="原稿のみ用意済み">原稿のみ用意済み</option>
+							<option value="画像のみ用意済み">画像のみ用意済み</option>
+							<option value="ほぼ未準備">ほぼ未準備</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="goals">目標CV / 集客チャネル</label>
+						<input
+							type="text"
+							id="goals"
+							name="goals"
+							placeholder="例：月20件の問合せ / 広告・SNSなど"
+						/>
+					</div>
+
+					<div class="form-group">
+						<label for="name">お名前 <span class="required">*</span></label>
+						<input type="text" id="name" name="name" required />
+					</div>
+
+					<div class="form-group">
+						<label for="email">メールアドレス <span class="required">*</span></label>
+						<input type="email" id="email" name="email" required />
+					</div>
+				</div>
+
+				<button type="submit" class="submit-btn">導入相談を送信</button>
+			</form>
 		</section>
 	</main>
 
@@ -360,7 +462,7 @@
 			<a href="#support">運用</a>
 			<a href="#flow">流れ</a>
 			<a href="#faq">FAQ</a>
-			<a href="#contact">LINEで無料相談</a>
+			<a href="#contact">導入相談</a>
 		</nav>
 		<p>© 2026 Launch LP. All rights reserved.</p>
 	</footer>
@@ -530,37 +632,6 @@
 			inset 0 -2px 0 rgba(17, 17, 17, 0.12),
 			5px 5px 0 #111;
 		transform: translate(-2px, -2px);
-	}
-
-	.line-mark {
-		align-items: center;
-		border: 2px solid currentColor;
-		border-radius: 7px;
-		display: inline-flex;
-		font-size: 0;
-		height: 22px;
-		justify-content: center;
-		position: relative;
-		width: 22px;
-	}
-
-	.line-mark::before {
-		border: 2px solid currentColor;
-		border-radius: 50%;
-		content: '';
-		height: 8px;
-		width: 8px;
-	}
-
-	.line-mark::after {
-		background: currentColor;
-		border-radius: 999px;
-		bottom: 4px;
-		content: '';
-		height: 2px;
-		position: absolute;
-		right: 3px;
-		width: 7px;
 	}
 
 	.hero {
@@ -1124,17 +1195,17 @@
 	}
 
 	.dark-cta {
-		align-items: center;
+		align-items: stretch;
 		background: #050505;
 		border-radius: 14px;
 		color: #fff;
-		display: grid;
-		gap: 24px;
-		grid-template-columns: 1fr 220px;
-		margin: 8px auto 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+		margin: 24px auto 28px;
 		max-width: 812px;
 		overflow: hidden;
-		padding: 14px 54px;
+		padding: 32px 40px 36px;
 	}
 
 	.cta-copy {
@@ -1142,32 +1213,108 @@
 	}
 
 	.dark-cta h2 {
-		font-size: 21px;
+		font-size: 24px;
 		font-weight: 900;
 		line-height: 1.35;
-		margin-bottom: 5px;
+		margin-bottom: 6px;
 	}
 
 	.dark-cta p {
 		color: #d8dde2;
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 800;
 		line-height: 1.7;
-		margin-bottom: 8px;
+		margin-bottom: 0;
 	}
 
-	.dark-cta .line-button {
+	.contact-form {
+		background: #0e0e0e;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 12px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding: 22px 22px 24px;
+	}
+
+	.contact-form .hp-field {
+		display: none;
+	}
+
+	.form-grid {
+		display: grid;
+		gap: 14px;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	.form-group.full {
+		grid-column: 1 / -1;
+	}
+
+	.form-group label {
 		color: #fff;
-		font-size: 16px;
-		min-width: 286px;
+		font-size: 12px;
+		font-weight: 800;
 	}
 
-	.cta-illustration {
-		border-radius: 0;
-		height: auto;
-		margin-left: -56px;
-		mix-blend-mode: screen;
-		width: 330px;
+	.form-group .required {
+		color: #ff6b6b;
+		margin-left: 4px;
+	}
+
+	.form-group input,
+	.form-group textarea,
+	.form-group select {
+		background: #1a1a1a;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 8px;
+		color: #fff;
+		font-family: inherit;
+		font-size: 13px;
+		padding: 10px 12px;
+		transition: border-color 180ms ease;
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus,
+	.form-group select:focus {
+		border-color: var(--blue);
+		outline: none;
+	}
+
+	.form-group textarea {
+		min-height: 72px;
+		resize: vertical;
+	}
+
+	.contact-form .submit-btn {
+		align-self: center;
+		background: var(--green);
+		border: 0;
+		border-radius: 999px;
+		box-shadow: inset 0 -2px 0 rgba(17, 17, 17, 0.18);
+		color: #fff;
+		cursor: pointer;
+		font-size: 16px;
+		font-weight: 900;
+		min-width: 240px;
+		padding: 14px 28px;
+		transition:
+			box-shadow 180ms ease,
+			transform 180ms ease;
+	}
+
+	.contact-form .submit-btn:hover {
+		box-shadow:
+			inset 0 -2px 0 rgba(17, 17, 17, 0.18),
+			5px 5px 0 #fff;
+		transform: translate(-2px, -2px);
 	}
 
 	.lp-footer {
@@ -1345,21 +1492,20 @@
 
 		.dark-cta {
 			border-radius: 0;
-			grid-template-columns: 1fr;
 			margin: 24px 0 20px;
-			padding: 42px 20px;
+			padding: 28px 18px 32px;
 		}
 
-		.cta-illustration {
-			display: none;
+		.contact-form {
+			padding: 18px 16px 22px;
+		}
+
+		.form-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 
 	@media (max-width: 540px) {
-		.header-cta .line-mark {
-			display: none;
-		}
-
 		.hero-badges {
 			gap: 7px;
 			margin-bottom: 18px;

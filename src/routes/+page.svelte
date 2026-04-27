@@ -4,20 +4,23 @@
 		ArrowRight,
 		Bot,
 		BriefcaseBusiness,
+		Building2,
 		CalendarDays,
 		CheckCircle2,
 		ClipboardCheck,
+		Clock,
 		Code2,
 		ExternalLink,
 		FilePenLine,
 		LineChart,
 		Mail,
+		MapPin,
 		Monitor,
-		Phone,
 		Rocket,
 		ShieldCheck,
 		Sparkles,
 		Star,
+		UserRound,
 		UsersRound,
 		WandSparkles,
 		Workflow,
@@ -150,10 +153,10 @@
 				'はじめてLPを発注する事業者でも依頼しやすいよう、制作範囲、料金、納期、運用サポートを明確にしたサービスページを構築しました。',
 			points: [
 				'Light / Standard / Pro の3プランを比較しやすく整理',
-				'無料相談、制作フロー、FAQを1ページ内に集約',
+				'導入相談、制作フロー、FAQを1ページ内に集約',
 				'スマホでも問い合わせまで迷わないCTA配置に調整'
 			],
-			result: 'サービス内容と価格の不安を減らし、無料相談へ進みやすいLPとして公開。'
+			result: 'サービス内容と価格の不安を減らし、導入相談へ進みやすいLPとして公開。'
 		},
 		{
 			image: extensionImage,
@@ -218,6 +221,12 @@
 	];
 
 	let selectedWork: Work | null = null;
+	let contactForm = {
+		name: '',
+		email: '',
+		company: '',
+		message: ''
+	};
 
 	function openWork(work: Work) {
 		selectedWork = work;
@@ -287,6 +296,24 @@
 		closeWork();
 		requestAnimationFrame(() => goToSection('contact'));
 	}
+
+	function submitContact() {
+		if (typeof window === 'undefined') return;
+
+		const subject = encodeURIComponent('AI導入・業務自動化の相談');
+		const body = encodeURIComponent(
+			[
+				`お名前: ${contactForm.name}`,
+				`メール: ${contactForm.email}`,
+				`会社名: ${contactForm.company || '未入力'}`,
+				'',
+				'相談内容:',
+				contactForm.message
+			].join('\n')
+		);
+
+		window.location.href = `mailto:info@lanespire.com?subject=${subject}&body=${body}`;
+	}
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -322,9 +349,9 @@
 		</nav>
 
 		<div class="header-actions">
-			<a class="phone" href="tel:0368242296">
-				<Phone size={16} />
-				<span><strong>03-6824-2296</strong><small>平日 10:00 - 19:00</small></span>
+			<a class="mail" href="mailto:info@lanespire.com">
+				<Mail size={16} />
+				<span><strong>info@lanespire.com</strong><small>メールでのご連絡</small></span>
 			</a>
 			<a class="primary small" href="#contact"><CalendarDays size={17} />AI導入を相談する</a>
 		</div>
@@ -526,17 +553,125 @@
 			</div>
 		</section>
 
-		<section class="cta-band" id="contact">
-			<img src={ctaImage} alt="相談中のイラスト" loading="lazy" />
-			<div class="cta-copy">
-				<h2>まずは30分の無料相談から。</h2>
-				<p>課題の整理やアイデアの壁打ちだけでも歓迎です。最適な進め方をご提案します。</p>
+		<section class="contact-section" id="contact">
+			<div class="contact-hero">
+				<div class="contact-visual">
+					<img src={ctaImage} alt="相談中のイラスト" loading="lazy" />
+				</div>
+				<div class="contact-copy">
+					<p class="contact-eyebrow">導入相談</p>
+					<h2>まずは30分、課題の整理から。</h2>
+					<p>
+						AI導入、業務自動化、Web/SaaS開発のどこから始めるべきかを一緒に整理します。
+						仕様が固まっていない段階でも問題ありません。
+					</p>
+					<div class="contact-points">
+						<span><CheckCircle2 size={18} />オンライン対応</span>
+						<span><CheckCircle2 size={18} />無理な営業なし</span>
+						<span><CheckCircle2 size={18} />平日 10:00 - 19:00</span>
+					</div>
+				</div>
 			</div>
-			<a class="primary cta-button" href="mailto:info@lanespire.com"
-				><CalendarDays size={24} />AI導入を相談する（30分無料）<ArrowRight size={22} /></a
-			>
-			<div class="cta-meta">
-				<span>オンライン対応（Google Meet）</span><span>平日 10:00 - 19:00</span>
+
+			<div class="contact-panel">
+				<div class="contact-methods">
+					<a href="mailto:info@lanespire.com">
+						<Mail size={22} />
+						<strong>info@lanespire.com</strong>
+						<span>メールで相談する</span>
+					</a>
+					<div>
+						<CalendarDays size={22} />
+						<strong>Google Meet対応</strong>
+						<span>初回30分のオンライン相談</span>
+					</div>
+					<div>
+						<Clock size={22} />
+						<strong>平日 10:00 - 19:00</strong>
+						<span>受付時間</span>
+					</div>
+				</div>
+
+				<form class="contact-form" on:submit|preventDefault={submitContact}>
+					<div class="form-row">
+						<label>
+							<span>お名前</span>
+							<input bind:value={contactForm.name} name="name" autocomplete="name" required />
+						</label>
+						<label>
+							<span>メールアドレス</span>
+							<input
+								bind:value={contactForm.email}
+								name="email"
+								type="email"
+								autocomplete="email"
+								required
+							/>
+						</label>
+					</div>
+					<label>
+						<span>会社名</span>
+						<input bind:value={contactForm.company} name="company" autocomplete="organization" />
+					</label>
+					<label>
+						<span>相談したい内容</span>
+						<textarea
+							bind:value={contactForm.message}
+							name="message"
+							rows="5"
+							placeholder="例: 営業日報の自動化、社内ChatGPT活用、LP制作、SaaS開発の相談など"
+							required
+						></textarea>
+					</label>
+					<button class="primary cta-button" type="submit">
+						<CalendarDays size={22} />相談内容を送る<ArrowRight size={20} />
+					</button>
+				</form>
+			</div>
+		</section>
+
+		<section class="company-section" id="company" aria-labelledby="company-heading">
+			<div class="company-head">
+				<p class="eyebrow">Company</p>
+				<h2 id="company-heading">会社情報</h2>
+				<p class="company-lead">
+					株式会社レーンスパイア（Lanespire Inc.）の会社概要です。
+				</p>
+			</div>
+
+			<div class="company-grid">
+				<dl class="company-table">
+					<div>
+						<dt><Building2 size={18} />商号</dt>
+						<dd>株式会社レーンスパイア / Lanespire Inc.</dd>
+					</div>
+					<div>
+						<dt><MapPin size={18} />所在地</dt>
+						<dd>
+							<address>
+								〒104-0061<br />
+								東京都中央区銀座１丁目１２番４号<br />
+								Ｎ＆ＥＢＬＤ．６Ｆ
+							</address>
+						</dd>
+					</div>
+					<div>
+						<dt><UserRound size={18} />代表取締役</dt>
+						<dd>高橋 元希</dd>
+					</div>
+					<div>
+						<dt><Mail size={18} />メール</dt>
+						<dd><a href="mailto:info@lanespire.com">info@lanespire.com</a></dd>
+					</div>
+					<div>
+						<dt><BriefcaseBusiness size={18} />事業内容</dt>
+						<dd>
+							AI導入支援・業務自動化、Web制作、SaaS開発、<br />
+							NoCode/LowCodeによるサービス開発、<br />
+							モバイルアプリケーション開発、受託開発
+						</dd>
+					</div>
+				</dl>
 			</div>
 		</section>
 	</main>
@@ -563,14 +698,14 @@
 		</nav>
 		<nav>
 			<strong>私たちについて</strong>
-			<a href="#concept">ミッション</a><a href="#concept">メンバー</a><a href="#contact">会社概要</a
+			<a href="#concept">ミッション</a><a href="#concept">メンバー</a><a href="#company">会社概要</a
 			>
 		</nav>
 		<div class="footer-contact">
-			<a class="phone-card" href="tel:0368242296"
-				><Phone size={19} /><strong>03-6824-2296</strong><span>平日 10:00 - 19:00</span></a
+			<a class="mail-card" href="mailto:info@lanespire.com"
+				><Mail size={19} /><strong>info@lanespire.com</strong><span>メールでのご連絡</span></a
 			>
-			<a class="form-link" href="mailto:info@lanespire.com"
+			<a class="form-link" href="#contact"
 				>お問い合わせフォーム <ArrowRight size={16} /></a
 			>
 			<div class="socials"><span>𝕏</span><span>f</span><span>in</span><Mail size={18} /></div>
@@ -699,18 +834,19 @@
 		display: flex;
 		gap: 18px;
 	}
-	.phone {
+	.mail {
 		align-items: center;
+		color: var(--ink);
 		display: flex;
 		gap: 8px;
 		font-size: 14px;
 		font-weight: 800;
 	}
-	.phone span {
+	.mail span {
 		display: grid;
 		gap: 1px;
 	}
-	.phone small {
+	.mail small {
 		color: var(--muted);
 		font-size: 11px;
 		font-weight: 700;
@@ -1371,51 +1507,174 @@
 		line-height: 1.5;
 	}
 
-	.cta-band {
+	.contact-section {
+		margin-top: 42px;
+	}
+
+	.contact-hero {
 		align-items: center;
-		background: linear-gradient(135deg, #61c9bd, #149c91);
+		background:
+			radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.22), transparent 28%),
+			linear-gradient(135deg, #61c9bd, #149c91);
 		border-radius: 18px;
 		color: #fff;
 		display: grid;
 		gap: 24px;
-		grid-template-columns: 270px 1fr auto;
-		margin-top: 34px;
-		min-height: 190px;
+		grid-template-columns: 270px 1fr;
+		min-height: 210px;
 		overflow: hidden;
 		padding: 0 36px;
 		position: relative;
 	}
-	.cta-band img {
+
+	.contact-visual img {
 		align-self: end;
 		display: block;
-		max-height: 182px;
+		max-height: 210px;
 		object-fit: contain;
 		width: 270px;
 	}
-	.cta-copy h2 {
-		font-size: 32px;
+
+	.contact-eyebrow {
+		color: rgba(255, 255, 255, 0.88);
+		font-size: 14px;
+		font-weight: 900;
+		margin-bottom: 8px;
+	}
+
+	.contact-copy h2 {
+		font-size: 34px;
 		font-weight: 900;
 		margin-bottom: 14px;
 	}
-	.cta-copy p {
+
+	.contact-copy p {
 		color: rgba(255, 255, 255, 0.9);
 		font-size: 15px;
 		font-weight: 750;
 		line-height: 1.8;
+		max-width: 720px;
 	}
-	.cta-button {
-		font-size: 22px;
-		min-height: 84px;
-		padding: 0 42px;
-	}
-	.cta-meta {
-		bottom: 28px;
+
+	.contact-points {
 		display: flex;
-		gap: 28px;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 18px;
+	}
+
+	.contact-points span {
+		align-items: center;
+		background: rgba(255, 255, 255, 0.14);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 999px;
+		display: inline-flex;
 		font-size: 13px;
 		font-weight: 850;
-		position: absolute;
-		right: 62px;
+		gap: 7px;
+		padding: 8px 12px;
+	}
+
+	.contact-panel {
+		display: grid;
+		gap: 22px;
+		grid-template-columns: 0.74fr 1.26fr;
+		margin-top: 22px;
+	}
+
+	.contact-methods {
+		display: grid;
+		gap: 14px;
+	}
+
+	.contact-methods a,
+	.contact-methods div {
+		background: #fff;
+		border: 1px solid var(--line);
+		border-radius: 10px;
+		box-shadow: 0 18px 42px rgba(31, 50, 58, 0.05);
+		color: var(--ink);
+		display: grid;
+		gap: 5px 12px;
+		grid-template-columns: 28px 1fr;
+		padding: 22px;
+	}
+
+	.contact-methods :global(svg) {
+		color: var(--teal);
+		grid-row: span 2;
+		margin-top: 2px;
+	}
+
+	.contact-methods strong {
+		font-size: 17px;
+	}
+
+	.contact-methods span {
+		color: var(--muted);
+		font-size: 13px;
+		font-weight: 700;
+	}
+
+	.contact-form {
+		background: #fff;
+		border: 1px solid var(--line);
+		border-radius: 10px;
+		box-shadow: 0 18px 42px rgba(31, 50, 58, 0.05);
+		display: grid;
+		gap: 16px;
+		padding: 24px;
+	}
+
+	.form-row {
+		display: grid;
+		gap: 16px;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.contact-form label {
+		display: grid;
+		gap: 8px;
+	}
+
+	.contact-form label span {
+		color: var(--ink);
+		font-size: 13px;
+		font-weight: 850;
+	}
+
+	.contact-form input,
+	.contact-form textarea {
+		background: #fbfefd;
+		border: 1px solid #cddfdd;
+		border-radius: 8px;
+		color: var(--ink);
+		font: inherit;
+		font-size: 15px;
+		font-weight: 650;
+		line-height: 1.5;
+		outline: none;
+		padding: 13px 14px;
+		transition:
+			border-color 160ms ease,
+			box-shadow 160ms ease;
+		width: 100%;
+	}
+
+	.contact-form textarea {
+		resize: vertical;
+	}
+
+	.contact-form input:focus,
+	.contact-form textarea:focus {
+		border-color: var(--teal);
+		box-shadow: 0 0 0 4px rgba(28, 154, 145, 0.12);
+	}
+
+	.cta-button {
+		font-size: 22px;
+		min-height: 64px;
+		padding: 0 32px;
 	}
 
 	.footer {
@@ -1464,14 +1723,15 @@
 		box-shadow: 0 14px 30px rgba(31, 50, 58, 0.06);
 		padding: 20px;
 	}
-	.phone-card {
+	.mail-card {
 		align-items: center;
+		color: var(--ink);
 		display: grid;
 		gap: 4px 8px;
 		grid-template-columns: 22px 1fr;
 		margin-bottom: 14px;
 	}
-	.phone-card span {
+	.mail-card span {
 		color: var(--muted);
 		font-size: 11px;
 		grid-column: 2;
@@ -1498,12 +1758,89 @@
 		font-weight: 900;
 	}
 
+	.company-section {
+		background: #fff;
+		border: 1px solid var(--line);
+		border-radius: 16px;
+		box-shadow: 0 18px 42px rgba(31, 50, 58, 0.05);
+		margin: 64px 0;
+		padding: 48px;
+	}
+	.company-head {
+		display: grid;
+		gap: 8px;
+		margin-bottom: 28px;
+	}
+	.company-head h2 {
+		font-size: 28px;
+		font-weight: 900;
+		letter-spacing: -0.01em;
+		margin: 0;
+	}
+	.company-head .eyebrow {
+		color: var(--teal);
+		font-size: 13px;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+	.company-lead {
+		color: var(--muted);
+		font-size: 14px;
+		font-weight: 700;
+		margin: 0;
+	}
+	.company-grid {
+		display: grid;
+	}
+	.company-table {
+		display: grid;
+		gap: 0;
+		margin: 0;
+	}
+	.company-table > div {
+		border-top: 1px solid var(--line);
+		display: grid;
+		gap: 8px 18px;
+		grid-template-columns: 200px 1fr;
+		padding: 18px 0;
+	}
+	.company-table > div:last-child {
+		border-bottom: 1px solid var(--line);
+	}
+	.company-table dt {
+		align-items: center;
+		color: var(--ink);
+		display: flex;
+		font-size: 14px;
+		font-weight: 850;
+		gap: 10px;
+	}
+	.company-table :global(svg) {
+		color: var(--teal);
+	}
+	.company-table dd {
+		color: var(--ink);
+		font-size: 15px;
+		font-weight: 700;
+		line-height: 1.7;
+		margin: 0;
+	}
+	.company-table dd address {
+		font-style: normal;
+	}
+	.company-table dd a {
+		color: var(--teal);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
 	@media (max-width: 1120px) {
 		.site-header {
 			padding: 0 24px;
 		}
 		.desktop-nav,
-		.phone {
+		.mail {
 			display: none;
 		}
 		main {
@@ -1544,20 +1881,19 @@
 		.flow-step::after {
 			display: none;
 		}
-		.cta-band {
+		.contact-hero {
 			grid-template-columns: 180px 1fr;
 			padding: 20px 24px;
 		}
-		.cta-band img {
+		.contact-visual img {
 			width: 180px;
+		}
+		.contact-panel {
+			grid-template-columns: 1fr;
 		}
 		.cta-button {
 			grid-column: 1 / -1;
 			min-height: 64px;
-		}
-		.cta-meta {
-			position: static;
-			grid-column: 1 / -1;
 		}
 		.footer {
 			grid-template-columns: 1fr 1fr;
@@ -1646,23 +1982,37 @@
 		.modal-actions {
 			display: grid;
 		}
-		.cta-band {
+		.contact-hero {
 			grid-template-columns: 1fr;
 			text-align: center;
 		}
-		.cta-band img {
+		.contact-visual img {
 			justify-self: center;
 		}
-		.cta-copy h2 {
+		.contact-copy h2 {
 			font-size: 26px;
+		}
+		.contact-points {
+			justify-content: center;
+		}
+		.form-row {
+			grid-template-columns: 1fr;
 		}
 		.cta-button {
 			font-size: 17px;
 			padding: 0 18px;
 		}
-		.cta-meta {
-			flex-direction: column;
-			gap: 10px;
+		.company-section {
+			margin: 40px 0;
+			padding: 28px 22px;
+		}
+		.company-head h2 {
+			font-size: 22px;
+		}
+		.company-table > div {
+			grid-template-columns: 1fr;
+			gap: 6px;
+			padding: 14px 0;
 		}
 	}
 </style>
