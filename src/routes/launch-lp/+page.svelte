@@ -337,7 +337,7 @@
 			</div>
 		</section>
 
-		<section class="dark-cta" id="contact">
+		<section class="contact-cta" id="contact">
 			<div class="cta-copy">
 				<h2>まずは導入相談してみませんか？</h2>
 				<p>LP制作のプロが、目的に合わせて最適なプランをご提案します。</p>
@@ -1194,11 +1194,13 @@
 		line-height: 1.75;
 	}
 
-	.dark-cta {
+	.contact-cta {
 		align-items: stretch;
-		background: #050505;
+		background: #fff;
+		border: 1px solid rgba(17, 17, 17, 0.08);
 		border-radius: 14px;
-		color: #fff;
+		box-shadow: 0 8px 28px rgba(13, 60, 110, 0.06);
+		color: #111;
 		display: flex;
 		flex-direction: column;
 		gap: 18px;
@@ -1212,15 +1214,16 @@
 		text-align: center;
 	}
 
-	.dark-cta h2 {
+	.contact-cta h2 {
+		color: #111;
 		font-size: 24px;
 		font-weight: 900;
 		line-height: 1.35;
 		margin-bottom: 6px;
 	}
 
-	.dark-cta p {
-		color: #d8dde2;
+	.contact-cta p {
+		color: #4a5563;
 		font-size: 13px;
 		font-weight: 800;
 		line-height: 1.7;
@@ -1228,8 +1231,8 @@
 	}
 
 	.contact-form {
-		background: #0e0e0e;
-		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: #fbfdff;
+		border: 1px solid rgba(17, 17, 17, 0.08);
 		border-radius: 12px;
 		display: flex;
 		flex-direction: column;
@@ -1258,23 +1261,23 @@
 	}
 
 	.form-group label {
-		color: #fff;
+		color: #1a3450;
 		font-size: 12px;
 		font-weight: 800;
 	}
 
 	.form-group .required {
-		color: #ff6b6b;
+		color: #e34c4c;
 		margin-left: 4px;
 	}
 
 	.form-group input,
 	.form-group textarea,
 	.form-group select {
-		background: #1a1a1a;
-		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: #fff;
+		border: 1px solid rgba(17, 17, 17, 0.14);
 		border-radius: 8px;
-		color: #fff;
+		color: #111;
 		font-family: inherit;
 		font-size: 13px;
 		padding: 10px 12px;
@@ -1313,7 +1316,7 @@
 	.contact-form .submit-btn:hover {
 		box-shadow:
 			inset 0 -2px 0 rgba(17, 17, 17, 0.18),
-			5px 5px 0 #fff;
+			5px 5px 0 #111;
 		transform: translate(-2px, -2px);
 	}
 
@@ -1490,7 +1493,7 @@
 			transform: translateX(-50%) rotate(135deg);
 		}
 
-		.dark-cta {
+		.contact-cta {
 			border-radius: 0;
 			margin: 24px 0 20px;
 			padding: 28px 18px 32px;
