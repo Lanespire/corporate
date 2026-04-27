@@ -344,8 +344,6 @@
 			<button type="button" on:click={() => goToSection('works')}>実績</button>
 			<button type="button" on:click={() => goToSection('concept')}>私たちについて</button>
 			<button type="button" on:click={() => goToSection('flow')}>導入の流れ</button>
-			<button type="button" on:click={() => goToSection('works')}>ブログ</button>
-			<button type="button" on:click={() => goToSection('contact')}>採用情報</button>
 		</nav>
 
 		<div class="header-actions">
@@ -708,7 +706,6 @@
 			<a class="form-link" href="#contact"
 				>お問い合わせフォーム <ArrowRight size={16} /></a
 			>
-			<div class="socials"><span>𝕏</span><span>f</span><span>in</span><Mail size={18} /></div>
 		</div>
 	</footer>
 </div>
@@ -1747,17 +1744,6 @@
 		justify-content: center;
 		min-height: 42px;
 	}
-	.socials {
-		align-items: center;
-		display: flex;
-		gap: 18px;
-		justify-content: center;
-		margin-top: 18px;
-	}
-	.socials span {
-		font-weight: 900;
-	}
-
 	.company-section {
 		background: #fff;
 		border: 1px solid var(--line);
