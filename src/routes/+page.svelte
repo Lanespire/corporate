@@ -35,6 +35,10 @@
 	import schedulingImage from '$lib/assets/images/work-anon-scheduling.png';
 	import roleplayImage from '$lib/assets/images/work-anon-roleplay.png';
 	import launchLpImage from '$lib/assets/images/work-launch-lp-og.png';
+	import serviceAiImage from '$lib/assets/images/service-ai.png';
+	import serviceAutomationImage from '$lib/assets/images/service-automation.png';
+	import serviceWebImage from '$lib/assets/images/service-web.png';
+	import serviceSaasImage from '$lib/assets/images/service-saas.png';
 
 	type Work = {
 		image: string;
@@ -94,6 +98,7 @@
 			desc: 'ChatGPT / Claude などを活用した業務改善・AIエージェント開発',
 			items: ['要件整理・PoC', 'AIエージェント開発', 'RAG・データ活用'],
 			color: 'cyan',
+			image: serviceAiImage,
 			tag: 'AI / 業務改善',
 			summary:
 				'「AIで何ができるか分からない」「触ってはいるが業務に活かせていない」段階から、現場で実際に効果が出るところまで伴走します。',
@@ -116,6 +121,7 @@
 			desc: 'n8n / Zapier / Make を用いた業務フローの自動化',
 			items: ['ワークフロー設計', 'RPA・API連携', 'レポート自動化'],
 			color: 'green',
+			image: serviceAutomationImage,
 			tag: 'Automation / RPA',
 			summary:
 				'手作業で繰り返している転記・通知・承認・集計を、ツール同士の連携で「ボタンも押さずに回る状態」に整えます。',
@@ -138,6 +144,7 @@
 			desc: 'コーポレートサイト・LP・サービスサイトを企画・設計・実装',
 			items: ['コーポレートサイト', 'LP・サービスサイト', 'CMS・保守運用'],
 			color: 'blue',
+			image: serviceWebImage,
 			tag: 'Web / コンバージョン',
 			summary:
 				'「とりあえずページを作る」のではなく、目的・ターゲット・導線を整理した上で、成果につながるサイトを作ります。',
@@ -160,6 +167,7 @@
 			desc: '企画・設計から開発・運用まで一気通貫で支援',
 			items: ['プロダクト設計', 'Web / API開発', '運用・グロース支援'],
 			color: 'orange',
+			image: serviceSaasImage,
 			tag: 'SaaS / 0→1 開発',
 			summary:
 				'業務フローや市場の課題を起点に、プロダクト企画から開発・運用・グロースまで一気通貫で支援します。',
