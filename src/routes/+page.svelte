@@ -49,6 +49,20 @@
 		result: string;
 	};
 
+	type Service = {
+		icon: typeof Bot;
+		title: string;
+		desc: string;
+		items: string[];
+		color: 'cyan' | 'green' | 'blue' | 'orange';
+		image?: string;
+		tag: string;
+		summary: string;
+		problems: string[];
+		approach: string[];
+		result: string;
+	};
+
 	const promises = [
 		{ icon: CheckCircle2, title: '相談無料', text: '仕様未確定OK' },
 		{ icon: UsersRound, title: '代表が直接対応', text: '現場目線でご提案' },
@@ -73,34 +87,94 @@
 		}
 	];
 
-	const services = [
+	const services: Service[] = [
 		{
 			icon: Bot,
 			title: 'AI導入支援',
 			desc: 'ChatGPT / Claude などを活用した業務改善・AIエージェント開発',
 			items: ['要件整理・PoC', 'AIエージェント開発', 'RAG・データ活用'],
-			color: 'cyan'
+			color: 'cyan',
+			tag: 'AI / 業務改善',
+			summary:
+				'「AIで何ができるか分からない」「触ってはいるが業務に活かせていない」段階から、現場で実際に効果が出るところまで伴走します。',
+			problems: [
+				'問い合わせ対応や議事録、メール下書きに毎日時間が取られている',
+				'社内ドキュメントが多すぎて、必要な情報を探すだけで時間がかかる',
+				'AIを試してみたが、結局自社業務にどう組み込めばいいか分からない'
+			],
+			approach: [
+				'業務フローを棚卸しし、AIで効果が出るユースケースを優先順位付け',
+				'ChatGPT / Claude を業務ツール（Slack・Notion・Google Workspace 等）と連携',
+				'社内データを活用したRAG構築でナレッジ検索を実現',
+				'PoCで効果検証してから、本番AIエージェントとして実装・運用'
+			],
+			result: '「触っているだけのAI」から「日々の業務が変わるAI」へ。導入後の運用・改善も継続支援します。'
 		},
 		{
 			icon: Workflow,
 			title: '業務自動化',
 			desc: 'n8n / Zapier / Make を用いた業務フローの自動化',
 			items: ['ワークフロー設計', 'RPA・API連携', 'レポート自動化'],
-			color: 'green'
+			color: 'green',
+			tag: 'Automation / RPA',
+			summary:
+				'手作業で繰り返している転記・通知・承認・集計を、ツール同士の連携で「ボタンも押さずに回る状態」に整えます。',
+			problems: [
+				'毎週・毎月の定型レポートを手作業でCSVから組み立てている',
+				'SaaSが増えすぎて、データの転記とSlack通知だけで時間が消える',
+				'承認や差し戻しが属人化していて、止まっていることに気づきにくい'
+			],
+			approach: [
+				'n8n / Zapier / Make を中心に、SaaS間のフローを一筆書きで設計',
+				'kintone・Google Sheets・Slack・Notion などを軸にトリガー&アクション化',
+				'月次レポートやKPIダッシュボードを自動生成、メールやSlackへ自動配信',
+				'例外処理・通知・ログ整備までセットで設計し、止まらないフローに'
+			],
+			result: '「人が回している作業」を「ツールが回す作業」に。空いた時間で本質的な仕事に集中できます。'
 		},
 		{
 			icon: Monitor,
 			title: 'Web制作',
 			desc: 'コーポレートサイト・LP・サービスサイトを企画・設計・実装',
 			items: ['コーポレートサイト', 'LP・サービスサイト', 'CMS・保守運用'],
-			color: 'blue'
+			color: 'blue',
+			tag: 'Web / コンバージョン',
+			summary:
+				'「とりあえずページを作る」のではなく、目的・ターゲット・導線を整理した上で、成果につながるサイトを作ります。',
+			problems: [
+				'今のサイトが古く、問い合わせや採用に繋がっていない',
+				'LPを作ったが、CV率が伸びず、どこを直せばいいか分からない',
+				'更新が止まっていて、情報がいつのものか自分でも分からない'
+			],
+			approach: [
+				'目的・ターゲット・KPIを定義し、情報設計とコピーから整理',
+				'SvelteKit / Next.js / WordPress を要件に応じて選定し、高速・SEO対応で実装',
+				'リリース後のCVR改善、ABテスト、CMS化までセットで継続支援',
+				'採用や事業フェーズの変化に合わせて、軽く回せる更新体制を構築'
+			],
+			result: '「作って終わり」ではなく「成果が出るサイトに育つ」状態へ。継続改善の伴走までセットでお渡しします。'
 		},
 		{
 			icon: BriefcaseBusiness,
 			title: 'SaaS開発',
 			desc: '企画・設計から開発・運用まで一気通貫で支援',
 			items: ['プロダクト設計', 'Web / API開発', '運用・グロース支援'],
-			color: 'orange'
+			color: 'orange',
+			tag: 'SaaS / 0→1 開発',
+			summary:
+				'業務フローや市場の課題を起点に、プロダクト企画から開発・運用・グロースまで一気通貫で支援します。',
+			problems: [
+				'業界に課題は見えているが、SaaSとして形にする手前で止まっている',
+				'外注で作ってもらったプロダクトが、改善も運用もできず止まっている',
+				'機能はあるが、料金体系・導線・継続率まで設計できていない'
+			],
+			approach: [
+				'業務ヒアリングと競合調査からプロダクト要件・MVPを定義',
+				'フロントエンド・バックエンド・インフラまで自社で設計・実装',
+				'料金プラン、CV導線、オンボーディング、解約防止まで含めてSaaSとして設計',
+				'リリース後のKPI追跡・改善サイクル・カスタマーサクセス整備まで伴走'
+			],
+			result: '「アイデアはあるが形にできない」状態から、「市場で動き、伸びるプロダクト」まで一緒に立ち上げます。'
 		}
 	];
 
@@ -221,6 +295,7 @@
 	];
 
 	let selectedWork: Work | null = null;
+	let selectedService: Service | null = null;
 	let contactForm = {
 		name: '',
 		email: '',
@@ -234,6 +309,19 @@
 
 	function closeWork() {
 		selectedWork = null;
+	}
+
+	function openService(service: Service) {
+		selectedService = service;
+	}
+
+	function closeService() {
+		selectedService = null;
+	}
+
+	function closeServiceAndGoToContact() {
+		closeService();
+		requestAnimationFrame(() => goToSection('contact'));
 	}
 
 	function openSelectedWorkUrl() {
@@ -285,11 +373,15 @@
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape') closeWork();
+		if (event.key !== 'Escape') return;
+		if (selectedService) closeService();
+		else if (selectedWork) closeWork();
 	}
 
 	function handleModalBackdropClick(event: MouseEvent) {
-		if (event.target === event.currentTarget) closeWork();
+		if (event.target !== event.currentTarget) return;
+		if (selectedService) closeService();
+		else if (selectedWork) closeWork();
 	}
 
 	function closeWorkAndGoToContact() {
@@ -427,15 +519,20 @@
 			<div class="service-grid">
 				{#each services as service}
 					{@const Icon = service.icon}
-					<article class={`service-card ${service.color}`}>
+					<button
+						type="button"
+						class={`service-card ${service.color}`}
+						on:click={() => openService(service)}
+						aria-label={`${service.title} の詳細を見る`}
+					>
 						<Icon size={44} />
 						<h3>{service.title}</h3>
 						<p>{service.desc}</p>
 						<ul>
 							{#each service.items as item}<li>{item}</li>{/each}
 						</ul>
-						<a href="#contact">詳しく見る <ArrowRight size={15} /></a>
-					</article>
+						<span class="service-more">詳しく見る <ArrowRight size={15} /></span>
+					</button>
 				{/each}
 			</div>
 		</section>
@@ -512,6 +609,69 @@
 							{/if}
 							<button class="secondary" type="button" on:click={closeWorkAndGoToContact}
 								>相談する <ArrowRight size={17} /></button
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		{#if selectedService}
+			{@const ServiceIcon = selectedService.icon}
+			<div
+				class="modal-backdrop"
+				role="presentation"
+				on:click={handleModalBackdropClick}
+				transition:fade={{ duration: 120 }}
+			>
+				<div
+					class="work-modal service-modal"
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="service-modal-title"
+					tabindex="-1"
+				>
+					<button class="modal-close" type="button" aria-label="閉じる" on:click={closeService}>
+						<X size={20} />
+					</button>
+					<div class={`modal-visual service-visual ${selectedService.color}`}>
+						{#if selectedService.image}
+							<img src={selectedService.image} alt={selectedService.title} />
+						{:else}
+							<div class="service-visual-icon" aria-hidden="true">
+								<ServiceIcon size={120} strokeWidth={1.4} />
+							</div>
+						{/if}
+					</div>
+					<div class="modal-copy">
+						<p class="modal-tag">{selectedService.tag}</p>
+						<h3 id="service-modal-title">{selectedService.title}</h3>
+						<p class="modal-summary">{selectedService.summary}</p>
+						<div class="modal-detail-grid service-detail-grid">
+							<div>
+								<h4>こんな課題に</h4>
+								<ul>
+									{#each selectedService.problems as problem}
+										<li>{problem}</li>
+									{/each}
+								</ul>
+							</div>
+							<div>
+								<h4>私たちのアプローチ</h4>
+								<ul>
+									{#each selectedService.approach as step}
+										<li>{step}</li>
+									{/each}
+								</ul>
+							</div>
+						</div>
+						<div class="modal-result-band">
+							<strong>支援後のイメージ</strong>
+							<p>{selectedService.result}</p>
+						</div>
+						<div class="modal-actions">
+							<button class="primary" type="button" on:click={closeServiceAndGoToContact}
+								>このサービスを相談する <ArrowRight size={17} /></button
 							>
 						</div>
 					</div>
@@ -690,14 +850,11 @@
 		</nav>
 		<nav>
 			<strong>実績</strong>
-			<a href="#works">プロダクト一覧</a><a href="#works">事例インタビュー</a><a href="#works"
-				>お客様の声</a
-			>
+			<a href="#works">プロダクト一覧</a>
 		</nav>
 		<nav>
 			<strong>私たちについて</strong>
-			<a href="#concept">ミッション</a><a href="#concept">メンバー</a><a href="#company">会社概要</a
-			>
+			<a href="#concept">ミッション</a><a href="#company">会社概要</a>
 		</nav>
 		<div class="footer-contact">
 			<a class="mail-card" href="mailto:info@lanespire.com"
@@ -1148,24 +1305,58 @@
 		margin-top: 26px;
 	}
 	.service-card {
+		appearance: none;
+		color: inherit;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		font: inherit;
 		padding: 28px 28px 26px;
+		text-align: left;
+		transition:
+			border-color 180ms ease,
+			box-shadow 180ms ease,
+			transform 180ms ease;
+		width: 100%;
+	}
+	.service-card:hover,
+	.service-card:focus-visible {
+		box-shadow: 0 26px 56px rgba(31, 50, 58, 0.12);
+		outline: none;
+		transform: translateY(-3px);
 	}
 	.service-card.cyan :global(svg),
-	.service-card.cyan a,
+	.service-card.cyan .service-more,
 	.service-card.cyan li::marker {
 		color: #14b8c5;
 	}
+	.service-card.cyan:hover,
+	.service-card.cyan:focus-visible {
+		border-color: rgba(20, 184, 197, 0.45);
+	}
 	.service-card.green :global(svg),
-	.service-card.green a {
+	.service-card.green .service-more {
 		color: #35a853;
 	}
+	.service-card.green:hover,
+	.service-card.green:focus-visible {
+		border-color: rgba(53, 168, 83, 0.45);
+	}
 	.service-card.blue :global(svg),
-	.service-card.blue a {
+	.service-card.blue .service-more {
 		color: #1e8ce3;
 	}
+	.service-card.blue:hover,
+	.service-card.blue:focus-visible {
+		border-color: rgba(30, 140, 227, 0.45);
+	}
 	.service-card.orange :global(svg),
-	.service-card.orange a {
+	.service-card.orange .service-more {
 		color: #f27622;
+	}
+	.service-card.orange:hover,
+	.service-card.orange:focus-visible {
+		border-color: rgba(242, 118, 34, 0.45);
 	}
 	.service-card h3 {
 		font-size: 23px;
@@ -1189,13 +1380,13 @@
 		font-size: 13px;
 		font-weight: 750;
 	}
-	.service-card a,
-	.work-card a {
+	.service-card .service-more {
 		align-items: center;
 		display: inline-flex;
 		font-size: 13px;
 		font-weight: 850;
 		gap: 5px;
+		margin-top: auto;
 	}
 
 	.section-lead {
@@ -1407,6 +1598,74 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 12px;
+	}
+
+	.service-visual {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+	}
+	.service-visual.cyan {
+		background:
+			radial-gradient(circle at 30% 25%, rgba(20, 184, 197, 0.22), transparent 55%), #f1fbfb;
+	}
+	.service-visual.green {
+		background:
+			radial-gradient(circle at 30% 25%, rgba(53, 168, 83, 0.22), transparent 55%), #f3fbf3;
+	}
+	.service-visual.blue {
+		background:
+			radial-gradient(circle at 30% 25%, rgba(30, 140, 227, 0.22), transparent 55%), #f1f7fd;
+	}
+	.service-visual.orange {
+		background:
+			radial-gradient(circle at 30% 25%, rgba(242, 118, 34, 0.22), transparent 55%), #fef5ef;
+	}
+	.service-visual-icon {
+		align-items: center;
+		background: #fff;
+		border: 1px solid var(--line);
+		border-radius: 18px;
+		box-shadow: 0 22px 48px rgba(31, 50, 58, 0.08);
+		display: flex;
+		height: 220px;
+		justify-content: center;
+		width: 220px;
+	}
+	.service-visual.cyan .service-visual-icon :global(svg) {
+		color: #14b8c5;
+	}
+	.service-visual.green .service-visual-icon :global(svg) {
+		color: #35a853;
+	}
+	.service-visual.blue .service-visual-icon :global(svg) {
+		color: #1e8ce3;
+	}
+	.service-visual.orange .service-visual-icon :global(svg) {
+		color: #f27622;
+	}
+
+	.modal-result-band {
+		background: #f4f8f7;
+		border: 1px solid var(--line);
+		border-radius: 12px;
+		margin-bottom: 24px;
+		padding: 18px 22px;
+	}
+	.modal-result-band strong {
+		color: var(--teal);
+		display: block;
+		font-size: 12px;
+		font-weight: 900;
+		letter-spacing: 0.04em;
+		margin-bottom: 6px;
+		text-transform: uppercase;
+	}
+	.modal-result-band p {
+		color: #2c3a4a;
+		font-size: 14px;
+		font-weight: 650;
+		line-height: 1.85;
 	}
 
 	.flow-grid {
