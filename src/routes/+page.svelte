@@ -654,9 +654,8 @@
 					<div class="modal-copy">
 						<p class="modal-tag">{selectedService.tag}</p>
 						<h3 id="service-modal-title">{selectedService.title}</h3>
-						<p class="modal-summary">{selectedService.summary}</p>
 						<div class="modal-detail-grid service-detail-grid">
-							<div>
+							<div class="service-problem-card">
 								<h4>こんな課題に</h4>
 								<ul>
 									{#each selectedService.problems as problem}
@@ -664,7 +663,7 @@
 									{/each}
 								</ul>
 							</div>
-							<div>
+							<div class="service-approach-card">
 								<h4>私たちのアプローチ</h4>
 								<ul>
 									{#each selectedService.approach as step}
@@ -1653,6 +1652,92 @@
 		color: #f27622;
 	}
 
+	.service-detail-grid {
+		align-items: stretch;
+		gap: 16px;
+		grid-template-columns: 1fr 1fr;
+		margin-top: 28px;
+		position: relative;
+	}
+	.service-problem-card,
+	.service-approach-card {
+		border-radius: 12px;
+		padding: 22px 24px;
+	}
+	.service-problem-card {
+		background: #f3f4f6;
+		border: 1px solid #e2e5ea;
+	}
+	.service-problem-card h4 {
+		color: #6b7280;
+		font-size: 12px;
+		font-weight: 900;
+		letter-spacing: 0.04em;
+		margin-bottom: 12px;
+		text-transform: uppercase;
+	}
+	.service-problem-card ul {
+		display: grid;
+		gap: 10px;
+		margin: 0;
+		padding-left: 18px;
+	}
+	.service-problem-card li {
+		color: #475160;
+		font-size: 13px;
+		font-weight: 650;
+		line-height: 1.75;
+	}
+	.service-problem-card li::marker {
+		color: #98a3b1;
+	}
+	.service-approach-card {
+		background: #ecf7ed;
+		border: 1px solid #c8e4c9;
+	}
+	.service-approach-card h4 {
+		color: #2c8c41;
+		font-size: 12px;
+		font-weight: 900;
+		letter-spacing: 0.04em;
+		margin-bottom: 12px;
+		text-transform: uppercase;
+	}
+	.service-approach-card ul {
+		display: grid;
+		gap: 10px;
+		margin: 0;
+		padding-left: 18px;
+	}
+	.service-approach-card li {
+		color: #234d32;
+		font-size: 13px;
+		font-weight: 650;
+		line-height: 1.75;
+	}
+	.service-approach-card li::marker {
+		color: #35a853;
+	}
+	.service-detail-grid::before {
+		align-items: center;
+		background: #fff;
+		border: 1px solid #c8e4c9;
+		border-radius: 999px;
+		color: #35a853;
+		content: '→';
+		display: flex;
+		font-size: 18px;
+		font-weight: 900;
+		height: 30px;
+		justify-content: center;
+		left: 50%;
+		position: absolute;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 30px;
+		z-index: 1;
+	}
+
 	.modal-result-band {
 		background: #f4f8f7;
 		border: 1px solid var(--line);
@@ -2231,6 +2316,14 @@
 		}
 		.modal-detail-grid {
 			grid-template-columns: 1fr;
+		}
+		.service-detail-grid {
+			grid-template-columns: 1fr;
+		}
+		.service-detail-grid::before {
+			content: '↓';
+			left: 50%;
+			top: 50%;
 		}
 		.modal-actions {
 			display: grid;
