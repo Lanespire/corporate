@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import heroImage from '$lib/assets/images/launch_lp_ref_hero.png';
-	import problemImage from '$lib/assets/images/launch_lp_ref_problem.png';
+	import heroImage from '$lib/assets/images/launch_lp_ref_hero.png?enhanced';
+	import problemImage from '$lib/assets/images/launch_lp_ref_problem.png?enhanced';
 	import BadgeJapaneseYen from 'lucide-svelte/icons/badge-japanese-yen';
 	import ClipboardList from 'lucide-svelte/icons/clipboard-list';
 	import LayoutTemplate from 'lucide-svelte/icons/layout-template';
@@ -163,6 +163,66 @@
 		name="description"
 		content="Light 19,800円、Standard 49,800円、Pro 98,000円。納品後の公開・運用サポートも月額9,800円で依頼できるLP制作サービス。"
 	/>
+	<link rel="canonical" href="https://launch-lp.lanespire.com/" />
+
+	<!-- Open Graph -->
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Launch LP" />
+	<meta property="og:title" content="Launch LP - 低価格で成果につながるLP制作" />
+	<meta
+		property="og:description"
+		content="Light 19,800円、Standard 49,800円、Pro 98,000円。短納期・スマホ対応のLP制作サービス。"
+	/>
+	<meta property="og:url" content="https://launch-lp.lanespire.com/" />
+	<meta property="og:image" content="https://launch-lp.lanespire.com/ogp/launch-lp-og.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:locale" content="ja_JP" />
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Launch LP - 低価格で成果につながるLP制作" />
+	<meta
+		name="twitter:description"
+		content="Light 19,800円、Standard 49,800円、Pro 98,000円。短納期・スマホ対応のLP制作サービス。"
+	/>
+	<meta name="twitter:image" content="https://launch-lp.lanespire.com/ogp/launch-lp-og.png" />
+
+	<!-- JSON-LD: Service + Offers + FAQPage -->
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@graph': [
+			{
+				'@type': 'Service',
+				name: 'Launch LP - LP制作サービス',
+				serviceType: 'ランディングページ制作',
+				description:
+					'低価格・短納期で成果につながるLPを制作するサービス。Light / Standard / Pro の3プラン展開。',
+				provider: {
+					'@type': 'Organization',
+					name: '株式会社Lanespire',
+					url: 'https://lanespire.com/',
+					email: 'info@lanespire.com'
+				},
+				areaServed: 'JP',
+				url: 'https://launch-lp.lanespire.com/',
+				offers: [
+					{ '@type': 'Offer', name: 'Light', price: '19800', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
+					{ '@type': 'Offer', name: 'Standard', price: '49800', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
+					{ '@type': 'Offer', name: 'Pro', price: '98000', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
+					{ '@type': 'Offer', name: '公開・運用サポート', price: '9800', priceCurrency: 'JPY', priceSpecification: { '@type': 'UnitPriceSpecification', price: '9800', priceCurrency: 'JPY', billingIncrement: 1, unitText: 'MONTH' }, availability: 'https://schema.org/InStock' }
+				]
+			},
+			{
+				'@type': 'FAQPage',
+				mainEntity: faqs.map((f) => ({
+					'@type': 'Question',
+					name: f.question,
+					acceptedAnswer: { '@type': 'Answer', text: f.answer }
+				}))
+			}
+		]
+	})}</script>`}
 </svelte:head>
 
 <div class="lp-page">
@@ -209,7 +269,7 @@
 				</div>
 
 				<div class="hero-visual" aria-label="LP制作のイメージ">
-					<img src={heroImage} alt="LP制作のデザインイメージ" loading="eager" />
+					<enhanced:img src={heroImage} alt="LP制作のデザインイメージ" loading="eager" />
 				</div>
 			</div>
 		</section>
@@ -217,7 +277,7 @@
 		<section class="features" id="features">
 			<div class="problem-card">
 				<div class="problem-visual">
-					<img src={problemImage} alt="LP制作に悩む人のイメージ" loading="eager" />
+					<enhanced:img src={problemImage} alt="LP制作に悩む人のイメージ" loading="eager" />
 				</div>
 
 				<div class="problem-copy">

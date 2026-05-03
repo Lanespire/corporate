@@ -6,7 +6,7 @@
   NODE_VERSION = "20"
   NPM_FLAGS = "--production=false"
 
-# Enhanced images cache optimization
+# ---------- Cache headers ----------
 [[headers]]
   for = "/_app/immutable/assets/*"
   [headers.values]
@@ -24,26 +24,64 @@
     Cache-Control = "public, max-age=31536000, immutable"
     Content-Type = "image/webp"
 
-# Redirect rules for SPA
+[[headers]]
+  for = "/ogp/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# ---------- Subdomain consolidation (301) ----------
+# lanespire.com/mvp* → mvp.lanespire.com (canonical)
 [[redirects]]
-  from = "https://launch-lp.lanespire.com/"
-  to = "/launch-lp"
-  status = 200
+  from = "/mvp"
+  to = "https://mvp.lanespire.com/"
+  status = 301
   force = true
 
 [[redirects]]
-  from = "https://launch-lp.lanespire.com/*"
-  to = "/launch-lp"
+  from = "/mvp/*"
+  to = "https://mvp.lanespire.com/:splat"
+  status = 301
+  force = true
+
+# lanespire.com/launch-lp* → launch-lp.lanespire.com (canonical)
+[[redirects]]
+  from = "/launch-lp"
+  to = "https://launch-lp.lanespire.com/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/launch-lp/*"
+  to = "https://launch-lp.lanespire.com/:splat"
+  status = 301
+  force = true
+
+# ---------- Subdomain → internal route rewrite (200) ----------
+# Visitors on mvp.lanespire.com/* see content from /mvp/* without URL change
+[[redirects]]
+  from = "/*"
+  to = "/mvp/:splat"
   status = 200
+  force = false
+  conditions = {Host = ["mvp.lanespire.com"]}
+
+[[redirects]]
+  from = "/"
+  to = "/mvp/"
+  status = 200
+  force = false
+  conditions = {Host = ["mvp.lanespire.com"]}
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/launch-lp/:splat"
   status = 200
-  conditions = {Role = ["admin"]}
+  force = false
+  conditions = {Host = ["launch-lp.lanespire.com"]}
 
-# Default redirect for client-side routing
 [[redirects]]
-  from = "/*"
-  to = "/404.html"
-  status = 404
+  from = "/"
+  to = "/launch-lp/"
+  status = 200
+  force = false
+  conditions = {Host = ["launch-lp.lanespire.com"]}

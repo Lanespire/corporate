@@ -26,19 +26,19 @@
 		Workflow,
 		X
 	} from 'lucide-svelte';
-	import heroImage from '$lib/assets/images/lp-hero-generated-transparent-v2.png';
-	import ctaImage from '$lib/assets/images/lp-cta-generated-transparent-v2.png';
-	import nightTableImage from '$lib/assets/images/work-nighttable-og.png';
-	import sakuEditImage from '$lib/assets/images/work-sakuedit-og.png';
-	import extensionImage from '$lib/assets/images/work-anon-extension.png';
-	import crmImage from '$lib/assets/images/work-anon-crm.png';
-	import schedulingImage from '$lib/assets/images/work-anon-scheduling.png';
-	import roleplayImage from '$lib/assets/images/work-anon-roleplay.png';
-	import launchLpImage from '$lib/assets/images/work-launch-lp-og.png';
-	import serviceAiImage from '$lib/assets/images/service-ai.png';
-	import serviceAutomationImage from '$lib/assets/images/service-automation.png';
-	import serviceWebImage from '$lib/assets/images/service-web.png';
-	import serviceSaasImage from '$lib/assets/images/service-saas.png';
+	import heroImage from '$lib/assets/images/lp-hero-generated-transparent-v2.png?enhanced';
+	import ctaImage from '$lib/assets/images/lp-cta-generated-transparent-v2.png?enhanced';
+	import nightTableImage from '$lib/assets/images/work-nighttable-og.png?enhanced';
+	import sakuEditImage from '$lib/assets/images/work-sakuedit-og.png?enhanced';
+	import extensionImage from '$lib/assets/images/work-anon-extension.png?enhanced';
+	import crmImage from '$lib/assets/images/work-anon-crm.png?enhanced';
+	import schedulingImage from '$lib/assets/images/work-anon-scheduling.png?enhanced';
+	import roleplayImage from '$lib/assets/images/work-anon-roleplay.png?enhanced';
+	import launchLpImage from '$lib/assets/images/work-launch-lp-og.png?enhanced';
+	import serviceAiImage from '$lib/assets/images/service-ai.png?enhanced';
+	import serviceAutomationImage from '$lib/assets/images/service-automation.png?enhanced';
+	import serviceWebImage from '$lib/assets/images/service-web.png?enhanced';
+	import serviceSaasImage from '$lib/assets/images/service-saas.png?enhanced';
 
 	type Work = {
 		image: string;
@@ -58,13 +58,14 @@
 		title: string;
 		desc: string;
 		items: string[];
-		color: 'cyan' | 'green' | 'blue' | 'orange';
+		color: 'cyan' | 'green' | 'blue' | 'orange' | 'purple';
 		image?: string;
 		tag: string;
 		summary: string;
 		problems: string[];
 		approach: string[];
 		result: string;
+		url?: string;
 	};
 
 	const promises = [
@@ -183,6 +184,30 @@
 				'リリース後のKPI追跡・改善サイクル・カスタマーサクセス整備まで伴走'
 			],
 			result: '「アイデアはあるが形にできない」状態から、「市場で動き、伸びるプロダクト」まで一緒に立ち上げます。'
+		},
+		{
+			icon: Rocket,
+			title: 'MVP開発',
+			desc: '最短1週間でMVPを形にするスクラム開発パッケージ',
+			items: ['1週間でMVP公開', 'スクラム開発', '低価格・高品質'],
+			color: 'purple',
+			tag: 'MVP / スタートアップ',
+			summary:
+				'アイデア段階のスタートアップや新規事業向けに、最短1週間で「動くもの」を出し、検証しながら磨き込むスクラム開発パッケージです。',
+			problems: [
+				'MVPを発注したいが、見積が高すぎてスタートが切れない',
+				'要件をきっちり固めてから発注したいが、固まる前に時間が過ぎる',
+				'外注で作ったが、その後の改善やAI機能追加が止まっている'
+			],
+			approach: [
+				'最短1週間で初期MVPを公開し、触れる状態をつくる',
+				'スクラムで週次に機能を追加・改善し、ユーザー検証と並行して開発',
+				'AI機能・自動化・SaaS化までシームレスに拡張可能',
+				'プロダクトの成長フェーズに合わせて伴走スコープを調整'
+			],
+			result:
+				'「作ってから考える」ではなく「動かしながら磨く」MVP開発で、限られた時間と予算でも市場検証まで届きます。',
+			url: '/mvp'
 		}
 	];
 
@@ -425,6 +450,66 @@
 		content="LanespireはAI導入支援、業務自動化、Web制作、SaaS開発で、現場の業務をやさしく効率化する開発パートナーです。"
 	/>
 	<meta name="theme-color" content="#ffffff" />
+	<link rel="canonical" href="https://lanespire.com/" />
+
+	<!-- Open Graph -->
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Lanespire" />
+	<meta property="og:title" content="Lanespire - AIを、現場の人が使える形にする。" />
+	<meta
+		property="og:description"
+		content="LanespireはAI導入支援、業務自動化、Web制作、SaaS開発で、現場の業務をやさしく効率化する開発パートナーです。"
+	/>
+	<meta property="og:url" content="https://lanespire.com/" />
+	<meta property="og:image" content="https://lanespire.com/ogp/lanespire-og.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:locale" content="ja_JP" />
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Lanespire - AIを、現場の人が使える形にする。" />
+	<meta
+		name="twitter:description"
+		content="LanespireはAI導入支援、業務自動化、Web制作、SaaS開発で、現場の業務をやさしく効率化する開発パートナーです。"
+	/>
+	<meta name="twitter:image" content="https://lanespire.com/ogp/lanespire-og.png" />
+
+	<!-- JSON-LD: Organization + WebSite -->
+	{@html `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@graph': [
+			{
+				'@type': 'Organization',
+				'@id': 'https://lanespire.com/#organization',
+				name: '株式会社Lanespire',
+				alternateName: 'Lanespire Inc.',
+				url: 'https://lanespire.com/',
+				logo: 'https://lanespire.com/ogp/lanespire-og.png',
+				email: 'info@lanespire.com',
+				sameAs: ['https://x.com/lanespire', 'https://github.com/lanespire']
+			},
+			{
+				'@type': 'WebSite',
+				'@id': 'https://lanespire.com/#website',
+				url: 'https://lanespire.com/',
+				name: 'Lanespire',
+				publisher: { '@id': 'https://lanespire.com/#organization' },
+				inLanguage: 'ja-JP'
+			},
+			{
+				'@type': 'ItemList',
+				name: 'Lanespireのサービス',
+				itemListElement: [
+					{ '@type': 'Service', position: 1, name: 'AI導入支援', provider: { '@id': 'https://lanespire.com/#organization' } },
+					{ '@type': 'Service', position: 2, name: '業務自動化', provider: { '@id': 'https://lanespire.com/#organization' } },
+					{ '@type': 'Service', position: 3, name: 'Web制作', provider: { '@id': 'https://lanespire.com/#organization' } },
+					{ '@type': 'Service', position: 4, name: 'SaaS開発', provider: { '@id': 'https://lanespire.com/#organization' } },
+					{ '@type': 'Service', position: 5, name: 'MVP開発', url: 'https://mvp.lanespire.com/', provider: { '@id': 'https://lanespire.com/#organization' } }
+				]
+			}
+		]
+	})}</script>`}
 </svelte:head>
 
 <div class="lp-shell">
@@ -486,7 +571,7 @@
 
 			<div class="hero-art">
 				<div class="soft-blob"></div>
-				<img src={heroImage} alt="AI導入を相談するチームのイラスト" />
+				<enhanced:img src={heroImage} alt="AI導入を相談するチームのイラスト" />
 				<div class="floating-card assistant-card">
 					<strong>AIアシスタント</strong>
 					<span>議事録を生成しました</span>
@@ -557,7 +642,7 @@
 						on:click={() => openWork(work)}
 						aria-label={`${work.title} の詳細を見る`}
 					>
-						<img src={work.image} alt={work.title} loading="lazy" />
+						<enhanced:img src={work.image} alt={work.title} loading="lazy" />
 						<div>
 							<span class="work-kicker">{work.role}</span>
 							<h3>{work.title}</h3>
@@ -588,7 +673,7 @@
 						<X size={20} />
 					</button>
 					<div class="modal-visual">
-						<img src={selectedWork.image} alt={selectedWork.title} />
+						<enhanced:img src={selectedWork.image} alt={selectedWork.title} />
 					</div>
 					<div class="modal-copy">
 						<p class="modal-tag">{selectedWork.tag}</p>
@@ -644,7 +729,7 @@
 					</button>
 					<div class={`modal-visual service-visual ${selectedService.color}`}>
 						{#if selectedService.image}
-							<img src={selectedService.image} alt={selectedService.title} />
+							<enhanced:img src={selectedService.image} alt={selectedService.title} />
 						{:else}
 							<div class="service-visual-icon" aria-hidden="true">
 								<ServiceIcon size={120} strokeWidth={1.4} />
@@ -677,9 +762,15 @@
 							<p>{selectedService.result}</p>
 						</div>
 						<div class="modal-actions">
-							<button class="primary" type="button" on:click={closeServiceAndGoToContact}
-								>このサービスを相談する <ArrowRight size={17} /></button
-							>
+							{#if selectedService.url}
+								<a class="primary" href={selectedService.url}
+									>サービスページを見る <ArrowRight size={17} /></a
+								>
+							{:else}
+								<button class="primary" type="button" on:click={closeServiceAndGoToContact}
+									>このサービスを相談する <ArrowRight size={17} /></button
+								>
+							{/if}
 						</div>
 					</div>
 				</div>
@@ -721,7 +812,7 @@
 		<section class="contact-section" id="contact">
 			<div class="contact-hero">
 				<div class="contact-visual">
-					<img src={ctaImage} alt="相談中のイラスト" loading="lazy" />
+					<enhanced:img src={ctaImage} alt="相談中のイラスト" loading="lazy" />
 				</div>
 				<div class="contact-copy">
 					<p class="contact-eyebrow">導入相談</p>
@@ -853,7 +944,7 @@
 			<strong>サービス</strong>
 			<a href="#services">AI導入支援</a><a href="#services">業務自動化</a><a href="#services"
 				>Web制作</a
-			><a href="#services">SaaS開発</a>
+			><a href="#services">SaaS開発</a><a href="/mvp">MVP開発</a>
 		</nav>
 		<nav>
 			<strong>実績</strong>
@@ -1308,7 +1399,7 @@
 	.service-grid {
 		display: grid;
 		gap: 22px;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
+		grid-template-columns: repeat(5, minmax(0, 1fr));
 		margin-top: 26px;
 	}
 	.service-card {
@@ -1364,6 +1455,15 @@
 	.service-card.orange:hover,
 	.service-card.orange:focus-visible {
 		border-color: rgba(242, 118, 34, 0.45);
+	}
+	.service-card.purple :global(svg),
+	.service-card.purple .service-more,
+	.service-card.purple li::marker {
+		color: #8b5cf6;
+	}
+	.service-card.purple:hover,
+	.service-card.purple:focus-visible {
+		border-color: rgba(139, 92, 246, 0.45);
 	}
 	.service-card h3 {
 		font-size: 23px;
@@ -1630,6 +1730,10 @@
 		background:
 			radial-gradient(circle at 30% 25%, rgba(242, 118, 34, 0.22), transparent 55%), #fef5ef;
 	}
+	.service-visual.purple {
+		background:
+			radial-gradient(circle at 30% 25%, rgba(139, 92, 246, 0.22), transparent 55%), #f5f3fe;
+	}
 	.service-visual-icon {
 		align-items: center;
 		background: #fff;
@@ -1652,6 +1756,9 @@
 	}
 	.service-visual.orange .service-visual-icon :global(svg) {
 		color: #f27622;
+	}
+	.service-visual.purple .service-visual-icon :global(svg) {
+		color: #8b5cf6;
 	}
 
 	.service-detail-grid {
