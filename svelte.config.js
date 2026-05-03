@@ -20,6 +20,7 @@ const config = {
 		// Prerender all pages for optimal performance
 		prerender: {
 			handleHttpError: 'warn',
+			handleMissingId: 'warn',
 			entries: ['*']
 		},
 

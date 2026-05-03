@@ -6,6 +6,7 @@
 		navigationItems,
 		navigationActions
 	} from '$stores/navigation';
+	import lanespireLogo from '$lib/assets/images/lanespire_logo.png?enhanced';
 
 	// Component state
 	let scrolled = false;
@@ -78,9 +79,10 @@
 			<!-- Logo -->
 			<div class="logo">
 				<enhanced:img
-					src="$lib/assets/images/lanespire_logo.png"
+					src={lanespireLogo}
 					alt="Lanespire"
 					class="logo-image"
+					sizes="40px"
 				/>
 				<span class="logo-text">Lanespire</span>
 			</div>

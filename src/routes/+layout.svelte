@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '$lib/styles/global.css';
 	import { onMount } from 'svelte';
-	import favicon from '$lib/assets/images/lanespire_logo.png';
 
 	const { children } = $props();
 
@@ -27,8 +26,6 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
-
 	<!-- Preload critical fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
