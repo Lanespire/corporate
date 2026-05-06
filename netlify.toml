@@ -57,31 +57,19 @@
   force = true
 
 # ---------- Subdomain → internal route rewrite (200) ----------
-# Visitors on mvp.lanespire.com/* see content from /mvp/* without URL change
+# Single-page subdomains. `force = true` overrides the static index.html
+# match; wildcard rewrites are avoided because they would also rewrite
+# /_app/* and other shared assets and break the page.
 [[redirects]]
-  from = "/*"
-  to = "/mvp/:splat"
+  from = "/"
+  to = "/mvp.html"
   status = 200
-  force = false
+  force = true
   conditions = {Host = ["mvp.lanespire.com"]}
 
 [[redirects]]
   from = "/"
-  to = "/mvp/"
+  to = "/launch-lp.html"
   status = 200
-  force = false
-  conditions = {Host = ["mvp.lanespire.com"]}
-
-[[redirects]]
-  from = "/*"
-  to = "/launch-lp/:splat"
-  status = 200
-  force = false
-  conditions = {Host = ["launch-lp.lanespire.com"]}
-
-[[redirects]]
-  from = "/"
-  to = "/launch-lp/"
-  status = 200
-  force = false
+  force = true
   conditions = {Host = ["launch-lp.lanespire.com"]}
