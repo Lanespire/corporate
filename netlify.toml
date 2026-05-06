@@ -56,20 +56,7 @@
   status = 301
   force = true
 
-# ---------- Subdomain → internal route rewrite (200) ----------
-# Single-page subdomains. `force = true` overrides the static index.html
-# match; wildcard rewrites are avoided because they would also rewrite
-# /_app/* and other shared assets and break the page.
-[[redirects]]
-  from = "/"
-  to = "/mvp.html"
-  status = 200
-  force = true
-  conditions = {Host = ["mvp.lanespire.com"]}
-
-[[redirects]]
-  from = "/"
-  to = "/launch-lp.html"
-  status = 200
-  force = true
-  conditions = {Host = ["launch-lp.lanespire.com"]}
+# ---------- Subdomain → internal route rewrite ----------
+# Host-based rewriting is handled by netlify/edge-functions/host-rewrite.js.
+# Netlify's `[[redirects]]` host condition was not honored for `/` rewrites
+# (the static index.html resolved first regardless of force=true).
