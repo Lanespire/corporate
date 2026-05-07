@@ -35,6 +35,7 @@
 	import schedulingImage from '$lib/assets/images/work-anon-scheduling.png?enhanced';
 	import roleplayImage from '$lib/assets/images/work-anon-roleplay.png?enhanced';
 	import launchLpImage from '$lib/assets/images/work-launch-lp-og.png?enhanced';
+	import mvpServiceImage from '$lib/assets/images/work-mvp-og.png?enhanced';
 	import serviceAiImage from '$lib/assets/images/service-ai.png?enhanced';
 	import serviceAutomationImage from '$lib/assets/images/service-automation.png?enhanced';
 	import serviceWebImage from '$lib/assets/images/service-web.png?enhanced';
@@ -264,6 +265,24 @@
 				'スマホでも問い合わせまで迷わないCTA配置に調整'
 			],
 			result: 'サービス内容と価格の不安を減らし、導入相談へ進みやすいLPとして公開。'
+		},
+		{
+			image: mvpServiceImage,
+			title: 'Lanespire MVP',
+			tag: 'MVP開発パッケージ',
+			body: '最短1週間でMVPを公開するスクラム開発サービス。週次の中間デモで触りながら磨く。',
+			url: 'https://mvp.lanespire.com/',
+			featured: true,
+			role: 'サービス設計 / 開発体制設計 / Webアプリ開発 / LP制作',
+			summary:
+				'スタートアップや新規事業の MVP 検証フェーズに合わせて、要件未確定でも着手できるスクラム型の固定価格パッケージを設計しました。',
+			points: [
+				'¥500,000〜の固定価格、3分割支払い（着手 / 中間 / 公開前）',
+				'初回デモ最短7日 / 公開まで2-4週間のスケジュール設計',
+				'認証・管理画面・DB設計・API連携・運用ドキュメントまで一括'
+			],
+			result:
+				'「作ってから考える」ではなく「動かしながら磨く」開発で、限られた予算でも市場検証まで届けるサービスとして公開。'
 		},
 		{
 			image: extensionImage,
@@ -708,11 +727,11 @@
 				</ul>
 
 				<div class="mvp-pkg-actions">
-					<a class="mvp-pkg-cta primary" href="https://mvp.lanespire.com/">
-						<Sparkles size={18} />パッケージ詳細・アドオンを見る<ArrowRight size={18} />
+					<a class="mvp-pkg-cta primary" href="https://mvp.lanespire.com/#cta-form">
+						<CalendarDays size={18} />このパッケージを相談する<ArrowRight size={18} />
 					</a>
-					<a class="mvp-pkg-cta secondary" href="#contact">
-						このパッケージを相談する
+					<a class="mvp-pkg-cta secondary" href="https://mvp.lanespire.com/">
+						<Sparkles size={18} />パッケージ詳細・アドオンを見る
 					</a>
 				</div>
 			</article>

@@ -37,20 +37,13 @@
 
 	<!-- Critical CSS for above-the-fold content -->
 	<style>
-		/* Critical CSS inlined for performance */
+		/* Critical CSS inlined for performance.
+		   Per-route :global(body) rules in each +page.svelte set color/background. */
 		body {
 			margin: 0;
 			padding: 0;
 			font-family: 'Inter', sans-serif;
-			background: #0a0a0a;
-			color: #ffffff;
 			overflow-x: hidden;
-		}
-
-		/* Prevent FOUC */
-		.hero {
-			min-height: 100vh;
-			background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
 		}
 	</style>
 </svelte:head>
