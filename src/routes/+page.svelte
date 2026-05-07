@@ -335,6 +335,8 @@
 		company: '',
 		message: ''
 	};
+	let contactState: 'idle' | 'sending' | 'success' | 'error' = 'idle';
+	let contactErrorMessage = '';
 
 	function openWork(work: Work) {
 		selectedWork = work;
@@ -422,22 +424,34 @@
 		requestAnimationFrame(() => goToSection('contact'));
 	}
 
-	function submitContact() {
+	async function submitContact() {
 		if (typeof window === 'undefined') return;
+		if (contactState === 'sending') return;
 
-		const subject = encodeURIComponent('AI導入・業務自動化の相談');
-		const body = encodeURIComponent(
-			[
-				`お名前: ${contactForm.name}`,
-				`メール: ${contactForm.email}`,
-				`会社名: ${contactForm.company || '未入力'}`,
-				'',
-				'相談内容:',
-				contactForm.message
-			].join('\n')
-		);
+		contactState = 'sending';
+		contactErrorMessage = '';
 
-		window.location.href = `mailto:info@lanespire.com?subject=${subject}&body=${body}`;
+		const formData = new URLSearchParams();
+		formData.append('form-name', 'contact');
+		formData.append('name', contactForm.name);
+		formData.append('email', contactForm.email);
+		formData.append('company', contactForm.company);
+		formData.append('message', contactForm.message);
+
+		try {
+			const res = await fetch('/', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: formData.toString()
+			});
+			if (!res.ok) throw new Error(`HTTP ${res.status}`);
+			contactState = 'success';
+			contactForm = { name: '', email: '', company: '', message: '' };
+		} catch (err) {
+			contactState = 'error';
+			contactErrorMessage =
+				'送信に失敗しました。お手数ですが info@lanespire.com まで直接ご連絡ください。';
+		}
 	}
 </script>
 
@@ -628,6 +642,80 @@
 					</button>
 				{/each}
 			</div>
+		</section>
+
+		<section class="mvp-pkg-section" id="mvp-package">
+			<div class="mvp-pkg-head">
+				<p class="mvp-pkg-eyebrow">MVP DEVELOPMENT PACKAGE</p>
+				<h2 class="section-title">最短1週間で「動くもの」を出す。</h2>
+				<p class="mvp-pkg-lead">
+					要件が固まっていなくて大丈夫です。スクラム開発で週次に検証しながら、限られた時間と予算で市場検証まで届けます。
+				</p>
+			</div>
+
+			<article class="mvp-pkg-card">
+				<header class="mvp-pkg-card-head">
+					<div class="mvp-pkg-card-title">
+						<span class="mvp-pkg-tag">SCRUM PACKAGE</span>
+						<h3>スクラム開発</h3>
+					</div>
+					<div class="mvp-pkg-price">
+						<span class="mvp-pkg-price-num">¥500,000</span>
+						<span class="mvp-pkg-price-unit">〜（税別）</span>
+					</div>
+				</header>
+
+				<dl class="mvp-pkg-meta">
+					<div>
+						<dt>納期</dt>
+						<dd>2-4週間</dd>
+					</div>
+					<div>
+						<dt>初回デモ</dt>
+						<dd>最短7日</dd>
+					</div>
+					<div>
+						<dt>支払い</dt>
+						<dd>3分割（着手 / 中間 / 公開前）</dd>
+					</div>
+				</dl>
+
+				<ul class="mvp-pkg-features">
+					<li>
+						<CheckCircle2 size={18} />
+						<div><strong>ランディングページ</strong><span>戦略・コピー・デザイン・実装まで一式</span></div>
+					</li>
+					<li>
+						<CheckCircle2 size={18} />
+						<div><strong>ログイン認証 / 管理画面</strong><span>OAuth、CRUD、ロール別アクセス制御</span></div>
+					</li>
+					<li>
+						<CheckCircle2 size={18} />
+						<div><strong>データベース設計</strong><span>スキーマ・マイグレーション・バックアップ</span></div>
+					</li>
+					<li>
+						<CheckCircle2 size={18} />
+						<div><strong>コア機能 2-3画面</strong><span>プロダクトの中核となるユーザー導線</span></div>
+					</li>
+					<li>
+						<CheckCircle2 size={18} />
+						<div><strong>API連携</strong><span>Stripe決済 / Slack通知 / LLM API 等</span></div>
+					</li>
+					<li>
+						<CheckCircle2 size={18} />
+						<div><strong>独自ドメイン公開 + 運用ドキュメント</strong><span>Netlify / Vercel・SSL・運用Runbook</span></div>
+					</li>
+				</ul>
+
+				<div class="mvp-pkg-actions">
+					<a class="mvp-pkg-cta primary" href="https://mvp.lanespire.com/">
+						<Sparkles size={18} />パッケージ詳細・アドオンを見る<ArrowRight size={18} />
+					</a>
+					<a class="mvp-pkg-cta secondary" href="#contact">
+						このパッケージを相談する
+					</a>
+				</div>
+			</article>
 		</section>
 
 		<section class="works-section" id="works">
@@ -848,41 +936,67 @@
 					</div>
 				</div>
 
-				<form class="contact-form" on:submit|preventDefault={submitContact}>
-					<div class="form-row">
-						<label>
-							<span>お名前</span>
-							<input bind:value={contactForm.name} name="name" autocomplete="name" required />
-						</label>
-						<label>
-							<span>メールアドレス</span>
-							<input
-								bind:value={contactForm.email}
-								name="email"
-								type="email"
-								autocomplete="email"
-								required
-							/>
-						</label>
+				{#if contactState === 'success'}
+					<div class="contact-success" role="status">
+						<CheckCircle2 size={28} />
+						<div>
+							<strong>相談内容を受け付けました。</strong>
+							<span>担当より平日10:00–19:00に折り返しご連絡いたします（通常当日中）。</span>
+						</div>
 					</div>
-					<label>
-						<span>会社名</span>
-						<input bind:value={contactForm.company} name="company" autocomplete="organization" />
-					</label>
-					<label>
-						<span>相談したい内容</span>
-						<textarea
-							bind:value={contactForm.message}
-							name="message"
-							rows="5"
-							placeholder="例: 営業日報の自動化、社内ChatGPT活用、LP制作、SaaS開発の相談など"
-							required
-						></textarea>
-					</label>
-					<button class="primary cta-button" type="submit">
-						<CalendarDays size={22} />相談内容を送る<ArrowRight size={20} />
-					</button>
-				</form>
+				{:else}
+					<form
+						class="contact-form"
+						name="contact"
+						method="POST"
+						data-netlify="true"
+						data-netlify-honeypot="bot-field"
+						on:submit|preventDefault={submitContact}
+					>
+						<input type="hidden" name="form-name" value="contact" />
+						<p class="visually-hidden">
+							<label>Do not fill this out: <input name="bot-field" /></label>
+						</p>
+						<div class="form-row">
+							<label>
+								<span>お名前</span>
+								<input bind:value={contactForm.name} name="name" autocomplete="name" required />
+							</label>
+							<label>
+								<span>メールアドレス</span>
+								<input
+									bind:value={contactForm.email}
+									name="email"
+									type="email"
+									autocomplete="email"
+									required
+								/>
+							</label>
+						</div>
+						<label>
+							<span>会社名</span>
+							<input bind:value={contactForm.company} name="company" autocomplete="organization" />
+						</label>
+						<label>
+							<span>相談したい内容</span>
+							<textarea
+								bind:value={contactForm.message}
+								name="message"
+								rows="5"
+								placeholder="例: 営業日報の自動化、社内ChatGPT活用、LP制作、SaaS開発の相談など"
+								required
+							></textarea>
+						</label>
+						<button class="primary cta-button" type="submit" disabled={contactState === 'sending'}>
+							<CalendarDays size={22} />
+							{contactState === 'sending' ? '送信中…' : '相談内容を送る'}
+							<ArrowRight size={20} />
+						</button>
+						{#if contactState === 'error'}
+							<p class="contact-error" role="alert">{contactErrorMessage}</p>
+						{/if}
+					</form>
+				{/if}
 			</div>
 		</section>
 
@@ -2447,6 +2561,258 @@
 			grid-template-columns: 1fr;
 			gap: 6px;
 			padding: 14px 0;
+		}
+	}
+
+	/* ---------- visually-hidden (a11y / Netlify Forms honeypot) ---------- */
+	.visually-hidden {
+		position: absolute !important;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	/* ---------- contact form success / error ---------- */
+	.contact-success {
+		display: flex;
+		align-items: flex-start;
+		gap: 14px;
+		padding: 22px 24px;
+		border-radius: 14px;
+		background: rgba(0, 168, 150, 0.08);
+		border: 1px solid rgba(0, 168, 150, 0.35);
+		color: var(--ink);
+	}
+	.contact-success :global(svg) {
+		color: var(--teal);
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+	.contact-success div {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.contact-success strong {
+		font-size: 16px;
+		font-weight: 800;
+	}
+	.contact-success span {
+		font-size: 14px;
+		color: var(--ink-soft, #555);
+	}
+	.contact-error {
+		margin: 8px 0 0;
+		padding: 12px 14px;
+		border-radius: 10px;
+		background: rgba(220, 38, 38, 0.08);
+		border: 1px solid rgba(220, 38, 38, 0.35);
+		color: #b91c1c;
+		font-size: 14px;
+	}
+	.cta-button:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	/* ---------- MVP package section ---------- */
+	.mvp-pkg-section {
+		padding: 34px 0 56px;
+		background: linear-gradient(180deg, #fbfbfd 0%, #f3f4f7 100%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.mvp-pkg-head {
+		text-align: center;
+		max-width: 720px;
+		padding: 0 20px;
+	}
+	.mvp-pkg-eyebrow {
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.18em;
+		color: var(--teal);
+		margin: 0 0 12px;
+		text-transform: uppercase;
+	}
+	.mvp-pkg-lead {
+		margin: 14px auto 0;
+		color: var(--ink-soft, #555);
+		font-size: 15px;
+		line-height: 1.7;
+	}
+	.mvp-pkg-card {
+		margin: 32px 20px 0;
+		max-width: 880px;
+		width: calc(100% - 40px);
+		background: #fff;
+		border-radius: 20px;
+		padding: 32px;
+		box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+		border: 1px solid rgba(15, 23, 42, 0.06);
+	}
+	.mvp-pkg-card-head {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 16px;
+		flex-wrap: wrap;
+		padding-bottom: 20px;
+		border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+	}
+	.mvp-pkg-card-title {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.mvp-pkg-tag {
+		display: inline-block;
+		padding: 4px 10px;
+		border-radius: 999px;
+		background: rgba(0, 168, 150, 0.12);
+		color: var(--teal);
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		width: fit-content;
+	}
+	.mvp-pkg-card-title h3 {
+		margin: 0;
+		font-size: 24px;
+		font-weight: 900;
+		color: var(--ink);
+	}
+	.mvp-pkg-price {
+		display: flex;
+		align-items: baseline;
+		gap: 6px;
+	}
+	.mvp-pkg-price-num {
+		font-size: 36px;
+		font-weight: 900;
+		color: var(--ink);
+		line-height: 1;
+	}
+	.mvp-pkg-price-unit {
+		font-size: 13px;
+		color: var(--ink-soft, #666);
+		font-weight: 600;
+	}
+	.mvp-pkg-meta {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 14px;
+		margin: 20px 0 24px;
+	}
+	.mvp-pkg-meta > div {
+		padding: 12px 14px;
+		border-radius: 10px;
+		background: #f6f7fa;
+	}
+	.mvp-pkg-meta dt {
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		color: var(--ink-soft, #777);
+		text-transform: uppercase;
+		margin: 0 0 4px;
+	}
+	.mvp-pkg-meta dd {
+		font-size: 14px;
+		font-weight: 700;
+		color: var(--ink);
+		margin: 0;
+	}
+	.mvp-pkg-features {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 28px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 14px 24px;
+	}
+	.mvp-pkg-features li {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+	}
+	.mvp-pkg-features :global(svg) {
+		color: var(--teal);
+		flex-shrink: 0;
+		margin-top: 3px;
+	}
+	.mvp-pkg-features div {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+	.mvp-pkg-features strong {
+		font-size: 14px;
+		font-weight: 700;
+		color: var(--ink);
+	}
+	.mvp-pkg-features span {
+		font-size: 12.5px;
+		color: var(--ink-soft, #666);
+		line-height: 1.5;
+	}
+	.mvp-pkg-actions {
+		display: flex;
+		gap: 14px;
+		flex-wrap: wrap;
+	}
+	.mvp-pkg-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 20px;
+		border-radius: 999px;
+		font-size: 14px;
+		font-weight: 700;
+		text-decoration: none;
+		transition: transform 0.15s ease, box-shadow 0.2s ease;
+	}
+	.mvp-pkg-cta.primary {
+		background: var(--teal);
+		color: #fff;
+		box-shadow: 0 6px 18px rgba(0, 168, 150, 0.3);
+	}
+	.mvp-pkg-cta.primary:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 8px 22px rgba(0, 168, 150, 0.4);
+	}
+	.mvp-pkg-cta.secondary {
+		color: var(--ink);
+		border: 1px solid rgba(15, 23, 42, 0.18);
+	}
+	.mvp-pkg-cta.secondary:hover {
+		border-color: var(--teal);
+		color: var(--teal);
+	}
+
+	@media (max-width: 720px) {
+		.mvp-pkg-card {
+			padding: 22px;
+		}
+		.mvp-pkg-card-head {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.mvp-pkg-meta {
+			grid-template-columns: 1fr;
+		}
+		.mvp-pkg-features {
+			grid-template-columns: 1fr;
+		}
+		.mvp-pkg-price-num {
+			font-size: 30px;
 		}
 	}
 </style>
