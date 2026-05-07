@@ -664,14 +664,6 @@
 		</section>
 
 		<section class="mvp-pkg-section" id="mvp-package">
-			<div class="mvp-pkg-head">
-				<p class="mvp-pkg-eyebrow">MVP DEVELOPMENT PACKAGE</p>
-				<h2 class="section-title">最短1週間で「動くもの」を出す。</h2>
-				<p class="mvp-pkg-lead">
-					要件が固まっていなくて大丈夫です。スクラム開発で週次に検証しながら、限られた時間と予算で市場検証まで届けます。
-				</p>
-			</div>
-
 			<article class="mvp-pkg-card">
 				<header class="mvp-pkg-card-head">
 					<div class="mvp-pkg-card-title">
@@ -2649,25 +2641,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-	}
-	.mvp-pkg-head {
-		text-align: center;
-		max-width: 720px;
-		padding: 0 20px;
-	}
-	.mvp-pkg-eyebrow {
-		font-size: 12px;
-		font-weight: 700;
-		letter-spacing: 0.18em;
-		color: var(--teal);
-		margin: 0 0 12px;
-		text-transform: uppercase;
-	}
-	.mvp-pkg-lead {
-		margin: 14px auto 0;
-		color: var(--ink-soft, #555);
-		font-size: 15px;
-		line-height: 1.7;
 	}
 	.mvp-pkg-card {
 		margin: 32px 20px 0;
