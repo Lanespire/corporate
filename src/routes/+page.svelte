@@ -1338,6 +1338,7 @@
 		border: 1px solid var(--line);
 		border-radius: 8px;
 		box-shadow: 0 12px 30px rgba(23, 40, 48, 0.06);
+		color: var(--ink);
 		display: flex;
 		gap: 14px;
 		min-height: 78px;
@@ -1348,10 +1349,12 @@
 		flex: 0 0 auto;
 	}
 	.trust-card p {
+		color: var(--ink);
 		display: grid;
 		gap: 3px;
 	}
 	.trust-card strong {
+		color: var(--ink);
 		font-size: 15px;
 	}
 	.trust-card span {
