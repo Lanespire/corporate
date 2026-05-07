@@ -4,6 +4,39 @@
 		'相談からキックオフまで: 中央値5営業日',
 		'NDA締結も初回相談時に対応可'
 	];
+
+	let form = { name: '', email: '', company: '', message: '' };
+	let state: 'idle' | 'sending' | 'success' | 'error' = 'idle';
+	let errorMessage = '';
+
+	async function submit() {
+		if (typeof window === 'undefined') return;
+		if (state === 'sending') return;
+
+		state = 'sending';
+		errorMessage = '';
+
+		const body = new URLSearchParams();
+		body.append('form-name', 'mvp-contact');
+		body.append('name', form.name);
+		body.append('email', form.email);
+		body.append('company', form.company);
+		body.append('message', form.message);
+
+		try {
+			const res = await fetch('/', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: body.toString()
+			});
+			if (!res.ok) throw new Error(`HTTP ${res.status}`);
+			state = 'success';
+			form = { name: '', email: '', company: '', message: '' };
+		} catch (err) {
+			state = 'error';
+			errorMessage = '送信に失敗しました。お手数ですが info@lanespire.com まで直接ご連絡ください。';
+		}
+	}
 </script>
 
 <section id="cta" class="cta" aria-labelledby="cta-heading">
@@ -37,12 +70,9 @@
 					オンライン・初回無料・営業の押し売りはしません。
 				</p>
 				<div class="cta-actions">
-					<a class="cta-btn primary" href="#cta">
+					<a class="cta-btn primary" href="#cta-form">
 						<span>無料相談を予約する</span>
 						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="M13 5l7 7-7 7" /></svg>
-					</a>
-					<a class="cta-btn secondary" href="#cta">
-						<span>資料をダウンロード</span>
 					</a>
 				</div>
 			</div>
@@ -57,6 +87,74 @@
 					</li>
 				{/each}
 			</ul>
+		</div>
+
+		<div id="cta-form" class="form-wrap">
+			{#if state === 'success'}
+				<div class="form-success" role="status">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+						<polyline points="22 4 12 14.01 9 11.01" />
+					</svg>
+					<div>
+						<strong>相談内容を受け付けました。</strong>
+						<span>担当より平日10:00–19:00に折り返しご連絡いたします（通常当日中）。</span>
+					</div>
+				</div>
+			{:else}
+				<form
+					class="cta-form"
+					name="mvp-contact"
+					method="POST"
+					data-netlify="true"
+					data-netlify-honeypot="bot-field"
+					on:submit|preventDefault={submit}
+				>
+					<input type="hidden" name="form-name" value="mvp-contact" />
+					<p class="visually-hidden">
+						<label>Do not fill this out: <input name="bot-field" /></label>
+					</p>
+
+					<div class="form-head">
+						<h3>無料相談を予約する</h3>
+						<p>30分のオンライン相談（Google Meet）。営業の押し売りはしません。</p>
+					</div>
+
+					<div class="form-grid">
+						<label>
+							<span>お名前 <em>必須</em></span>
+							<input bind:value={form.name} name="name" autocomplete="name" required />
+						</label>
+						<label>
+							<span>メールアドレス <em>必須</em></span>
+							<input bind:value={form.email} name="email" type="email" autocomplete="email" required />
+						</label>
+						<label class="full">
+							<span>会社名</span>
+							<input bind:value={form.company} name="company" autocomplete="organization" />
+						</label>
+						<label class="full">
+							<span>相談したい内容 <em>必須</em></span>
+							<textarea
+								bind:value={form.message}
+								name="message"
+								rows="5"
+								placeholder="例: スタートアップの新規事業MVPを最短で出したい / 既存プロダクトに管理画面を追加したい"
+								required
+							></textarea>
+						</label>
+					</div>
+
+					<button class="form-submit" type="submit" disabled={state === 'sending'}>
+						<span>{state === 'sending' ? '送信中…' : '相談内容を送る'}</span>
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="M13 5l7 7-7 7" /></svg>
+					</button>
+
+					{#if state === 'error'}
+						<p class="form-error" role="alert">{errorMessage}</p>
+					{/if}
+				</form>
+			{/if}
 		</div>
 	</div>
 </section>
@@ -366,6 +464,192 @@
 		.cta-btn {
 			width: 100%;
 			justify-content: center;
+		}
+	}
+
+	/* ---------- Visually hidden (a11y / honeypot) ---------- */
+	.visually-hidden {
+		position: absolute !important;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	/* ---------- Inline contact form ---------- */
+	.form-wrap {
+		margin-top: var(--mvp-space-10);
+		max-width: 760px;
+		margin-left: auto;
+		margin-right: auto;
+		scroll-margin-top: 80px;
+	}
+
+	.cta-form {
+		background: var(--mvp-white);
+		border-radius: var(--mvp-radius-lg);
+		padding: var(--mvp-space-10);
+		box-shadow: var(--mvp-shadow-cta);
+		border: 1px solid var(--mvp-gray-200);
+		display: flex;
+		flex-direction: column;
+		gap: var(--mvp-space-6);
+	}
+
+	.form-head h3 {
+		font-family: var(--mvp-font-heading);
+		font-size: 22px;
+		font-weight: var(--mvp-fw-bold);
+		color: var(--mvp-navy-900);
+		margin: 0 0 6px;
+	}
+	.form-head p {
+		font-size: 13.5px;
+		color: var(--mvp-gray-600);
+		margin: 0;
+	}
+
+	.form-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: var(--mvp-space-4) var(--mvp-space-6);
+	}
+	.form-grid label {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+	.form-grid label.full {
+		grid-column: 1 / -1;
+	}
+	.form-grid label > span {
+		font-size: 13px;
+		font-weight: var(--mvp-fw-semibold);
+		color: var(--mvp-navy-700);
+		display: inline-flex;
+		gap: 6px;
+		align-items: center;
+	}
+	.form-grid em {
+		font-size: 10px;
+		font-style: normal;
+		font-weight: var(--mvp-fw-bold);
+		letter-spacing: 0.08em;
+		color: var(--mvp-orange-600);
+		background: var(--mvp-orange-50);
+		padding: 2px 6px;
+		border-radius: 4px;
+	}
+
+	.form-grid input,
+	.form-grid textarea {
+		font-family: var(--mvp-font-body);
+		font-size: 14.5px;
+		color: var(--mvp-navy-900);
+		background: var(--mvp-gray-50);
+		border: 1px solid var(--mvp-gray-200);
+		border-radius: var(--mvp-radius-sm, 8px);
+		padding: 12px 14px;
+		transition: border-color 0.15s ease, background 0.15s ease;
+	}
+	.form-grid input:focus,
+	.form-grid textarea:focus {
+		outline: none;
+		border-color: var(--mvp-orange-500);
+		background: var(--mvp-white);
+		box-shadow: 0 0 0 3px var(--mvp-orange-100);
+	}
+	.form-grid textarea {
+		resize: vertical;
+		min-height: 110px;
+	}
+
+	.form-submit {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		padding: 14px 28px;
+		border-radius: 999px;
+		background: var(--mvp-orange-500);
+		color: var(--mvp-white);
+		font-family: var(--mvp-font-body);
+		font-size: 15px;
+		font-weight: var(--mvp-fw-bold);
+		border: none;
+		cursor: pointer;
+		box-shadow: 0 8px 22px rgba(255, 107, 26, 0.32);
+		transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+		align-self: flex-end;
+	}
+	.form-submit:hover:not(:disabled) {
+		transform: translateY(-1px);
+		box-shadow: 0 10px 26px rgba(255, 107, 26, 0.4);
+	}
+	.form-submit:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+	.form-submit svg {
+		width: 18px;
+		height: 18px;
+	}
+
+	.form-error {
+		margin: 0;
+		padding: 12px 14px;
+		border-radius: 10px;
+		background: rgba(220, 38, 38, 0.08);
+		border: 1px solid rgba(220, 38, 38, 0.35);
+		color: #b91c1c;
+		font-size: 13.5px;
+	}
+
+	.form-success {
+		display: flex;
+		align-items: flex-start;
+		gap: 14px;
+		padding: 24px;
+		border-radius: var(--mvp-radius-lg);
+		background: var(--mvp-white);
+		border: 1px solid var(--mvp-gray-200);
+		box-shadow: var(--mvp-shadow-cta);
+	}
+	.form-success svg {
+		width: 28px;
+		height: 28px;
+		color: var(--mvp-orange-500);
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+	.form-success div {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.form-success strong {
+		font-size: 16px;
+		font-weight: var(--mvp-fw-bold);
+		color: var(--mvp-navy-900);
+	}
+	.form-success span {
+		font-size: 13.5px;
+		color: var(--mvp-gray-600);
+	}
+
+	@media (max-width: 640px) {
+		.form-grid {
+			grid-template-columns: 1fr;
+		}
+		.form-submit {
+			align-self: stretch;
+		}
+		.cta-form {
+			padding: var(--mvp-space-6);
 		}
 	}
 </style>
