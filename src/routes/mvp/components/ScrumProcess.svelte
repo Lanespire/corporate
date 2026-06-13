@@ -8,13 +8,21 @@
 	};
 
 	const days: Day[] = [
-		{ day: 1, label: 'キックオフ・要件すり合わせ', body: '30分で意思決定者と直接対話。やらないことを決める。' },
-		{ day: 2, label: '設計・画面ワイヤー', body: 'ユーザーストーリーと主要画面のワイヤーを共有。' },
-		{ day: 3, label: 'コア機能実装スタート', body: 'クリック可能なプロトタイプ→実装に着手。' },
+		{
+			day: 1,
+			label: 'キックオフ・範囲整理',
+			body: '30分で意思決定者と直接対話。見せたい体験と後回しにする機能を決める。'
+		},
+		{ day: 2, label: '設計・画面ワイヤー', body: 'ユーザーストーリーと3〜5画面のワイヤーを共有。' },
+		{ day: 3, label: 'コア実装スタート', body: '認証・DB・主要画面の実装に着手。' },
 		{ day: 4, label: '実装＋並行レビュー', body: 'フロント・バックを並走。日次で進捗共有。' },
-		{ day: 5, label: 'テスト・QA', body: '想定ユースケースを通しで検証。優先度順に潰す。' },
-		{ day: 6, label: '仕上げ・微調整', body: 'コピー・UI・パフォーマンスを最終調整。' },
-		{ day: 7, label: 'デモ公開・次スプリント計画', body: 'ステージングで実機デモ。次の1週間を一緒に決める。' }
+		{ day: 5, label: 'テスト・QA', body: '選んだ体験を通しで検証。優先度順に潰す。' },
+		{ day: 6, label: 'デモ仕上げ', body: 'コピー・UI・操作感を、判断に必要な水準まで調整。' },
+		{
+			day: 7,
+			label: '初回デモ共有',
+			body: 'ステージングで実機デモ。次に広げる範囲を一緒に決める。'
+		}
 	];
 </script>
 
@@ -22,9 +30,9 @@
 	<div class="mvp-container">
 		<header class="head">
 			<span class="mvp-eyebrow">SCRUM PROCESS</span>
-			<h2 id="scrum-heading" class="mvp-heading-2">契約から1週間でデモまで。</h2>
+			<h2 id="scrum-heading" class="mvp-heading-2">契約から最短1週間で、初回デモまで。</h2>
 			<p class="mvp-lead">
-				キックオフから初回デモ公開まで7日間。毎日進捗が見える形でスプリントを回します。
+				条件が合えば、キックオフから最短7日で初回デモを共有。毎日進捗が見える形で、検証範囲に絞ってスプリントを回します。
 			</p>
 		</header>
 
@@ -291,8 +299,12 @@
 
 	/* === animations === */
 	@keyframes cycle-spin {
-		from { transform: rotate(0deg); }
-		to { transform: rotate(360deg); }
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	/* center counter-rotates so its content stays upright while .cycle spins */
@@ -316,21 +328,32 @@
 	}
 
 	@keyframes cycle-float {
-		0%, 100% { translate: 0 0; }
-		50% { translate: 0 -6px; }
+		0%,
+		100% {
+			translate: 0 0;
+		}
+		50% {
+			translate: 0 -6px;
+		}
 	}
 
 	@keyframes cycle-pulse {
-		0%, 78%, 100% {
+		0%,
+		78%,
+		100% {
 			box-shadow: 0 6px 14px rgba(237, 87, 8, 0.32);
 			transform: scale(1);
 		}
 		8% {
-			box-shadow: 0 0 0 12px rgba(255, 136, 56, 0), 0 6px 14px rgba(237, 87, 8, 0.55);
+			box-shadow:
+				0 0 0 12px rgba(255, 136, 56, 0),
+				0 6px 14px rgba(237, 87, 8, 0.55);
 			transform: scale(1.12);
 		}
 		16% {
-			box-shadow: 0 0 0 0 rgba(255, 136, 56, 0), 0 6px 14px rgba(237, 87, 8, 0.32);
+			box-shadow:
+				0 0 0 0 rgba(255, 136, 56, 0),
+				0 6px 14px rgba(237, 87, 8, 0.32);
 			transform: scale(1);
 		}
 	}
@@ -386,18 +409,38 @@
 			animation: cycle-fade-up 0.6s ease-out both;
 		}
 
-		.cycle__legend-item:nth-child(1) { animation-delay: 0ms; }
-		.cycle__legend-item:nth-child(2) { animation-delay: 80ms; }
-		.cycle__legend-item:nth-child(3) { animation-delay: 160ms; }
-		.cycle__legend-item:nth-child(4) { animation-delay: 240ms; }
-		.cycle__legend-item:nth-child(5) { animation-delay: 320ms; }
-		.cycle__legend-item:nth-child(6) { animation-delay: 400ms; }
-		.cycle__legend-item:nth-child(7) { animation-delay: 480ms; }
+		.cycle__legend-item:nth-child(1) {
+			animation-delay: 0ms;
+		}
+		.cycle__legend-item:nth-child(2) {
+			animation-delay: 80ms;
+		}
+		.cycle__legend-item:nth-child(3) {
+			animation-delay: 160ms;
+		}
+		.cycle__legend-item:nth-child(4) {
+			animation-delay: 240ms;
+		}
+		.cycle__legend-item:nth-child(5) {
+			animation-delay: 320ms;
+		}
+		.cycle__legend-item:nth-child(6) {
+			animation-delay: 400ms;
+		}
+		.cycle__legend-item:nth-child(7) {
+			animation-delay: 480ms;
+		}
 	}
 
 	@keyframes cycle-fade-up {
-		from { opacity: 0; transform: translateY(12px); }
-		to { opacity: 1; transform: translateY(0); }
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {

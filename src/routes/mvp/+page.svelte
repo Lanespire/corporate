@@ -14,20 +14,20 @@
 </script>
 
 <svelte:head>
-	<title>Lanespire MVP - 最初の1週間で、見えるものを出す。</title>
+	<title>Lanespire MVP - 最短1週間で、事業判断に使えるMVPへ。</title>
 	<meta
 		name="description"
-		content="最短1週間でMVPを形にするスクラム開発サービス。要件定義から実装・公開までを少人数の専任チームで一気通貫。低価格で高品質なMVP開発をお探しの方へ。"
+		content="初期ユーザーや社内に見せたい1つの体験を、認証・DB・簡易管理画面込みでブラウザから触れる状態へ。最短1週間で初回デモを共有します。"
 	/>
 	<link rel="canonical" href="https://mvp.lanespire.com/" />
 
 	<!-- Open Graph -->
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="Lanespire MVP" />
-	<meta property="og:title" content="Lanespire MVP - 最初の1週間で、見えるものを出す。" />
+	<meta property="og:title" content="Lanespire MVP - 最短1週間で、事業判断に使えるMVPへ。" />
 	<meta
 		property="og:description"
-		content="最短1週間でMVPを形にするスクラム開発サービス。低価格で高品質。¥500,000〜。"
+		content="初期ユーザーや社内に見せたい1つの体験を、認証・DB・簡易管理画面込みでブラウザから触れる状態へ。Liteは¥500,000〜。"
 	/>
 	<meta property="og:url" content="https://mvp.lanespire.com/" />
 	<meta property="og:image" content="https://mvp.lanespire.com/ogp/mvp-og.png" />
@@ -37,38 +37,39 @@
 
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Lanespire MVP - 最初の1週間で、見えるものを出す。" />
+	<meta name="twitter:title" content="Lanespire MVP - 最短1週間で、事業判断に使えるMVPへ。" />
 	<meta
 		name="twitter:description"
-		content="最短1週間でMVPを形にするスクラム開発サービス。低価格で高品質。¥500,000〜。"
+		content="初期ユーザーや社内に見せたい1つの体験を、認証・DB・簡易管理画面込みでブラウザから触れる状態へ。Liteは¥500,000〜。"
 	/>
 	<meta name="twitter:image" content="https://mvp.lanespire.com/ogp/mvp-og.png" />
 
 	<!-- JSON-LD: Service + Offer -->
-	{@html `<script type="application/ld+json">${JSON.stringify({
-		'@context': 'https://schema.org',
-		'@type': 'Service',
-		name: 'Lanespire MVP開発パッケージ',
-		serviceType: 'MVP開発・スクラム開発',
-		description:
-			'最短1週間でMVPを形にするスクラム開発パッケージ。LP・認証・管理画面・DB・API連携・デプロイまで一式。',
-		provider: {
-			'@type': 'Organization',
-			name: '株式会社Lanespire',
-			url: 'https://lanespire.com/',
-			email: 'info@lanespire.com'
-		},
-		areaServed: 'JP',
-		url: 'https://mvp.lanespire.com/',
-		offers: {
-			'@type': 'Offer',
-			name: 'MVP丸ごと開発 STANDARD',
-			price: '500000',
-			priceCurrency: 'JPY',
-			availability: 'https://schema.org/InStock',
-			url: 'https://mvp.lanespire.com/'
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Service",
+			"name": "Lanespire MVP検証パッケージ",
+			"serviceType": "MVP検証・Webアプリ開発",
+			"description": "初期ユーザーや社内に見せたい1つの体験を、認証・DB・簡易管理画面込みでブラウザから触れる状態へ。最短1週間で初回デモを共有。",
+			"provider": {
+				"@type": "Organization",
+				"name": "株式会社Lanespire",
+				"url": "https://lanespire.com/",
+				"email": "info@lanespire.com"
+			},
+			"areaServed": "JP",
+			"url": "https://mvp.lanespire.com/",
+			"offers": {
+				"@type": "Offer",
+				"name": "MVP検証 Lite",
+				"price": "500000",
+				"priceCurrency": "JPY",
+				"availability": "https://schema.org/InStock",
+				"url": "https://mvp.lanespire.com/"
+			}
 		}
-	})}</script>`}
+	</script>
 </svelte:head>
 
 <div class="mvp-page">

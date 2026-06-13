@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { SvelteURLSearchParams } from 'svelte/reactivity';
+
 	const checks = [
 		'平均返信スピード: 当日中',
 		'相談からキックオフまで: 中央値5営業日',
@@ -16,7 +18,7 @@
 		state = 'sending';
 		errorMessage = '';
 
-		const body = new URLSearchParams();
+		const body = new SvelteURLSearchParams();
 		body.append('form-name', 'mvp-contact');
 		body.append('name', form.name);
 		body.append('email', form.email);
@@ -45,7 +47,14 @@
 			<div class="visual" aria-hidden="true">
 				<div class="badge">
 					<svg class="badge-ring" viewBox="0 0 220 220" fill="none">
-						<circle cx="110" cy="110" r="104" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-dasharray="4 6" />
+						<circle
+							cx="110"
+							cy="110"
+							r="104"
+							stroke="rgba(255,255,255,0.35)"
+							stroke-width="1.5"
+							stroke-dasharray="4 6"
+						/>
 						<circle cx="110" cy="110" r="92" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" />
 					</svg>
 					<div class="badge-inner">
@@ -53,10 +62,30 @@
 						<span class="badge-unit">MIN</span>
 						<span class="badge-label">FREE</span>
 					</div>
-					<svg class="badge-spark spark-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-						<path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8" />
+					<svg
+						class="badge-spark spark-1"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path
+							d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"
+						/>
 					</svg>
-					<svg class="badge-spark spark-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<svg
+						class="badge-spark spark-2"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
 						<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" />
 					</svg>
 				</div>
@@ -66,13 +95,21 @@
 				<span class="eyebrow">FREE 30-MIN CONSULTATION</span>
 				<h2 id="cta-heading">まずは30分の無料相談から。</h2>
 				<p class="lede">
-					要件が固まっていなくて大丈夫です。「何を作るべきか」から一緒に決めます。<br />
+					要件が固まっていなくて大丈夫です。「最短で見せる初回デモの範囲」から一緒に決めます。<br />
 					オンライン・初回無料・営業の押し売りはしません。
 				</p>
 				<div class="cta-actions">
 					<a class="cta-btn primary" href="#cta-form">
 						<span>無料相談を予約する</span>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="M13 5l7 7-7 7" /></svg>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2.4"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"><path d="M5 12h14" /><path d="M13 5l7 7-7 7" /></svg
+						>
 					</a>
 				</div>
 			</div>
@@ -81,7 +118,14 @@
 				{#each checks as item}
 					<li>
 						<span class="tick" aria-hidden="true">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7" /></svg>
+							<svg
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="3"
+								stroke-linecap="round"
+								stroke-linejoin="round"><path d="M5 12l5 5L20 7" /></svg
+							>
 						</span>
 						<span>{item}</span>
 					</li>
@@ -92,7 +136,15 @@
 		<div id="cta-form" class="form-wrap">
 			{#if state === 'success'}
 				<div class="form-success" role="status">
-					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2.6"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
 						<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
 						<polyline points="22 4 12 14.01 9 11.01" />
 					</svg>
@@ -127,7 +179,13 @@
 						</label>
 						<label>
 							<span>メールアドレス <em>必須</em></span>
-							<input bind:value={form.email} name="email" type="email" autocomplete="email" required />
+							<input
+								bind:value={form.email}
+								name="email"
+								type="email"
+								autocomplete="email"
+								required
+							/>
 						</label>
 						<label class="full">
 							<span>会社名</span>
@@ -139,7 +197,7 @@
 								bind:value={form.message}
 								name="message"
 								rows="5"
-								placeholder="例: スタートアップの新規事業MVPを最短で出したい / 既存プロダクトに管理画面を追加したい"
+								placeholder="例: 新規事業のMVPで、最短で見せる初回デモを作りたい"
 								required
 							></textarea>
 						</label>
@@ -147,7 +205,15 @@
 
 					<button class="form-submit" type="submit" disabled={state === 'sending'}>
 						<span>{state === 'sending' ? '送信中…' : '相談内容を送る'}</span>
-						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="M13 5l7 7-7 7" /></svg>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2.4"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"><path d="M5 12h14" /><path d="M13 5l7 7-7 7" /></svg
+						>
 					</button>
 
 					{#if state === 'error'}
@@ -190,8 +256,7 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-		background-image:
-			radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+		background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px);
 		background-size: 14px 14px;
 		opacity: 0.45;
 		pointer-events: none;
@@ -294,7 +359,8 @@
 	}
 
 	@keyframes badge-pulse {
-		0%, 100% {
+		0%,
+		100% {
 			opacity: 0.5;
 			transform: scale(0.92);
 		}
@@ -359,7 +425,11 @@
 		padding: 14px 28px;
 		border-radius: var(--mvp-radius-pill);
 		text-decoration: none;
-		transition: transform var(--mvp-transition), box-shadow var(--mvp-transition), background var(--mvp-transition), color var(--mvp-transition);
+		transition:
+			transform var(--mvp-transition),
+			box-shadow var(--mvp-transition),
+			background var(--mvp-transition),
+			color var(--mvp-transition);
 	}
 
 	.cta-btn.primary {
@@ -371,17 +441,6 @@
 	.cta-btn.primary:hover {
 		transform: translateY(-2px);
 		box-shadow: 0 12px 28px rgba(15, 27, 61, 0.22);
-	}
-
-	.cta-btn.secondary {
-		background: transparent;
-		color: var(--mvp-white);
-		border: 1.5px solid rgba(255, 255, 255, 0.7);
-	}
-
-	.cta-btn.secondary:hover {
-		background: rgba(255, 255, 255, 0.12);
-		border-color: var(--mvp-white);
 	}
 
 	.cta-btn :global(svg) {
@@ -554,7 +613,9 @@
 		border: 1px solid var(--mvp-gray-200);
 		border-radius: var(--mvp-radius-sm, 8px);
 		padding: 12px 14px;
-		transition: border-color 0.15s ease, background 0.15s ease;
+		transition:
+			border-color 0.15s ease,
+			background 0.15s ease;
 	}
 	.form-grid input:focus,
 	.form-grid textarea:focus {
@@ -583,7 +644,10 @@
 		border: none;
 		cursor: pointer;
 		box-shadow: 0 8px 22px rgba(255, 107, 26, 0.32);
-		transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.2s ease,
+			opacity 0.2s ease;
 		align-self: flex-end;
 	}
 	.form-submit:hover:not(:disabled) {

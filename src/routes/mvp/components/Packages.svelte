@@ -41,15 +41,87 @@
 		Icon: typeof Plus;
 	};
 
+	type PlanTier = {
+		label: string;
+		name: string;
+		price: string;
+		description: string;
+		items: string[];
+		recommended?: boolean;
+	};
+
+	type GoalStage = {
+		label: string;
+		title: string;
+		body: string;
+		items: string[];
+	};
+
 	const features: Feature[] = [
-		{ title: 'ランディングページ', detail: '戦略設計＋コピー＋デザイン＋実装' },
-		{ title: 'ログイン認証', detail: 'メール／OAuth（Google・GitHub等）対応' },
-		{ title: '管理画面', detail: 'CRUD・ロール別アクセス制御・監査ログ' },
-		{ title: 'データベース設計', detail: 'スキーマ設計・マイグレーション・バックアップ' },
-		{ title: 'コア機能 2-3画面', detail: 'プロダクトの中核となるユーザー向け画面' },
-		{ title: 'API連携', detail: 'Stripe決済・Slack通知・LLM API 等' },
-		{ title: 'デプロイ', detail: 'Netlify／Vercel／独自ドメイン・SSL' },
-		{ title: 'ドキュメント・運用引き継ぎ', detail: 'README／環境構築手順／運用Runbook' }
+		{ title: '1つの中核体験', detail: '申込・予約・投稿など、最初に反応を見たい操作' },
+		{ title: '3〜5画面', detail: 'LP／ユーザー画面／簡易管理画面を最小構成で実装' },
+		{ title: '基本認証', detail: 'メールログインまたはOAuthなど、検証に必要な範囲' },
+		{ title: 'データベース設計', detail: '選んだ体験に必要なテーブルと初期データ管理' },
+		{ title: '簡易管理画面', detail: 'データ確認・編集に絞った運用者向け画面' },
+		{ title: '外部連携1件まで', detail: '通知・フォーム・AIなど、検証に必須の連携を1つ' },
+		{ title: 'ステージング共有', detail: 'ブラウザで触れるURLを共有してフィードバック可能に' },
+		{ title: '引き継ぎメモ', detail: '次に足すべき機能・運用上の注意点を整理' }
+	];
+
+	const planTiers: PlanTier[] = [
+		{
+			label: 'ENTRY',
+			name: 'Lite',
+			price: '¥500,000〜',
+			description: '必要十分なMVPで、まずユーザーや社内の反応を見ます。',
+			items: ['1つの体験に集中', '3〜5画面', '基本認証・DB・簡易管理', '最短7日で初回デモ']
+		},
+		{
+			label: 'MOST PRACTICAL',
+			name: 'Standard',
+			price: '¥800,000〜¥1,200,000',
+			description: '初期ユーザーに見せるβ版として、体験と運用をもう一段整えます。',
+			recommended: true,
+			items: ['複数画面の体験設計', '管理画面の拡張', '追加連携・権限設計', '公開前QAと運用整理']
+		},
+		{
+			label: 'GROWTH',
+			name: 'Growth',
+			price: '¥1,500,000〜',
+			description: '本番運用やSaaS化を前提に、業務フロー・決済・AIまで広げます。',
+			items: [
+				'複数ロール・複雑な業務フロー',
+				'決済・検索・通知',
+				'AI・複数API連携',
+				'本番運用設計・保守'
+			]
+		}
+	];
+
+	const goalStages: GoalStage[] = [
+		{
+			label: 'MVPのゴール',
+			title: '必要十分な形で、反応を見られる状態へ',
+			body: 'Liteで目指すのは、初期ユーザーや社内に見せて「使いたいか」「何が足りないか」を確認できる状態です。',
+			items: [
+				'中核体験を1つに集中',
+				'3〜5画面で触れる',
+				'基本認証・DB・簡易管理',
+				'初回デモと改善メモ'
+			]
+		},
+		{
+			label: 'システム開発のゴール',
+			title: 'β版・公開版として使える範囲へ広げる',
+			body: 'ユーザー反応をもとに、追加機能・複数権限・連携・決済などを設計します。必要なら初回から上位プランに含めます。',
+			items: ['機能追加', '複数ロール', '決済・通知・AI', '公開前QA']
+		},
+		{
+			label: '運用保守の流れ',
+			title: '公開後の改善と安定運用を続ける',
+			body: 'リリース後の保守、監視、障害対応、継続改善は別途設計。月額支援や追加開発として引き継げます。',
+			items: ['月次改善', '監視・障害対応', 'ユーザー要望整理', '保守契約']
+		}
 	];
 
 	const paymentSteps: PaymentStep[] = [
@@ -58,23 +130,23 @@
 			amount: '¥125,000',
 			percent: '着手分のみ',
 			timing: '契約時',
-			note: '要件を固めて初回デモへ',
+			note: '見せたい体験を絞る',
 			Icon: FileSignature
 		},
 		{
 			label: '中間デモ',
 			amount: '¥125,000',
-			percent: '続行判断',
+			percent: '方向性確認',
 			timing: '最短7日',
-			note: '触って確認してから進める',
+			note: '触って方向性を判断',
 			Icon: Eye
 		},
 		{
-			label: '公開前確認',
+			label: '公開版へ拡張',
 			amount: '¥250,000',
-			percent: '最終調整',
+			percent: '範囲確定',
 			timing: '2-4週間',
-			note: '公開前に品質と運用を確認',
+			note: '必要な分だけ追加実装',
 			Icon: PackageCheck
 		}
 	];
@@ -138,18 +210,19 @@
 
 	const problems: string[] = [
 		'アイデアはあるが、見せられる「動くプロダクト」がない',
-		'既存ベンダーに頼むと、半年・¥1,500,000〜¥3,000,000の見積りが返ってくる',
+		'最初から大きく作る前に、費用と期間の見通しを持ちたい',
 		'内製では工数が読めず、本業の手が止まる',
-		'LP・認証・管理画面・DB・API連携を別々に発注すると、結合と運用で破綻する',
-		'PoCに数百万円かけたが、本番運用に乗らず止まっている'
+		'LP・認証・管理画面・DBを別々に作ると、結合と運用でつまずく',
+		'PoCに時間をかけたが、ユーザー検証に使える形にならない'
 	];
 
 	const approach: string[] = [
-		'LP・認証・管理画面・DB・コア機能をワンチームでワンストップ担当',
-		'契約から最短7日で中間デモ、リリースまで2-4週間',
+		'最初に「見せたい体験」と「今は作らない機能」を決める',
+		'LP・認証・簡易管理画面・DBをワンチームでワンストップ担当',
+		'契約から最短7日で初回デモ、公開版は要件に応じて2〜4週間',
 		'Next.js／Supabase／Vercelの標準スタックで、移管・内製化も容易',
-		'修正回数の上限なし。中間デモのフィードバックを即反映',
-		'運用開始後はスクラム月額契約に切り替えて継続開発も可能'
+		'機能追加はStandard以上、または追加オプションとして設計可能',
+		'運用保守は月額契約に切り替えて継続支援可能'
 	];
 
 	let isModalOpen = false;
@@ -186,42 +259,44 @@
 	<div class="mvp-container">
 		<header class="packages__header">
 			<span class="mvp-eyebrow">SERVICES</span>
-			<h2 class="mvp-heading-2">MVPまるごと開発</h2>
+			<h2 class="mvp-heading-2">MVP検証パッケージ</h2>
 			<p class="mvp-lead packages__lead">
-				LP・認証・管理画面・データベース・コア機能を1セットに。<br />
-				¥500,000〜で MVP を立ち上げます。
+				申込、予約、投稿、診断など、最初に反応を見たい体験をひとつ選ぶ。<br />
+				小さく見せて、次に投資すべき範囲を早く見極めます。
 			</p>
 		</header>
 
 		<article class="hero-card">
-			<div class="hero-card__ribbon">STANDARD</div>
+			<div class="hero-card__ribbon">LITE</div>
 
 			<div class="hero-card__head">
 				<div class="hero-card__badge">
 					<Rocket size={28} strokeWidth={1.75} />
 				</div>
-				<h3 class="hero-card__title">MVP丸ごと開発</h3>
+				<h3 class="hero-card__title">MVP検証 Lite</h3>
 				<p class="hero-card__tagline">
-					投資家ピッチも、初期ユーザー検証も、社内導入も。<br />
-					必要なものを、1パッケージで。
+					投資家ピッチ、初期ユーザー検証、社内の合意形成に。<br />
+					まずは一番見せたい体験を、ブラウザで触れる形へ。
 				</p>
 			</div>
 
 			<div class="hero-card__price-block">
 				<div class="hero-card__price-anchor">
-					<span class="hero-card__price-anchor-label">業界相場</span>
-					<span class="hero-card__price-anchor-value">¥1,500,000 - 3,000,000</span>
+					<span class="hero-card__price-anchor-label">上位プラン</span>
+					<span class="hero-card__price-anchor-value">¥800,000〜</span>
 				</div>
 				<div class="hero-card__price-row">
 					<span class="hero-card__price">¥500,000</span>
 					<span class="hero-card__price-tail">〜</span>
 				</div>
-				<p class="hero-card__price-note">税抜・固定料金パッケージ</p>
-				<p class="hero-card__duration">契約から最短7日でデモ、リリースまで2-4週間</p>
+				<p class="hero-card__price-note">税抜・初回検証向けパッケージ</p>
+				<p class="hero-card__duration">
+					契約から最短7日で初回デモ。反応を見て、β版・公開版へ広げます。
+				</p>
 			</div>
 
 			<div class="hero-card__features">
-				<p class="hero-card__features-label">含まれる開発内容</p>
+				<p class="hero-card__features-label">Liteに含まれる開発内容</p>
 				<ul class="hero-card__features-list">
 					{#each features as feature}
 						<li>
@@ -237,12 +312,16 @@
 				</ul>
 			</div>
 
+			<div class="hero-card__scope-note">
+				<strong>Liteのゴールは、必要十分なMVPでユーザーの反応を見られること。</strong>
+				<span>
+					機能追加や運用保守まで含めたい場合は、Standard / Growth
+					または追加オプションとして設計できます。
+				</span>
+			</div>
+
 			<div class="hero-card__actions">
-				<button
-					type="button"
-					class="hero-card__cta"
-					on:click={closeModalAndGoToContact}
-				>
+				<button type="button" class="hero-card__cta" on:click={closeModalAndGoToContact}>
 					このパッケージを相談する
 					<ArrowRight size={17} />
 				</button>
@@ -258,13 +337,73 @@
 			</div>
 		</article>
 
+		<section class="goal-flow" aria-labelledby="goal-flow-title">
+			<header class="goal-flow__header">
+				<span class="mvp-eyebrow">GOAL FLOW</span>
+				<h3 id="goal-flow-title" class="goal-flow__title">MVP、開発、運用を分けて考えます</h3>
+				<p class="goal-flow__lead">
+					今回のパッケージは、まず反応を見るためのMVPに集中します。機能追加や保守まで必要な場合は、次のフェーズとして設計できます。
+				</p>
+			</header>
+
+			<ol class="goal-flow__grid">
+				{#each goalStages as stage, index}
+					<li class="goal-stage">
+						<div class="goal-stage__number">0{index + 1}</div>
+						<p class="goal-stage__label">{stage.label}</p>
+						<h4 class="goal-stage__title">{stage.title}</h4>
+						<p class="goal-stage__body">{stage.body}</p>
+						<ul class="goal-stage__items">
+							{#each stage.items as item}
+								<li>
+									<span aria-hidden="true"><Check size={12} strokeWidth={3} /></span>
+									{item}
+								</li>
+							{/each}
+						</ul>
+					</li>
+				{/each}
+			</ol>
+		</section>
+
+		<section class="plan-tiers" aria-labelledby="plan-tiers-title">
+			<header class="plan-tiers__header">
+				<span class="mvp-eyebrow">PLANS</span>
+				<h3 id="plan-tiers-title" class="plan-tiers__title">
+					検証からβ版、本番運用まで段階的に選べます
+				</h3>
+				<p class="plan-tiers__lead">
+					今ほしいのが「見せる核」なのか、「使ってもらうβ版」なのかで、最初の設計を変えます。
+				</p>
+			</header>
+
+			<ul class="plan-tiers__grid">
+				{#each planTiers as plan}
+					<li class:plan-tier--recommended={plan.recommended} class="plan-tier">
+						<p class="plan-tier__label">{plan.label}</p>
+						<h4 class="plan-tier__name">{plan.name}</h4>
+						<p class="plan-tier__price">{plan.price}</p>
+						<p class="plan-tier__description">{plan.description}</p>
+						<ul class="plan-tier__items">
+							{#each plan.items as item}
+								<li>
+									<span aria-hidden="true"><Check size={13} strokeWidth={3} /></span>
+									{item}
+								</li>
+							{/each}
+						</ul>
+					</li>
+				{/each}
+			</ul>
+		</section>
+
 		<section class="payment" aria-labelledby="payment-title">
 			<header class="payment__header">
 				<span class="mvp-eyebrow">CHECKPOINT</span>
-				<h3 id="payment-title" class="payment__title">中間デモで続行判断できます</h3>
+				<h3 id="payment-title" class="payment__title">初回デモで次の一手を決められます</h3>
 				<p class="payment__lead">
-					最短7日でブラウザ上のデモを共有します。画面・操作感・方向性を確認してから、<br />
-					<strong>続行するか、ここで止めるかを判断できます。</strong>
+					最短7日でブラウザ上の初回デモを共有します。画面・操作感・方向性を確認してから、<br />
+					<strong>機能追加・公開準備・運用保守のどこまで進めるかを決められます。</strong>
 				</p>
 			</header>
 
@@ -294,16 +433,14 @@
 					<ShieldCheck size={28} strokeWidth={1.75} />
 				</div>
 				<div class="payment-assurance__body">
-					<p class="payment-assurance__title">最初の判断材料を早く出します</p>
+					<p class="payment-assurance__title">最初の手応えを早く見ます</p>
 					<p class="payment-assurance__text">
-						資料だけで進めず、実際に触れる状態で確認します。中間デモで品質と方向性を確かめてから、公開に向けた実装へ進みます。
+						資料だけで進めず、実際に触れる状態で確認します。中間デモ後の機能追加や運用保守は、必要に応じて別途お見積りします。
 					</p>
 				</div>
 			</aside>
 
-			<p class="payment__footnote">
-				※ 費用の分割タイミングは案件内容に合わせて調整できます。
-			</p>
+			<p class="payment__footnote">※ 費用の分割タイミングは案件内容に合わせて調整できます。</p>
 		</section>
 
 		<section class="addons" aria-labelledby="addons-title">
@@ -311,8 +448,7 @@
 				<span class="mvp-eyebrow">EXPAND SCOPE</span>
 				<h3 id="addons-title" class="addons__title">必要に応じて広げられる範囲</h3>
 				<p class="addons__lead">
-					まずは標準パッケージでMVPを形にします。検証に必要な範囲が見えたら、<br />
-					画面・連携・運用などを必要な分だけ足していきます。
+					機能追加や運用保守を最初から含めたい場合は、下記の追加オプションを組み込んだお見積りにできます。
 				</p>
 			</header>
 
@@ -364,18 +500,16 @@
 			</div>
 
 			<div class="pkg-modal__copy">
-				<p class="pkg-modal__tag">MVP STANDARD</p>
-				<h3 id="pkg-modal-title" class="pkg-modal__title">MVP丸ごと開発</h3>
+				<p class="pkg-modal__tag">MVP LITE</p>
+				<h3 id="pkg-modal-title" class="pkg-modal__title">MVP検証 Lite</h3>
 				<p class="pkg-modal__tagline">
-					LP・認証・管理画面・データベース・コア機能を1セットに。¥500,000〜で MVP を立ち上げます。
+					最初に見せたい体験をひとつ選び、認証・DB・簡易管理画面込みで触れる状態へ。¥500,000〜で始められます。
 				</p>
 
 				<div class="pkg-modal__price-row">
 					<span class="pkg-modal__price">¥500,000</span>
 					<span class="pkg-modal__price-note">〜（税抜）</span>
-					<span class="pkg-modal__meta">
-						最短7日でデモ／2-4週間で納品
-					</span>
+					<span class="pkg-modal__meta"> 最短7日で初回デモ／公開版は2〜4週間目安 </span>
 				</div>
 
 				<div class="pkg-modal__detail-grid">
@@ -398,7 +532,7 @@
 				</div>
 
 				<div class="pkg-modal__includes">
-					<h4>含まれる開発内容</h4>
+					<h4>Liteに含まれる開発内容</h4>
 					<ul>
 						{#each features as feature}
 							<li>
@@ -425,7 +559,8 @@
 					<p class="pkg-modal__payment-note">
 						<ShieldCheck size={14} strokeWidth={2} />
 						<span>
-							最短7日の中間デモで<strong>続行 / 中止</strong>を選択可能。触ってから判断できます。
+							最短7日で届く初回デモで<strong>次に広げる範囲</strong
+							>を選択可能。触ってから決められます。
 						</span>
 					</p>
 				</div>
@@ -433,7 +568,8 @@
 				<div class="pkg-modal__result-band">
 					<strong>支援後のイメージ</strong>
 					<p>
-						契約から2-4週間後には、LP から管理画面までを備えた MVP が稼働。投資家ピッチ・初期ユーザー検証・社内導入のいずれもこの1セットで動き始めます。
+						まずは最短1週間で初回デモを確認。初期ユーザーに使ってもらうβ版や、本番運用を前提にしたプロダクトへ進める場合は、Standard
+						/ Growthとして範囲を広げます。
 					</p>
 				</div>
 
@@ -551,9 +687,8 @@
 	}
 
 	.hero-card__price-anchor-value {
-		text-decoration: line-through;
-		text-decoration-color: var(--mvp-text-subtle);
-		font-weight: var(--mvp-fw-medium);
+		font-weight: var(--mvp-fw-bold);
+		color: var(--mvp-text);
 	}
 
 	.hero-card__price-row {
@@ -644,6 +779,26 @@
 		line-height: var(--mvp-lh-normal);
 	}
 
+	.hero-card__scope-note {
+		display: grid;
+		gap: var(--mvp-space-2);
+		padding-top: var(--mvp-space-5);
+		border-top: 1px dashed var(--mvp-border-strong);
+		text-align: center;
+	}
+
+	.hero-card__scope-note strong {
+		font-size: var(--mvp-fs-body-sm);
+		line-height: var(--mvp-lh-normal);
+		color: var(--mvp-text);
+	}
+
+	.hero-card__scope-note span {
+		font-size: var(--mvp-fs-body-sm);
+		line-height: var(--mvp-lh-normal);
+		color: var(--mvp-text-muted);
+	}
+
 	.hero-card__actions {
 		display: flex;
 		flex-wrap: wrap;
@@ -699,6 +854,244 @@
 	.hero-card__detail-link:hover {
 		color: var(--mvp-accent-hover);
 		gap: var(--mvp-space-3);
+	}
+
+	/* ==============================================================
+	   Goal flow
+	   ============================================================== */
+	.goal-flow {
+		max-width: 1040px;
+		margin: var(--mvp-space-16) auto 0;
+	}
+
+	.goal-flow__header {
+		text-align: center;
+		max-width: 760px;
+		margin: 0 auto var(--mvp-space-8);
+	}
+
+	.goal-flow__title {
+		margin-top: var(--mvp-space-3);
+		font-size: var(--mvp-fs-h3);
+		font-weight: var(--mvp-fw-black);
+		color: var(--mvp-text);
+		letter-spacing: var(--mvp-ls-tight);
+	}
+
+	.goal-flow__lead {
+		margin-top: var(--mvp-space-3);
+		font-size: var(--mvp-fs-body-sm);
+		color: var(--mvp-text-muted);
+		line-height: var(--mvp-lh-normal);
+	}
+
+	.goal-flow__grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--mvp-space-5);
+		counter-reset: goal-stage;
+	}
+
+	.goal-stage {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: var(--mvp-space-4);
+		min-height: 100%;
+		padding: var(--mvp-space-6);
+		background: linear-gradient(180deg, var(--mvp-white) 0%, #fffaf6 100%);
+		border: 1px solid var(--mvp-border);
+		border-radius: var(--mvp-radius-card);
+		box-shadow: var(--mvp-shadow-card);
+	}
+
+	.goal-stage:first-child {
+		border-color: var(--mvp-orange-300);
+		box-shadow:
+			0 1px 2px rgba(15, 27, 61, 0.04),
+			0 14px 34px rgba(255, 107, 26, 0.14);
+	}
+
+	.goal-stage__number {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 42px;
+		height: 42px;
+		border-radius: 50%;
+		background: var(--mvp-orange-50);
+		color: var(--mvp-orange-700);
+		font-family: var(--mvp-font-heading);
+		font-size: var(--mvp-fs-body-sm);
+		font-weight: var(--mvp-fw-black);
+		line-height: 1;
+	}
+
+	.goal-stage__label {
+		font-size: var(--mvp-fs-eyebrow);
+		font-weight: var(--mvp-fw-black);
+		letter-spacing: 0.08em;
+		color: var(--mvp-orange-700);
+		text-transform: uppercase;
+		line-height: 1.2;
+	}
+
+	.goal-stage__title {
+		font-size: var(--mvp-fs-h4);
+		font-weight: var(--mvp-fw-black);
+		color: var(--mvp-text);
+		line-height: var(--mvp-lh-snug);
+		letter-spacing: var(--mvp-ls-tight);
+	}
+
+	.goal-stage__body {
+		font-size: var(--mvp-fs-body-sm);
+		color: var(--mvp-text-muted);
+		line-height: var(--mvp-lh-normal);
+	}
+
+	.goal-stage__items {
+		display: grid;
+		gap: var(--mvp-space-2);
+		margin-top: auto;
+		padding-top: var(--mvp-space-4);
+		border-top: 1px dashed var(--mvp-border);
+	}
+
+	.goal-stage__items li {
+		display: grid;
+		grid-template-columns: 18px 1fr;
+		gap: var(--mvp-space-2);
+		align-items: start;
+		font-size: var(--mvp-fs-body-sm);
+		font-weight: var(--mvp-fw-semibold);
+		color: var(--mvp-text);
+		line-height: var(--mvp-lh-snug);
+	}
+
+	.goal-stage__items span {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: var(--mvp-orange-500);
+		color: var(--mvp-white);
+	}
+
+	/* ==============================================================
+	   Pricing tiers
+	   ============================================================== */
+	.plan-tiers {
+		max-width: 1040px;
+		margin: var(--mvp-space-16) auto 0;
+	}
+
+	.plan-tiers__header {
+		text-align: center;
+		max-width: 720px;
+		margin: 0 auto var(--mvp-space-8);
+	}
+
+	.plan-tiers__title {
+		margin-top: var(--mvp-space-3);
+		font-size: var(--mvp-fs-h3);
+		font-weight: var(--mvp-fw-black);
+		color: var(--mvp-text);
+		letter-spacing: var(--mvp-ls-tight);
+	}
+
+	.plan-tiers__lead {
+		margin-top: var(--mvp-space-3);
+		font-size: var(--mvp-fs-body-sm);
+		color: var(--mvp-text-muted);
+		line-height: var(--mvp-lh-normal);
+	}
+
+	.plan-tiers__grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--mvp-space-5);
+	}
+
+	.plan-tier {
+		display: flex;
+		flex-direction: column;
+		gap: var(--mvp-space-4);
+		padding: var(--mvp-space-6);
+		background: var(--mvp-white);
+		border: 1px solid var(--mvp-border);
+		border-radius: var(--mvp-radius-card);
+		box-shadow: var(--mvp-shadow-card);
+	}
+
+	.plan-tier--recommended {
+		border-color: var(--mvp-orange-300);
+		box-shadow:
+			0 1px 2px rgba(15, 27, 61, 0.04),
+			0 14px 34px rgba(255, 107, 26, 0.16);
+	}
+
+	.plan-tier__label {
+		align-self: flex-start;
+		padding: 4px 10px;
+		font-size: 0.6875rem;
+		font-weight: var(--mvp-fw-black);
+		letter-spacing: 0.08em;
+		color: var(--mvp-orange-700);
+		background: var(--mvp-orange-50);
+		border-radius: var(--mvp-radius-pill);
+		line-height: 1.2;
+	}
+
+	.plan-tier__name {
+		font-size: var(--mvp-fs-h3);
+		font-weight: var(--mvp-fw-black);
+		color: var(--mvp-text);
+		letter-spacing: var(--mvp-ls-tight);
+	}
+
+	.plan-tier__price {
+		font-family: var(--mvp-font-heading);
+		font-size: clamp(1.45rem, 2.2vw, 1.8rem);
+		font-weight: var(--mvp-fw-black);
+		color: var(--mvp-accent);
+		line-height: 1.2;
+	}
+
+	.plan-tier__description {
+		font-size: var(--mvp-fs-body-sm);
+		color: var(--mvp-text-muted);
+		line-height: var(--mvp-lh-normal);
+	}
+
+	.plan-tier__items {
+		display: grid;
+		gap: var(--mvp-space-3);
+		margin-top: auto;
+	}
+
+	.plan-tier__items li {
+		display: grid;
+		grid-template-columns: 20px 1fr;
+		gap: var(--mvp-space-2);
+		align-items: start;
+		font-size: var(--mvp-fs-body-sm);
+		font-weight: var(--mvp-fw-semibold);
+		color: var(--mvp-text);
+		line-height: var(--mvp-lh-snug);
+	}
+
+	.plan-tier__items span {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		background: var(--mvp-orange-50);
+		color: var(--mvp-orange-600);
 	}
 
 	/* ==============================================================
@@ -1060,8 +1453,7 @@
 		min-height: 200px;
 		padding: 28px 28px 24px;
 		background:
-			radial-gradient(circle at 30% 25%, rgba(255, 122, 26, 0.22), transparent 55%),
-			#fef5ef;
+			radial-gradient(circle at 30% 25%, rgba(255, 122, 26, 0.22), transparent 55%), #fef5ef;
 	}
 
 	.pkg-modal__visual-fallback {
@@ -1435,6 +1827,14 @@
 		.hero-card__features-list {
 			grid-template-columns: 1fr;
 			gap: var(--mvp-space-3);
+		}
+
+		.goal-flow__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.plan-tiers__grid {
+			grid-template-columns: 1fr;
 		}
 
 		.payment__timeline {

@@ -16,38 +16,38 @@
 	const packageItems = [
 		{
 			icon: Image,
-			title: 'LP',
-			body: '訴求から申込までのランディングページ',
+			title: '検証導線',
+			body: '申込や利用開始までの最小LP・導線',
 			side: 'left'
 		},
 		{
 			icon: LockKeyhole,
-			title: 'ログイン認証',
-			body: '安全な認証・認可でユーザーを管理',
+			title: '基本認証',
+			body: '検証に必要なログイン・権限の土台',
 			side: 'left'
 		},
 		{
 			icon: ChartColumn,
-			title: '管理画面',
-			body: 'データ管理や運用に必要な管理機能',
+			title: '簡易管理画面',
+			body: '初期運用で確認すべきデータを管理',
 			side: 'left'
 		},
 		{
 			icon: Database,
 			title: 'データベース',
-			body: 'データの保存・管理を最適な設計で構築',
+			body: '選んだ体験に必要なデータ設計',
 			side: 'right'
 		},
 		{
 			icon: Puzzle,
-			title: 'API連携',
-			body: '外部サービスとのAPI連携を実装',
+			title: '1連携まで',
+			body: '決済・通知・AIなどは範囲に応じて設計',
 			side: 'right'
 		},
 		{
 			icon: CloudUpload,
 			title: 'デプロイ',
-			body: '本番環境へのデプロイと運用サポート',
+			body: 'ブラウザで触れるステージング環境を共有',
 			side: 'right'
 		}
 	];
@@ -55,23 +55,23 @@
 	const processSteps = [
 		{
 			icon: Users,
-			title: 'ヒアリング・要件定義',
-			body: '課題やアイデアを整理'
+			title: '仮説整理',
+			body: '最初に見せる体験を決定'
 		},
 		{
 			icon: Monitor,
-			title: '設計・開発',
-			body: '迅速に開発を進行'
+			title: '設計・実装',
+			body: '触れる形へ一気に具体化'
 		},
 		{
 			icon: FileText,
-			title: '中間デモ・フィードバック',
-			body: 'デモで確認・軌道修正'
+			title: '初回デモ',
+			body: '方向性と優先順位を判断'
 		},
 		{
 			icon: Rocket,
-			title: '公開・運用サポート',
-			body: '最短でリリース、その後も支援'
+			title: '公開版へ拡張',
+			body: '必要範囲を足して仕上げ'
 		}
 	];
 </script>
@@ -80,13 +80,13 @@
 	<div class="mvp-hero__inner">
 		<div class="mvp-hero__copy">
 			<h1 id="hero-heading" class="mvp-hero__heading">
-				<span class="mvp-hero__heading-line">MVPに必要なものを、</span><br />
-				<span>1パッケージで。</span>
+				<span class="mvp-hero__heading-line">最短1週間で、</span><br />
+				<span>事業判断に使えるMVPへ。</span>
 			</h1>
 
 			<p class="mvp-hero__sub">
-				LP・認証・管理画面・DB・API連携・デプロイまで、<br />
-				<strong>¥500,000〜。</strong>
+				初期ユーザーや社内に見せたい体験を1つ選び、<br />
+				認証・DB・簡易管理画面込みで <strong>¥500,000〜。</strong>
 			</p>
 
 			<div class="mvp-hero__ctas">
@@ -111,8 +111,8 @@
 					<Check size={34} strokeWidth={3} />
 				</span>
 				<div>
-					<h2>中間デモで続行判断OK</h2>
-					<p>開発の途中でデモをご確認いただき、続行するかどうかを判断できます。</p>
+					<h2>初回デモで、次の投資判断まで進めます</h2>
+					<p>操作感・必要機能・ユーザーに見せる順番を、ブラウザ上で確認できます。</p>
 				</div>
 			</div>
 		</div>
@@ -137,7 +137,7 @@
 				<div class="mvp-hero__price-card">
 					<div class="mvp-hero__plan">
 						<span class="mvp-hero__stars" aria-hidden="true">★ ★ ★</span>
-						<span>STANDARD</span>
+						<span>MVP LITE</span>
 					</div>
 					<div class="mvp-hero__price">
 						<span>¥</span>500,000〜
@@ -149,13 +149,13 @@
 							<span class="mvp-hero__timeline-icon" aria-hidden="true">
 								<CalendarDays size={28} />
 							</span>
-							<span>最短 <strong>7日</strong>でデモ</span>
+							<span>最短 <strong>7日</strong>で初回デモ</span>
 						</li>
 						<li>
 							<span class="mvp-hero__timeline-icon" aria-hidden="true">
 								<Rocket size={28} />
 							</span>
-							<span><strong>2-4週間</strong>で公開</span>
+							<span>公開版は<strong>2-4週間</strong>目安</span>
 						</li>
 					</ul>
 				</div>

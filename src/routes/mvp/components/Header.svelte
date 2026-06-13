@@ -34,7 +34,7 @@
 <!-- eslint-disable svelte/no-navigation-without-resolve -->
 <header class="mvp-header" aria-label="グローバルヘッダー">
 	<div class="mvp-header__inner">
-		<a href={mvpHref('#top')} class="mvp-header__brand" aria-label="Lanespire MVP開発パッケージ">
+		<a href={mvpHref('#top')} class="mvp-header__brand" aria-label="Lanespire MVP検証パッケージ">
 			<span class="mvp-header__mark" aria-hidden="true">
 				<svg viewBox="0 0 48 48" fill="none">
 					<path d="M23.5 4 6 16.5l9.4 6.5 17.5-12.5L23.5 4Z" fill="currentColor" />
@@ -45,7 +45,7 @@
 			</span>
 			<span class="mvp-header__name">Lanespire</span>
 			<span class="mvp-header__divider" aria-hidden="true"></span>
-			<span class="mvp-header__service">MVP開発パッケージ</span>
+			<span class="mvp-header__service">MVP検証パッケージ</span>
 		</a>
 
 		<nav class="mvp-header__nav" aria-label="メインナビゲーション">
