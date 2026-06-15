@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Picture } from 'vite-imagetools';
 	import { fade } from 'svelte/transition';
 	import {
 		ArrowRight,
@@ -30,6 +31,9 @@
 	import ctaImage from '$lib/assets/images/lp-cta-generated-transparent-v2.png?enhanced';
 	import nightTableImage from '$lib/assets/images/work-nighttable-og.png?enhanced';
 	import sakuEditImage from '$lib/assets/images/work-sakuedit-og.png?enhanced';
+	import styleFrameImage from '$lib/assets/images/work-styleframe-og.png?enhanced';
+	import lashmieImage from '$lib/assets/images/work-lashmie-og.png?enhanced';
+	import marubatsuImage from '$lib/assets/images/work-marubatsu-og.png?enhanced';
 	import extensionImage from '$lib/assets/images/work-anon-extension.png?enhanced';
 	import crmImage from '$lib/assets/images/work-anon-crm.png?enhanced';
 	import schedulingImage from '$lib/assets/images/work-anon-scheduling.png?enhanced';
@@ -42,7 +46,7 @@
 	import serviceSaasImage from '$lib/assets/images/service-saas.png?enhanced';
 
 	type Work = {
-		image: string;
+		image: Picture;
 		title: string;
 		tag: string;
 		body: string;
@@ -60,7 +64,7 @@
 		desc: string;
 		items: string[];
 		color: 'cyan' | 'green' | 'blue' | 'orange' | 'purple';
-		image?: string;
+		image?: Picture;
 		tag: string;
 		summary: string;
 		problems: string[];
@@ -115,7 +119,8 @@
 				'社内データを活用したRAG構築でナレッジ検索を実現',
 				'PoCで効果検証してから、本番AIエージェントとして実装・運用'
 			],
-			result: '「触っているだけのAI」から「日々の業務が変わるAI」へ。導入後の運用・改善も継続支援します。'
+			result:
+				'「触っているだけのAI」から「日々の業務が変わるAI」へ。導入後の運用・改善も継続支援します。'
 		},
 		{
 			icon: Workflow,
@@ -138,7 +143,8 @@
 				'月次レポートやKPIダッシュボードを自動生成、メールやSlackへ自動配信',
 				'例外処理・通知・ログ整備までセットで設計し、止まらないフローに'
 			],
-			result: '「人が回している作業」を「ツールが回す作業」に。空いた時間で本質的な仕事に集中できます。'
+			result:
+				'「人が回している作業」を「ツールが回す作業」に。空いた時間で本質的な仕事に集中できます。'
 		},
 		{
 			icon: Monitor,
@@ -161,7 +167,8 @@
 				'リリース後のCVR改善、ABテスト、CMS化までセットで継続支援',
 				'採用や事業フェーズの変化に合わせて、軽く回せる更新体制を構築'
 			],
-			result: '「作って終わり」ではなく「成果が出るサイトに育つ」状態へ。継続改善の伴走までセットでお渡しします。'
+			result:
+				'「作って終わり」ではなく「成果が出るサイトに育つ」状態へ。継続改善の伴走までセットでお渡しします。'
 		},
 		{
 			icon: BriefcaseBusiness,
@@ -184,7 +191,8 @@
 				'料金プラン、CV導線、オンボーディング、解約防止まで含めてSaaSとして設計',
 				'リリース後のKPI追跡・改善サイクル・カスタマーサクセス整備まで伴走'
 			],
-			result: '「アイデアはあるが形にできない」状態から、「市場で動き、伸びるプロダクト」まで一緒に立ち上げます。'
+			result:
+				'「アイデアはあるが形にできない」状態から、「市場で動き、伸びるプロダクト」まで一緒に立ち上げます。'
 		},
 		{
 			icon: Rocket,
@@ -248,6 +256,60 @@
 			],
 			result:
 				'編集作業を「動画を上げたら、編集は終わっている」と伝えられるプロダクトLPと体験に整理。'
+		},
+		{
+			image: styleFrameImage,
+			title: 'Style Frame',
+			tag: 'AI / 美容・診断',
+			body: '骨格・パーソナルカラー・顔タイプ・肌印象を横断し、似合う服やコスメを提案するAI診断アプリ。',
+			url: 'https://styleframe.app/',
+			featured: true,
+			role: 'AI診断設計 / Webアプリ開発 / OGP・LP設計',
+			summary:
+				'骨格診断、パーソナルカラー診断、顔タイプ診断、肌印象を一つの体験にまとめ、利用者ごとのコーデ・アイテム提案へつなげるトータル診断サービスとして設計しました。',
+			points: [
+				'骨格・パーソナルカラー・顔タイプ・肌印象を横断する診断ロジック',
+				'診断結果ごとのスタイル提案、コーデ・アイテム導線を設計',
+				'スマホで診断開始から結果確認まで完結するUIを構築'
+			],
+			result:
+				'複数の美容診断を一つの体験にまとめ、ユーザーが似合う方向性を直感的に把握できる診断サービスとして公開。'
+		},
+		{
+			image: lashmieImage,
+			title: 'Lashmie',
+			tag: 'AI / Beauty SaaS',
+			body: 'まつげサロン向けに写真1枚から仕上がりを可視化し、電子カルテに保存できるAIシミュレーションカルテ。',
+			url: 'https://lashmie.com/',
+			featured: true,
+			role: 'AI機能設計 / SaaS開発 / LP制作',
+			summary:
+				'まつげ施術前の認識ずれを減らすため、顧客写真、デザイン設定、AI生成後のBefore/After、カルテ保存を一つの導線に整理しました。',
+			points: [
+				'写真アップロードからデザイン・カール・長さ・本数選択までの施術前フロー',
+				'AIシミュレーション画像をBefore/Afterで確認するカウンセリング体験',
+				'生成画像、施術設定、コメントを保存する電子カルテ機能'
+			],
+			result:
+				'施術前に仕上がりイメージを共有し、カルテ管理までつながる美容サロン向けSaaSとして公開。'
+		},
+		{
+			image: marubatsuImage,
+			title: 'Marubatsu AI',
+			tag: 'AI / EdTech・採点DX',
+			body: '学校・塾向けにAI問題生成、Web配布、紙答案のOCR/OMR採点、分析レポートを統合するテスト運用基盤。',
+			url: 'https://marubatsu.com/',
+			featured: true,
+			role: 'AI機能設計 / 教育SaaS開発 / 採点ワークフロー設計',
+			summary:
+				'教員や塾講師のテスト作成、配布、回収、採点、分析の負担を減らすため、Webテストと紙答案を同じ運用基盤で扱えるサービスとして設計しました。',
+			points: [
+				'単元・難易度・問題数をもとにしたAI問題案生成',
+				'URL配布のWeb回答と紙答案のOCR/OMR採点を同じ画面で管理',
+				'提出状況、平均点、設問別分析などを確認できるダッシュボード'
+			],
+			result:
+				'作問から採点・集計までの作業を一気通貫にし、学校・塾の試験運用を効率化するプロダクトとして公開。'
 		},
 		{
 			image: launchLpImage,
@@ -534,11 +596,37 @@
 				'@type': 'ItemList',
 				name: 'Lanespireのサービス',
 				itemListElement: [
-					{ '@type': 'Service', position: 1, name: 'AI導入支援', provider: { '@id': 'https://lanespire.com/#organization' } },
-					{ '@type': 'Service', position: 2, name: '業務自動化', provider: { '@id': 'https://lanespire.com/#organization' } },
-					{ '@type': 'Service', position: 3, name: 'Web制作', provider: { '@id': 'https://lanespire.com/#organization' } },
-					{ '@type': 'Service', position: 4, name: 'SaaS開発', provider: { '@id': 'https://lanespire.com/#organization' } },
-					{ '@type': 'Service', position: 5, name: 'MVP開発', url: 'https://mvp.lanespire.com/', provider: { '@id': 'https://lanespire.com/#organization' } }
+					{
+						'@type': 'Service',
+						position: 1,
+						name: 'AI導入支援',
+						provider: { '@id': 'https://lanespire.com/#organization' }
+					},
+					{
+						'@type': 'Service',
+						position: 2,
+						name: '業務自動化',
+						provider: { '@id': 'https://lanespire.com/#organization' }
+					},
+					{
+						'@type': 'Service',
+						position: 3,
+						name: 'Web制作',
+						provider: { '@id': 'https://lanespire.com/#organization' }
+					},
+					{
+						'@type': 'Service',
+						position: 4,
+						name: 'SaaS開発',
+						provider: { '@id': 'https://lanespire.com/#organization' }
+					},
+					{
+						'@type': 'Service',
+						position: 5,
+						name: 'MVP開発',
+						url: 'https://mvp.lanespire.com/',
+						provider: { '@id': 'https://lanespire.com/#organization' }
+					}
 				]
 			}
 		]
@@ -949,9 +1037,7 @@
 			<div class="company-head">
 				<p class="eyebrow">Company</p>
 				<h2 id="company-heading">会社情報</h2>
-				<p class="company-lead">
-					株式会社レーンスパイア（Lanespire Inc.）の会社概要です。
-				</p>
+				<p class="company-lead">株式会社レーンスパイア（Lanespire Inc.）の会社概要です。</p>
 			</div>
 
 			<div class="company-grid">
@@ -1017,9 +1103,7 @@
 			<a class="mail-card" href="mailto:info@lanespire.com"
 				><Mail size={19} /><strong>info@lanespire.com</strong><span>メールでのご連絡</span></a
 			>
-			<a class="form-link" href="#contact"
-				>お問い合わせフォーム <ArrowRight size={16} /></a
-			>
+			<a class="form-link" href="#contact">お問い合わせフォーム <ArrowRight size={16} /></a>
 		</div>
 	</footer>
 </div>
@@ -2567,5 +2651,4 @@
 		opacity: 0.6;
 		cursor: not-allowed;
 	}
-
 </style>
