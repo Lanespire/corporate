@@ -51,11 +51,11 @@
 							cx="110"
 							cy="110"
 							r="104"
-							stroke="rgba(139,230,206,0.35)"
+							stroke="rgba(255,255,255,0.35)"
 							stroke-width="1.5"
 							stroke-dasharray="4 6"
 						/>
-						<circle cx="110" cy="110" r="92" stroke="rgba(139,230,206,0.55)" stroke-width="1.5" />
+						<circle cx="110" cy="110" r="92" stroke="rgba(255,255,255,0.55)" stroke-width="1.5" />
 					</svg>
 					<div class="badge-inner">
 						<span class="badge-num">30</span>
@@ -256,7 +256,7 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-		background-image: radial-gradient(rgba(139, 230, 206, 0.14) 1px, transparent 1px);
+		background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px);
 		background-size: 14px 14px;
 		opacity: 0.45;
 		pointer-events: none;
@@ -292,13 +292,15 @@
 		width: 168px;
 		height: 168px;
 		border-radius: 50%;
-		background: var(--mvp-panel);
+		background: var(--mvp-white);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: 2px;
-		box-shadow: var(--mvp-shadow-card);
+		box-shadow:
+			0 12px 28px rgba(15, 27, 61, 0.22),
+			inset 0 0 0 1px rgba(255, 255, 255, 0.6);
 	}
 
 	.badge-num {
@@ -331,7 +333,7 @@
 
 	.badge-spark {
 		position: absolute;
-		color: var(--mvp-accent);
+		color: rgba(255, 255, 255, 0.85);
 	}
 
 	.spark-1 {
@@ -385,7 +387,7 @@
 		font-size: var(--mvp-fs-eyebrow);
 		font-weight: var(--mvp-fw-semibold);
 		letter-spacing: var(--mvp-ls-wide);
-		color: var(--mvp-accent);
+		color: rgba(255, 255, 255, 0.85);
 		margin-bottom: var(--mvp-space-3);
 		text-transform: uppercase;
 	}
@@ -397,13 +399,13 @@
 		line-height: var(--mvp-lh-tight);
 		letter-spacing: var(--mvp-ls-tight);
 		margin: 0 0 var(--mvp-space-4);
-		color: var(--mvp-text);
+		color: var(--mvp-white);
 	}
 
 	.lede {
 		font-size: var(--mvp-fs-body);
 		line-height: var(--mvp-lh-normal);
-		color: var(--mvp-muted);
+		color: rgba(255, 255, 255, 0.95);
 		margin: 0 0 var(--mvp-space-6);
 		max-width: 520px;
 	}
@@ -431,15 +433,14 @@
 	}
 
 	.cta-btn.primary {
-		background: var(--mvp-accent);
-		color: var(--mvp-dark-text);
-		box-shadow: var(--mvp-shadow-cta);
+		background: var(--mvp-white);
+		color: var(--mvp-orange-700);
+		box-shadow: 0 6px 18px rgba(15, 27, 61, 0.18);
 	}
 
 	.cta-btn.primary:hover {
 		transform: translateY(-2px);
-		background: var(--mvp-accent-hover);
-		box-shadow: var(--mvp-shadow-cta-hover);
+		box-shadow: 0 12px 28px rgba(15, 27, 61, 0.22);
 	}
 
 	.cta-btn :global(svg) {
@@ -473,8 +474,8 @@
 		width: 24px;
 		height: 24px;
 		border-radius: 50%;
-		background: var(--mvp-accent);
-		color: var(--mvp-dark-text);
+		background: var(--mvp-white);
+		color: var(--mvp-orange-600);
 		flex-shrink: 0;
 	}
 
@@ -548,7 +549,7 @@
 	}
 
 	.cta-form {
-		background: var(--mvp-panel);
+		background: var(--mvp-white);
 		border-radius: var(--mvp-radius-lg);
 		padding: var(--mvp-space-10);
 		box-shadow: var(--mvp-shadow-cta);
@@ -562,7 +563,7 @@
 		font-family: var(--mvp-font-heading);
 		font-size: 22px;
 		font-weight: var(--mvp-fw-bold);
-		color: var(--mvp-text);
+		color: var(--mvp-navy-900);
 		margin: 0 0 6px;
 	}
 	.form-head p {
@@ -587,7 +588,7 @@
 	.form-grid label > span {
 		font-size: 13px;
 		font-weight: var(--mvp-fw-semibold);
-		color: var(--mvp-text);
+		color: var(--mvp-navy-700);
 		display: inline-flex;
 		gap: 6px;
 		align-items: center;
@@ -607,8 +608,8 @@
 	.form-grid textarea {
 		font-family: var(--mvp-font-body);
 		font-size: 14.5px;
-		color: var(--mvp-text);
-		background: var(--mvp-input);
+		color: var(--mvp-navy-900);
+		background: var(--mvp-gray-50);
 		border: 1px solid var(--mvp-gray-200);
 		border-radius: var(--mvp-radius-sm, 8px);
 		padding: 12px 14px;
@@ -619,9 +620,9 @@
 	.form-grid input:focus,
 	.form-grid textarea:focus {
 		outline: none;
-		border-color: var(--mvp-accent);
-		background: var(--mvp-panel-strong);
-		box-shadow: 0 0 0 3px rgba(139, 230, 206, 0.14);
+		border-color: var(--mvp-orange-500);
+		background: var(--mvp-white);
+		box-shadow: 0 0 0 3px var(--mvp-orange-100);
 	}
 	.form-grid textarea {
 		resize: vertical;
@@ -635,14 +636,14 @@
 		gap: 10px;
 		padding: 14px 28px;
 		border-radius: 999px;
-		background: var(--mvp-accent);
-		color: var(--mvp-dark-text);
+		background: var(--mvp-orange-500);
+		color: var(--mvp-white);
 		font-family: var(--mvp-font-body);
 		font-size: 15px;
 		font-weight: var(--mvp-fw-bold);
 		border: none;
 		cursor: pointer;
-		box-shadow: var(--mvp-shadow-cta);
+		box-shadow: 0 8px 22px rgba(255, 107, 26, 0.32);
 		transition:
 			transform 0.15s ease,
 			box-shadow 0.2s ease,
@@ -651,7 +652,7 @@
 	}
 	.form-submit:hover:not(:disabled) {
 		transform: translateY(-1px);
-		box-shadow: var(--mvp-shadow-cta-hover);
+		box-shadow: 0 10px 26px rgba(255, 107, 26, 0.4);
 	}
 	.form-submit:disabled {
 		opacity: 0.6;
@@ -678,14 +679,14 @@
 		gap: 14px;
 		padding: 24px;
 		border-radius: var(--mvp-radius-lg);
-		background: var(--mvp-panel);
+		background: var(--mvp-white);
 		border: 1px solid var(--mvp-gray-200);
-		box-shadow: var(--mvp-shadow-card);
+		box-shadow: var(--mvp-shadow-cta);
 	}
 	.form-success svg {
 		width: 28px;
 		height: 28px;
-		color: var(--mvp-accent);
+		color: var(--mvp-orange-500);
 		flex-shrink: 0;
 		margin-top: 2px;
 	}
@@ -697,7 +698,7 @@
 	.form-success strong {
 		font-size: 16px;
 		font-weight: var(--mvp-fw-bold);
-		color: var(--mvp-text);
+		color: var(--mvp-navy-900);
 	}
 	.form-success span {
 		font-size: 13.5px;
@@ -714,113 +715,5 @@
 		.cta-form {
 			padding: var(--mvp-space-6);
 		}
-	}
-	/* ==============================================================
-	   Obsidian editorial theme overrides
-	   ============================================================== */
-	.banner {
-		background: var(--mvp-panel-strong);
-		color: var(--mvp-text);
-		border: 1px solid var(--mvp-line);
-		box-shadow: var(--mvp-shadow-card);
-	}
-
-	.banner::before {
-		background-image: radial-gradient(rgba(139, 230, 206, 0.14) 1px, transparent 1px);
-	}
-
-	.badge-inner {
-		background: var(--mvp-panel);
-		box-shadow: var(--mvp-shadow-card);
-	}
-
-	.badge-num,
-	.badge-unit,
-	.badge-label {
-		color: var(--mvp-accent);
-	}
-
-	.badge-label {
-		background: var(--mvp-orange-50);
-	}
-
-	.badge-spark {
-		color: var(--mvp-accent);
-	}
-
-	.eyebrow {
-		color: var(--mvp-accent);
-	}
-
-	h2 {
-		color: var(--mvp-text);
-	}
-
-	.lede,
-	.checks li {
-		color: var(--mvp-muted);
-	}
-
-	.cta-btn.primary,
-	.form-submit {
-		background: var(--mvp-accent);
-		color: var(--mvp-dark-text);
-		box-shadow: var(--mvp-shadow-cta);
-	}
-
-	.cta-btn.primary:hover,
-	.form-submit:hover:not(:disabled) {
-		background: var(--mvp-accent-hover);
-		color: var(--mvp-dark-text);
-		box-shadow: var(--mvp-shadow-cta-hover);
-	}
-
-	.tick {
-		background: var(--mvp-accent);
-		color: var(--mvp-dark-text);
-	}
-
-	.cta-form,
-	.form-success {
-		background: var(--mvp-panel);
-		border-color: var(--mvp-line);
-		box-shadow: var(--mvp-shadow-card);
-	}
-
-	.form-head h3,
-	.form-success strong {
-		color: var(--mvp-text);
-	}
-
-	.form-head p,
-	.form-success span {
-		color: var(--mvp-muted);
-	}
-
-	.form-grid label > span {
-		color: var(--mvp-text);
-	}
-
-	.form-grid em {
-		color: var(--mvp-accent);
-		background: var(--mvp-orange-50);
-	}
-
-	.form-grid input,
-	.form-grid textarea {
-		color: var(--mvp-text);
-		background: var(--mvp-input);
-		border-color: var(--mvp-line);
-	}
-
-	.form-grid input:focus,
-	.form-grid textarea:focus {
-		border-color: var(--mvp-accent);
-		background: var(--mvp-panel-strong);
-		box-shadow: 0 0 0 3px rgba(139, 230, 206, 0.14);
-	}
-
-	.form-success svg {
-		color: var(--mvp-accent);
 	}
 </style>
