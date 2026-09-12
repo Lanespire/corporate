@@ -99,7 +99,7 @@
 		position: sticky;
 		top: 0;
 		z-index: var(--mvp-z-header);
-		background: rgba(255, 255, 255, 0.96);
+		background: rgba(12, 16, 15, 0.88);
 		backdrop-filter: saturate(180%) blur(14px);
 		-webkit-backdrop-filter: saturate(180%) blur(14px);
 	}
@@ -133,7 +133,7 @@
 		justify-content: center;
 		width: 44px;
 		height: 44px;
-		color: #ff6b00;
+		color: var(--mvp-accent);
 	}
 
 	.mvp-header__mark svg {
@@ -197,7 +197,7 @@
 		font-size: 17px;
 		font-weight: 800;
 		line-height: 1;
-		background: var(--mvp-white);
+		background: var(--mvp-panel);
 	}
 
 	.mvp-header__contact:hover,
@@ -220,7 +220,7 @@
 	.mvp-header__mobile {
 		display: none;
 		border-top: 1px solid var(--mvp-border);
-		background: var(--mvp-white);
+		background: var(--mvp-panel);
 		padding: var(--mvp-space-4) var(--mvp-container-pad);
 	}
 
@@ -294,5 +294,47 @@
 		.mvp-header__name {
 			font-size: 26px;
 		}
+	}
+	/* ==============================================================
+	   Obsidian editorial theme overrides
+	   ============================================================== */
+	.mvp-header {
+		background: rgba(12, 16, 15, 0.88);
+		border-bottom: 1px solid var(--mvp-line);
+	}
+
+	.mvp-header__mark {
+		color: var(--mvp-accent);
+	}
+
+	.mvp-header__contact,
+	.mvp-header__mobile-contact {
+		border-color: var(--mvp-line-strong);
+		color: var(--mvp-text);
+		background: var(--mvp-panel);
+	}
+
+	.mvp-header__contact:hover,
+	.mvp-header__mobile-contact:hover {
+		color: var(--mvp-dark-text);
+		border-color: var(--mvp-accent);
+		background: var(--mvp-accent);
+	}
+
+	.mvp-header__burger,
+	.mvp-header__mobile {
+		background: var(--mvp-panel);
+	}
+
+	.mvp-header__burger {
+		color: var(--mvp-text);
+	}
+
+	.mvp-header__mobile {
+		border-top-color: var(--mvp-line);
+	}
+
+	.mvp-header__mobile a:hover {
+		background: var(--mvp-panel-strong);
 	}
 </style>

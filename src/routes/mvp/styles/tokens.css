@@ -1,93 +1,92 @@
 /* =============================================================
-   Lanespire MVP LP - Design Tokens
-   White-based + Vivid Orange accent + Navy text
-   Scope: only inside .mvp-page (avoids polluting other routes)
+   Lanespire MVP LP - Obsidian editorial design tokens
+   Scoped to .mvp-page so other routes remain unchanged.
    ============================================================= */
 
 .mvp-page {
-	/* ---------- Brand: Orange ---------- */
-	--mvp-orange-50: #fff4ec;
-	--mvp-orange-100: #ffe2cc;
-	--mvp-orange-200: #ffc59a;
-	--mvp-orange-300: #ffa566;
-	--mvp-orange-400: #ff8838;
-	--mvp-orange-500: #ff6b1a; /* primary accent */
-	--mvp-orange-600: #ed5708;
-	--mvp-orange-700: #c44608;
-	--mvp-orange-800: #92340a;
+	/* ---------- Palette ---------- */
+	--mvp-bg: #0c100f;
+	--mvp-panel: #151a18;
+	--mvp-panel-strong: #1b2220;
+	--mvp-input: #0e1312;
+	--mvp-text: #f3f0e8;
+	--mvp-muted: #aab1ab;
+	--mvp-accent: #8be6ce;
+	--mvp-accent-hover: #b0f4df;
+	--mvp-line: rgba(201, 224, 215, 0.16);
+	--mvp-line-strong: rgba(201, 224, 215, 0.3);
+	--mvp-dark-text: #10201b;
 
-	/* ---------- Brand: Navy (heading / footer) ---------- */
-	--mvp-navy-50: #eef1f8;
-	--mvp-navy-100: #d5dcec;
-	--mvp-navy-300: #8895bb;
-	--mvp-navy-500: #3a4a78;
-	--mvp-navy-700: #1c2a55;
-	--mvp-navy-900: #0f1b3d;
+	/* Compatibility names used by the existing components. */
+	--mvp-orange-50: #13201c;
+	--mvp-orange-100: #1b2d27;
+	--mvp-orange-200: #31534a;
+	--mvp-orange-300: #5fae99;
+	--mvp-orange-400: #76c9b0;
+	--mvp-orange-500: var(--mvp-accent);
+	--mvp-orange-600: var(--mvp-accent-hover);
+	--mvp-orange-700: var(--mvp-accent-hover);
+	--mvp-orange-800: #d1f9eb;
 
-	/* ---------- Neutrals ---------- */
-	--mvp-white: #ffffff;
-	--mvp-gray-50: #f7f8fa;
-	--mvp-gray-100: #eef0f4;
-	--mvp-gray-200: #e2e6ee;
-	--mvp-gray-300: #cdd2dd;
-	--mvp-gray-400: #9aa1b2;
-	--mvp-gray-500: #6b7385;
-	--mvp-gray-600: #525a6c;
-	--mvp-gray-700: #3a4151;
-	--mvp-gray-800: #232936;
+	--mvp-navy-50: #13201c;
+	--mvp-navy-100: #1b2d27;
+	--mvp-navy-300: #5f786e;
+	--mvp-navy-500: #829b91;
+	--mvp-navy-700: #c8d5ce;
+	--mvp-navy-900: var(--mvp-bg);
 
-	/* ---------- Semantic ---------- */
-	--mvp-bg: var(--mvp-white);
-	--mvp-bg-subtle: var(--mvp-gray-50);
-	--mvp-bg-soft-orange: var(--mvp-orange-50);
-	--mvp-surface: var(--mvp-white);
-	--mvp-border: var(--mvp-gray-200);
-	--mvp-border-strong: var(--mvp-gray-300);
+	--mvp-white: var(--mvp-text);
+	--mvp-gray-50: #101513;
+	--mvp-gray-100: var(--mvp-panel);
+	--mvp-gray-200: var(--mvp-panel-strong);
+	--mvp-gray-300: #29332f;
+	--mvp-gray-400: #76817b;
+	--mvp-gray-500: #8e9992;
+	--mvp-gray-600: var(--mvp-muted);
+	--mvp-gray-700: #c3c8c1;
+	--mvp-gray-800: #e0ddd3;
 
-	--mvp-text: var(--mvp-navy-900);
-	--mvp-text-muted: var(--mvp-gray-600);
-	--mvp-text-subtle: var(--mvp-gray-500);
-	--mvp-text-on-orange: var(--mvp-white);
-	--mvp-text-on-navy: var(--mvp-white);
+	/* ---------- Semantic aliases ---------- */
+	--mvp-bg-subtle: var(--mvp-panel);
+	--mvp-bg-soft-orange: var(--mvp-panel);
+	--mvp-surface: var(--mvp-panel);
+	--mvp-border: var(--mvp-line);
+	--mvp-border-strong: var(--mvp-line-strong);
 
-	--mvp-accent: var(--mvp-orange-500);
-	--mvp-accent-hover: var(--mvp-orange-600);
+	--mvp-text-muted: var(--mvp-muted);
+	--mvp-text-subtle: #87938c;
+	--mvp-text-on-orange: var(--mvp-dark-text);
+	--mvp-text-on-navy: var(--mvp-text);
 
-	/* ---------- Gradients ---------- */
+	/* ---------- Subtle gradients ---------- */
 	--mvp-gradient-hero-corner: linear-gradient(
 		135deg,
-		var(--mvp-orange-500) 0%,
-		var(--mvp-orange-300) 55%,
-		rgba(255, 168, 102, 0) 100%
+		rgba(139, 230, 206, 0.22) 0%,
+		rgba(139, 230, 206, 0.06) 55%,
+		transparent 100%
 	);
 	--mvp-gradient-soft-orange: linear-gradient(
 		180deg,
-		var(--mvp-orange-50) 0%,
-		rgba(255, 244, 236, 0) 100%
+		rgba(139, 230, 206, 0.06) 0%,
+		transparent 100%
 	);
-	--mvp-gradient-cta: linear-gradient(
-		135deg,
-		var(--mvp-orange-500) 0%,
-		var(--mvp-orange-400) 100%
-	);
+	--mvp-gradient-cta: linear-gradient(135deg, var(--mvp-accent) 0%, var(--mvp-accent-hover) 100%);
 
 	/* ---------- Typography ---------- */
 	--mvp-font-heading:
-		'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans',
-		'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+		'Avenir Next', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', system-ui, sans-serif;
 	--mvp-font-body:
-		'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans',
-		'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+		'Avenir Next', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', system-ui, sans-serif;
 
-	--mvp-fs-eyebrow: 0.8125rem; /* 13px */
-	--mvp-fs-body-sm: 0.875rem; /* 14px */
-	--mvp-fs-body: 1rem; /* 16px */
-	--mvp-fs-body-lg: 1.125rem; /* 18px */
-	--mvp-fs-h4: 1.25rem; /* 20px */
-	--mvp-fs-h3: 1.625rem; /* 26px */
-	--mvp-fs-h2: 2.25rem; /* 36px */
-	--mvp-fs-h1: 3.25rem; /* 52px */
-	--mvp-fs-display: 4rem; /* 64px hero */
+	--mvp-fs-eyebrow: 0.8125rem;
+	--mvp-fs-body-sm: 0.875rem;
+	--mvp-fs-body: 1rem;
+	--mvp-fs-body-lg: 1.125rem;
+	--mvp-fs-h4: 1.25rem;
+	--mvp-fs-h3: 1.625rem;
+	--mvp-fs-h2: 2.25rem;
+	--mvp-fs-h1: 3.25rem;
+	--mvp-fs-display: 4rem;
 
 	--mvp-fw-regular: 400;
 	--mvp-fw-medium: 500;
@@ -119,33 +118,24 @@
 	--mvp-space-24: 6rem;
 	--mvp-space-32: 8rem;
 
-	/* ---------- Radius ---------- */
+	/* ---------- Shape and elevation ---------- */
 	--mvp-radius-sm: 6px;
 	--mvp-radius-md: 10px;
 	--mvp-radius-card: 14px;
 	--mvp-radius-lg: 20px;
 	--mvp-radius-pill: 9999px;
 
-	/* ---------- Shadows ---------- */
-	--mvp-shadow-xs: 0 1px 2px rgba(15, 27, 61, 0.04);
-	--mvp-shadow-card:
-		0 1px 2px rgba(15, 27, 61, 0.04),
-		0 6px 18px rgba(15, 27, 61, 0.06);
-	--mvp-shadow-card-hover:
-		0 4px 8px rgba(15, 27, 61, 0.06),
-		0 14px 32px rgba(15, 27, 61, 0.1);
-	--mvp-shadow-cta: 0 8px 20px rgba(255, 107, 26, 0.32);
-	--mvp-shadow-cta-hover: 0 12px 28px rgba(255, 107, 26, 0.42);
+	--mvp-shadow-xs: 0 1px 2px rgba(16, 32, 27, 0.16);
+	--mvp-shadow-card: 0 1px 2px rgba(16, 32, 27, 0.18), 0 12px 32px rgba(16, 32, 27, 0.16);
+	--mvp-shadow-card-hover: 0 4px 10px rgba(16, 32, 27, 0.2), 0 18px 38px rgba(16, 32, 27, 0.2);
+	--mvp-shadow-cta: 0 10px 28px rgba(139, 230, 206, 0.14);
+	--mvp-shadow-cta-hover: 0 14px 34px rgba(139, 230, 206, 0.22);
 
 	/* ---------- Layout ---------- */
 	--mvp-container-max: 1200px;
 	--mvp-container-pad: 1.5rem;
 	--mvp-section-pad-y: 6rem;
 	--mvp-section-pad-y-sm: 4rem;
-
-	/* Breakpoint reference (blueprint §5: 821px to match launch-lp).
-	   Note: CSS variables can't be used in @media conditions, but this
-	   keeps the canonical value documented. */
 	--mvp-bp-mobile: 821px;
 
 	/* ---------- Transitions ---------- */
@@ -157,24 +147,20 @@
 	--mvp-z-header: 50;
 	--mvp-z-modal: 100;
 
-	/* =============================================================
-	   Blueprint short aliases (mvp-blueprint.md §4 準拠)
-	   FE 各メンバーはこちらの短い名前を優先して使ってOK
-	   ============================================================= */
-	--orange: #ff7a1a;
-	--orange-dark: #e45e00;
-	--blue: #1678dc;
-	--blue-dark: #0959c8;
-	--ink: #111111;
-	--ink-muted: #4a4a4a;
-	--soft: #f5f8fb;
-	--line: #dbe5ed;
-	--radius-card: 14px;
-	--shadow-card: 0 8px 24px rgba(17, 17, 17, 0.08);
-	--shadow-card-hover: 0 14px 36px rgba(17, 17, 17, 0.12);
+	/* Blueprint aliases retained for component compatibility. */
+	--orange: var(--mvp-accent);
+	--orange-dark: var(--mvp-accent-hover);
+	--blue: var(--mvp-accent);
+	--blue-dark: var(--mvp-accent-hover);
+	--ink: var(--mvp-text);
+	--ink-muted: var(--mvp-muted);
+	--soft: var(--mvp-panel);
+	--line: var(--mvp-line);
+	--radius-card: var(--mvp-radius-card);
+	--shadow-card: var(--mvp-shadow-card);
+	--shadow-card-hover: var(--mvp-shadow-card-hover);
 }
 
-/* Responsive font scaling */
 @media (max-width: 1024px) {
 	.mvp-page {
 		--mvp-fs-display: 3.25rem;

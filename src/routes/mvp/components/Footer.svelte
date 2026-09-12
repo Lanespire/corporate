@@ -27,8 +27,8 @@
 
 <style>
 	.footer {
-		background: var(--mvp-navy-900);
-		color: rgba(255, 255, 255, 0.78);
+		background: var(--mvp-bg);
+		color: var(--mvp-muted);
 		font-family: var(--mvp-font-body);
 		padding: var(--mvp-space-10) 0 var(--mvp-space-8);
 	}
@@ -64,7 +64,7 @@
 	}
 
 	nav a {
-		color: rgba(255, 255, 255, 0.78);
+		color: var(--mvp-muted);
 		text-decoration: none;
 		font-size: var(--mvp-fs-body-sm);
 		transition: color var(--mvp-transition);
@@ -80,18 +80,43 @@
 	}
 
 	nav a.email:hover {
-		color: var(--mvp-white);
+		color: var(--mvp-accent-hover);
 	}
 
 	.copyright {
 		margin: 0;
 		font-size: var(--mvp-fs-eyebrow);
-		color: rgba(255, 255, 255, 0.55);
+		color: var(--mvp-text-subtle);
 	}
 
 	@media (max-width: 540px) {
 		nav {
 			gap: var(--mvp-space-2) var(--mvp-space-4);
 		}
+	}
+	/* ==============================================================
+	   Obsidian editorial theme overrides
+	   ============================================================== */
+	.footer {
+		background: var(--mvp-bg);
+		color: var(--mvp-muted);
+		border-top: 1px solid var(--mvp-line);
+	}
+
+	nav a {
+		color: var(--mvp-muted);
+	}
+
+	nav a:hover,
+	nav a.email {
+		color: var(--mvp-accent);
+	}
+
+	nav a.email:hover {
+		color: var(--mvp-accent-hover);
+	}
+
+	.copyright {
+		color: var(--mvp-text-subtle);
 	}
 </style>

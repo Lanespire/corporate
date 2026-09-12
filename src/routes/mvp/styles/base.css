@@ -1,8 +1,6 @@
 /* =============================================================
-   Lanespire MVP LP - Base / Shared utilities
-   Loaded from src/routes/mvp/+page.svelte alongside tokens.css
-   All rules are scoped under .mvp-page so other routes are
-   unaffected.
+   Lanespire MVP LP - Base / shared utilities
+   All rules are scoped under .mvp-page so other routes are unaffected.
    ============================================================= */
 
 /* ---------- Reset (scoped) ---------- */
@@ -14,13 +12,14 @@
 }
 
 .mvp-page {
-	min-height: 100vh;
+	min-height: 100dvh;
 	background: var(--mvp-bg);
 	color: var(--mvp-text);
 	font-family: var(--mvp-font-body);
 	font-size: var(--mvp-fs-body);
 	line-height: var(--mvp-lh-normal);
 	font-weight: var(--mvp-fw-regular);
+	color-scheme: dark;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
@@ -98,7 +97,7 @@
 }
 
 .mvp-section--navy {
-	background: var(--mvp-navy-900);
+	background: var(--mvp-panel-strong);
 	color: var(--mvp-text-on-navy);
 }
 
@@ -199,7 +198,7 @@
 .mvp-card--interactive:hover {
 	box-shadow: var(--mvp-shadow-card-hover);
 	transform: translateY(-2px);
-	border-color: var(--mvp-orange-200);
+	border-color: var(--mvp-accent);
 }
 
 .mvp-card--flat {
@@ -208,7 +207,7 @@
 
 .mvp-card--accent {
 	border-color: var(--mvp-orange-200);
-	background: linear-gradient(180deg, var(--mvp-orange-50) 0%, var(--mvp-white) 60%);
+	background: linear-gradient(180deg, var(--mvp-orange-50) 0%, var(--mvp-panel) 60%);
 }
 
 /* ---------- Badges / pills ---------- */
@@ -221,7 +220,7 @@
 	font-weight: var(--mvp-fw-semibold);
 	border-radius: var(--mvp-radius-pill);
 	background: var(--mvp-orange-50);
-	color: var(--mvp-orange-700);
+	color: var(--mvp-accent);
 }
 
 .mvp-badge--navy {
@@ -235,7 +234,7 @@
 	color: var(--mvp-text-muted);
 }
 
-/* ---------- Icon bubble (circular) ---------- */
+/* ---------- Icon bubble ---------- */
 .mvp-icon-bubble {
 	display: inline-flex;
 	align-items: center;
@@ -244,7 +243,7 @@
 	height: 48px;
 	border-radius: 50%;
 	background: var(--mvp-orange-50);
-	color: var(--mvp-orange-600);
+	color: var(--mvp-accent);
 	flex-shrink: 0;
 }
 
@@ -255,7 +254,7 @@
 
 .mvp-icon-bubble--solid {
 	background: var(--mvp-accent);
-	color: var(--mvp-text-on-orange);
+	color: var(--mvp-dark-text);
 }
 
 /* ---------- Buttons ---------- */
@@ -294,12 +293,12 @@
 
 .mvp-btn-primary:hover {
 	background: var(--mvp-accent-hover);
-	color: var(--mvp-text-on-orange);
+	color: var(--mvp-dark-text);
 	box-shadow: var(--mvp-shadow-cta-hover);
 }
 
 .mvp-btn-secondary {
-	background: var(--mvp-white);
+	background: var(--mvp-panel);
 	color: var(--mvp-text);
 	border-color: var(--mvp-border-strong);
 }
@@ -329,20 +328,19 @@
 	font-size: var(--mvp-fs-body-lg);
 }
 
-/* ---------- Decorative: dotted background (blueprint §4) ---------- */
+/* ---------- Decorative backgrounds ---------- */
 .mvp-page .dot-bg {
 	background:
-		radial-gradient(circle, rgba(22, 120, 220, 0.22) 1px, transparent 1px) 0 0 / 24px 24px,
-		#fff;
+		radial-gradient(circle, rgba(139, 230, 206, 0.18) 1px, transparent 1px) 0 0 / 24px 24px,
+		var(--mvp-bg);
 }
 
 .mvp-page .dot-bg--orange {
 	background:
-		radial-gradient(circle, rgba(255, 122, 26, 0.22) 1px, transparent 1px) 0 0 / 24px 24px,
-		#fff;
+		radial-gradient(circle, rgba(139, 230, 206, 0.18) 1px, transparent 1px) 0 0 / 24px 24px,
+		var(--mvp-bg);
 }
 
-/* ---------- Decorative: hero corner glow ---------- */
 .mvp-hero-corner {
 	position: absolute;
 	top: 0;
@@ -352,12 +350,11 @@
 	aspect-ratio: 1 / 1;
 	background: var(--mvp-gradient-hero-corner);
 	clip-path: polygon(100% 0, 0 0, 100% 100%);
-	opacity: 0.95;
+	opacity: 0.5;
 	pointer-events: none;
 	z-index: 0;
 }
 
-/* ---------- Dividers ---------- */
 .mvp-divider {
 	height: 1px;
 	background: var(--mvp-border);
@@ -427,7 +424,7 @@
 /* ---------- Accessibility ---------- */
 .mvp-page :focus-visible {
 	outline: 2px solid var(--mvp-accent);
-	outline-offset: 2px;
+	outline-offset: 3px;
 	border-radius: 4px;
 }
 
@@ -450,5 +447,6 @@
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 	}
 }
