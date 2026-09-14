@@ -4,6 +4,7 @@
     "name": "日程調整システム",
     "tag": "SaaS / スケジューリング",
     "kind": "commissioned",
+    "engagementLabel": "業務委託",
     "image": "work-anon-crm.png",
     "color": "#ecf2fa",
     "description": "候補日の提示から予約確定までを扱う日程調整システム。商談・面談・サポート予約などの予約導線を設計・開発しました。",
