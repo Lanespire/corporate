@@ -53,10 +53,10 @@ export default tseslint.config(
 		}
 	},
 	{
-		files: ['eslint.config.js', 'svelte.config.js'],
+		files: ['eslint.config.js', 'svelte.config.js', 'static/corporate/client.js'],
 		languageOptions: {
 			parserOptions: {
-				project: null // これらのファイルではTypeScriptのプロジェクト設定を無効にする
+				project: null // Standalone browser JS and config files are outside the TypeScript project.
 			}
 		}
 	}

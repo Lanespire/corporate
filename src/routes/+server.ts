@@ -1,0 +1,51 @@
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import type { RequestHandler } from './$types';
+import template from '$lib/corporate/page.html?raw';
+import portfolio from '$lib/corporate/projects.json';
+
+// The approved standalone design is prerendered to /index.html. The shared Svelte
+// layout stays unchanged for /mvp and /launch-lp; there is no runtime Node server.
+export const prerender = true;
+
+type ImageSize = { src: string; width: number; height: number };
+type Asset = { card: ImageSize; detail: ImageSize };
+const escape = (value: string) =>
+  value.replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]!);
+
+export const GET: RequestHandler = async () => {
+  const manifest: Record<string, Asset> = JSON.parse(
+    await readFile(resolve('static/corporate/images/manifest.json'), 'utf8')
+  );
+  const projects = portfolio.map((project) => {
+    const asset = manifest[project.id];
+    if (!asset?.card?.src || !asset?.detail?.src) throw new Error(`Missing asset: ${project.id}. Run npm run prepare:corporate.`);
+    return {
+      ...project,
+      src: asset.detail.src,
+      cardSrc: asset.card.src,
+      srcset: `${asset.card.src} ${asset.card.width}w, ${asset.detail.src} ${asset.detail.width}w`,
+      width: asset.detail.width,
+      height: asset.detail.height
+    };
+  });
+  const arrow = '<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>';
+  const cards = projects.map((p, index) => {
+    const commissioned = p.kind === 'commissioned';
+    const name = escape(p.name);
+    const label = commissioned ? '受託開発' : '自社サービス';
+    const imageLabel = commissioned ? '機能イメージ' : '公開紹介画像';
+    const externalLink = p.url
+      ? `<a class="work-visit" href="${escape(p.url)}" target="_blank" rel="noopener noreferrer" aria-label="${name}の公開サイトを開く">公開サイト<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>`
+      : '<span class="work-private">企業名非公開</span>';
+    return `<article class="work-card" role="group" aria-roledescription="スライド" aria-label="${index + 1} / ${projects.length}：${name}">
+<button class="works-image-button" type="button" data-open-project="${p.id}" aria-label="${name}の開発実績を詳しく見る"><span class="product-media" style="--media-bg:${p.color}"><span class="image-fallback" aria-hidden="true"><span>${name}</span><small>${imageLabel}</small></span><img src="${p.cardSrc}" srcset="${p.srcset}" sizes="(max-width: 560px) 85vw, (max-width: 980px) 45vw, 400px" width="${p.width}" height="${p.height}" loading="lazy" decoding="async" alt="${name}の${imageLabel}" draggable="false" data-project-image></span><span class="work-image-caption">${imageLabel}</span></button>
+<div class="work-body"><div class="work-meta"><span class="work-kind ${commissioned ? 'commissioned' : 'owned'}">${label}</span><span class="work-category">${escape(p.tag)}</span></div><h3>${name}</h3><p class="work-description">${escape(p.description)}</p><p class="work-roles">${p.roles.map(escape).join(' / ')}</p><div class="work-actions"><button type="button" class="work-detail js-only" data-open-project="${p.id}">詳細を見る${arrow}</button>${externalLink}</div></div>
+</article>`;
+  }).join('\n');
+  const json = JSON.stringify(projects).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+  const html = template.replace('<!-- WORK_CARDS -->', cards).replace('<!-- PROJECT_DATA -->', json)
+    .replace('画像は既存の紹介素材を使用しています。', '受託案件の画像は機能イメージです。')
+    .replace('.works-track{scroll-snap-type:x mandatory}', '.product-media img{opacity:1!important}.works-track{scroll-snap-type:x mandatory}');
+  return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+};

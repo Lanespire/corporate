@@ -1,0 +1,60 @@
+name: Corporate LP build and browser checks
+
+on:
+  push:
+    branches: [master, feat/corporate-v3-works-carousel]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: corporate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  corporate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install existing dependencies
+        run: npm i
+      - name: Type checks
+        run: npm run check
+      - name: Production build including existing service LPs
+        run: npm run build
+      - name: Verify generated pages and Netlify form
+        run: |
+          test -f build/index.html
+          test -f build/mvp.html || test -f build/mvp/index.html
+          test -f build/launch-lp.html || test -f build/launch-lp/index.html
+          grep -q 'data-netlify="true"' build/index.html
+          grep -q '開発実績' build/index.html
+          node --check static/corporate/client.js
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test tools
+        run: |
+          pip install playwright==1.57.0
+          python -m playwright install --with-deps chromium
+      - name: Browser regression checks (no real contact submissions)
+        run: |
+          python -m http.server 8765 --directory build > /tmp/corporate-server.log 2>&1 &
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8765/ > /dev/null && break; sleep 1; done
+          python scripts/qa-corporate.py
+      - name: Upload build and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: corporate-build-${{ github.sha }}
+          path: |
+            build/
+            qa-results/
+          retention-days: 14
