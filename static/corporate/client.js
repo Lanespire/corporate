@@ -148,14 +148,15 @@
  }
  $$('[data-open-project]').forEach(b=>b.addEventListener('click',()=>{
   const p=byId.get(b.dataset.openProject);if(!p)return;
+  const label=p.engagementLabel||(p.kind==='commissioned'?'受託開発':'自社サービス');
   const host=$('#project-dialog-content');host.replaceChildren(image(p));const body=element('div',undefined,'dialog-body');
-  body.append(element('span',p.kind==='commissioned'?'受託開発':'自社サービス','work-kind '+(p.kind==='commissioned'?'commissioned':'owned')),element('p',p.tag,'project-tag'));const title=element('h2',p.name);title.id='project-dialog-title';body.append(title,element('p',p.description,'project-description'));
+  body.append(element('span',label,'work-kind '+(p.kind==='commissioned'?'commissioned':'owned')),element('p',p.tag,'project-tag'));const title=element('h2',p.name);title.id='project-dialog-title';body.append(title,element('p',p.description,'project-description'));
   const ul=element('ul');p.points.forEach(x=>ul.append(element('li',x)));body.append(ul,element('p',`開発領域：${p.roles.join(' / ')}`,'project-roles'));
   if(p.url){
    const link=element('a',`${p.name}の公開サイトへ ↗`,'button primary');link.href=p.url;link.target='_blank';link.rel='noopener noreferrer';
    body.append(link,element('p','掲載画像は公開紹介画像です。現在の機能・提供状況はリンク先の公開サイトをご確認ください。','dialog-note'));
   }else{
-   body.append(element('p','受託開発の実績です。企業名・システムURLは非公開としており、掲載画像は機能イメージです。','dialog-note'));
+   body.append(element('p',`${label}の実績です。企業名・システムURLは非公開としており、掲載画像は機能イメージです。`,'dialog-note'));
    const link=element('a','同様のシステム開発を相談する →','button primary');link.href='#contact';
    link.addEventListener('click',()=>{$('#project-dialog').close();$('#contact-form').elements.subject.value='Web・SaaS開発';});body.append(link);
   }
