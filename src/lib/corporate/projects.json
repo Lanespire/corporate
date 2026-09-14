@@ -1,0 +1,87 @@
+[
+  {
+    "id": "scheduling",
+    "name": "日程調整システム",
+    "tag": "SaaS / スケジューリング",
+    "kind": "commissioned",
+    "engagementLabel": "業務委託",
+    "image": "work-anon-crm.png",
+    "color": "#ecf2fa",
+    "description": "候補日の提示から予約確定までを扱う日程調整システム。商談・面談・サポート予約などの予約導線を設計・開発しました。",
+    "roles": ["SaaS設計", "フロントエンド開発"],
+    "points": ["空き時間の提示と予約確定フロー", "ダブルブッキングを防ぐ状態管理", "通知・リマインドを想定した設計"],
+    "url": null
+  },
+  {
+    "id": "crm",
+    "name": "営業CRM",
+    "tag": "業務システム / CRM",
+    "kind": "commissioned",
+    "image": "work-anon-scheduling.png",
+    "color": "#eaf0f7",
+    "description": "営業活動・見積・顧客フォローを一元管理する業務システム。分散していた情報を、営業チームで共有できるCRMに整理しました。",
+    "roles": ["業務設計", "Webアプリ開発"],
+    "points": ["顧客・案件・ステータスの一元管理", "見積とフォロー予定の可視化", "営業会議で使えるダッシュボード設計"],
+    "url": null
+  },
+  {
+    "id": "nighttable",
+    "name": "NightTable",
+    "tag": "店舗運営 SaaS",
+    "color": "#211b31",
+    "description": "予約・テーブル・POS・キャスト管理を統合した、ナイトワーク店舗向けの業務SaaS。店舗固有の業務フローをシステム化しています。",
+    "roles": ["プロダクト設計", "UI / UX", "SaaS開発"],
+    "points": ["予約・テーブル・POSの統合", "売掛・キャスト給与・日報の管理", "店舗運用に合わせた初期設定・導入支援"],
+    "url": "https://night-table.com/",
+    "kind": "owned",
+    "image": "work-nighttable-og.png"
+  },
+  {
+    "id": "marubatsu",
+    "name": "Marubatsu AI",
+    "tag": "教育・採点 DX",
+    "color": "#eaf4fb",
+    "description": "AI問題生成、Web配布、紙答案のOCR・OMR採点、分析レポートを統合した、学校・塾向けのテスト運用基盤です。",
+    "roles": ["AI設計", "教育SaaS", "業務フロー設計"],
+    "points": ["AIによる問題生成", "Web配布・回答の収集", "紙答案のOCR・OMR採点と結果分析"],
+    "url": "https://marubatsu.com/",
+    "kind": "owned",
+    "image": "work-marubatsu-og.png"
+  },
+  {
+    "id": "sakuedit",
+    "name": "SakuEdit",
+    "tag": "AI 動画編集",
+    "color": "#181817",
+    "description": "動画のアップロードから無音カット・字幕生成・サムネイル作成までを支援する、AI動画編集サービスです。",
+    "roles": ["AI機能設計", "Webアプリ", "プロダクトUI"],
+    "points": ["動画編集へのAI機能の組み込み", "無音カット・字幕生成", "サムネイル作成"],
+    "url": "https://sakuedit.com/",
+    "kind": "owned",
+    "image": "work-sakuedit-og.png"
+  },
+  {
+    "id": "lashmie",
+    "name": "Lashmie",
+    "tag": "美容サロン AI SaaS",
+    "color": "#f4e9e5",
+    "description": "写真をもとにまつげの仕上がりを可視化し、電子カルテに保存する、サロン向けAIシミュレーションサービスです。",
+    "roles": ["AI機能設計", "SaaS開発", "LP制作"],
+    "points": ["写真を用いた仕上がりシミュレーション", "カウンセリングでのイメージ共有", "電子カルテとの連携"],
+    "url": "https://lashmie.com/",
+    "kind": "owned",
+    "image": "work-lashmie-og.png"
+  },
+  {
+    "id": "styleframe",
+    "name": "Style Frame",
+    "tag": "AI スタイル診断",
+    "color": "#eee7df",
+    "description": "骨格・パーソナルカラー・顔タイプ・肌印象を横断して分析し、服やコスメの提案につなげるAI診断アプリです。",
+    "roles": ["AI診断設計", "Webアプリ", "LP設計"],
+    "points": ["複数の診断を横断した体験設計", "AIを用いた診断・提案", "スマートフォン向けWebアプリ"],
+    "url": "https://styleframe.app/",
+    "kind": "owned",
+    "image": "work-styleframe-og.png"
+  }
+]
