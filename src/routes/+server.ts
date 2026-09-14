@@ -19,6 +19,7 @@ export const GET: RequestHandler = () => {
     if (!asset?.card?.src || !asset?.detail?.src) throw new Error(`Missing asset: ${project.id}. Run npm run prepare:corporate.`);
     return {
       ...project,
+      engagementLabel: project.engagementLabel ?? (project.kind === 'commissioned' ? '受託開発' : '自社サービス'),
       src: asset.detail.src,
       cardSrc: asset.card.src,
       srcset: `${asset.card.src} ${asset.card.width}w, ${asset.detail.src} ${asset.detail.width}w`,
@@ -30,7 +31,7 @@ export const GET: RequestHandler = () => {
   const cards = projects.map((p, index) => {
     const commissioned = p.kind === 'commissioned';
     const name = escape(p.name);
-    const label = commissioned ? '受託開発' : '自社サービス';
+    const label = escape(p.engagementLabel);
     const imageLabel = commissioned ? '機能イメージ' : '公開紹介画像';
     const externalLink = p.url
       ? `<a class="work-visit" href="${escape(p.url)}" target="_blank" rel="noopener noreferrer" aria-label="${name}の公開サイトを開く">公開サイト<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>`
@@ -42,7 +43,8 @@ export const GET: RequestHandler = () => {
   }).join('\n');
   const json = JSON.stringify(projects).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
   const html = template.replace('<!-- WORK_CARDS -->', cards).replace('<!-- PROJECT_DATA -->', json)
-    .replace('画像は既存の紹介素材を使用しています。', '受託案件の画像は機能イメージです。')
+    .replace('受託案件は企業名を非公開で掲載しています。', '業務委託・受託開発案件は企業名を非公開で掲載しています。')
+    .replace('画像は既存の紹介素材を使用しています。', '企業名非公開の案件の画像は機能イメージです。')
     .replace('.works-track{scroll-snap-type:x mandatory}', '.product-media img{opacity:1!important}.works-track{scroll-snap-type:x mandatory}');
   return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
 };
