@@ -26,5 +26,9 @@ for (const project of projects) {
   }
   manifest[project.id] = { card: images[0], detail: images[1] };
 }
-await writeFile(resolve(output, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+const serialized = JSON.stringify(manifest, null, 2) + '\n';
+await writeFile(resolve(output, 'manifest.json'), serialized);
+const generated = resolve(root, 'src/lib/corporate/generated');
+await mkdir(generated, { recursive: true });
+await writeFile(resolve(generated, 'manifest.json'), serialized);
 console.log(`Prepared ${projects.length} portfolio images in two sizes.`);
