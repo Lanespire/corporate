@@ -43,5 +43,11 @@ jobs:
         if: always()
         with:
           name: templates-preview-${{ github.sha }}
-          path: qa-results/templates/
+          path: |
+            qa-results/templates/
+            build/templates/
+            static/templates/
+            scripts/qa-templates.py
+            docs/templates-storefront.md
+            docs/templates-image-prompts.md
           retention-days: 14
