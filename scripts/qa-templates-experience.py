@@ -45,7 +45,7 @@ with sync_playwright() as p:
     page = context.new_page()
     errors = []
     page.on('pageerror', lambda e: errors.append(str(e)))
-    for width in (320, 390, 768, 1024, 1440, 1920):
+    for width in (320, 390, 768, 920, 1024, 1440, 1920):
         page.set_viewport_size({'width': width, 'height': 960})
         page.goto(base + '/templates/', wait_until='networkidle')
         check(f'{width} catalog script enabled', page.locator('script[src*="experience.js"]').count() == 1)
@@ -57,7 +57,25 @@ with sync_playwright() as p:
         page.keyboard.press('End')
         check(f'{width} module End', page.locator('.package-stage').get_attribute('data-module') == 'admin')
         check(f'{width} catalog no overflow', page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
+        check(f'{width} complete phone artwork', page.locator('.catalog-phone-pair img').count() == 2 and page.locator('.catalog-phone-pair').evaluate('(e)=>Array.from(e.querySelectorAll("img")).every(i=>i.complete && i.naturalWidth > 0 && Math.abs(i.clientWidth/i.clientHeight - i.naturalWidth/i.naturalHeight) < 0.02)'))
+        if width <= 600:
+            check(f'{width} catalog menu target', page.locator('.mobile-nav summary').evaluate('(e)=>e.getBoundingClientRect().width >= 44 && e.getBoundingClientRect().height >= 44'))
         page.goto(base + '/templates/matching/', wait_until='networkidle')
+        if width <= 600:
+            check(f'{width} product navigation targets', page.locator('.product-nav a').evaluate_all('(links)=>links.every(e=>e.getBoundingClientRect().width >= 44 && e.getBoundingClientRect().height >= 44 && parseFloat(getComputedStyle(e).fontSize) >= 11)'))
+        geometry = page.evaluate('''() => {
+          const stat = document.querySelector('.intro-stats > div');
+          const card = document.querySelector('.feature-group');
+          const icon = card.querySelector('summary > .icon');
+          return {
+            statInset: stat.querySelector('b').getBoundingClientRect().left - stat.getBoundingClientRect().left,
+            iconInset: card.getBoundingClientRect().right - icon.getBoundingClientRect().right,
+            rowGap: parseFloat(getComputedStyle(document.querySelector('.features-grid')).rowGap)
+          };
+        }''')
+        check(f'{width} statistic text inset', geometry['statInset'] >= 12)
+        check(f'{width} feature icon inset', geometry['iconInset'] >= 12)
+        check(f'{width} feature rows separated', geometry['rowGap'] >= 12)
         page.locator('[data-feature-filter="operations"]').click()
         check(f'{width} operations filter', page.locator('.feature-group:visible').count() == 3 and '3つ' in page.locator('#feature-count').inner_text())
         page.locator('[data-feature-filter="brand"]').focus()

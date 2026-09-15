@@ -74,5 +74,25 @@
 		"use": "abstract acrylic hero sculpture on both pages",
 		"status": "generated",
 		"origin": "ChatGPT web, new chat, 2026-09-15"
+	},
+	{
+		"id": "phone-social",
+		"src": "/templates/media/phone-social.webp",
+		"width": 454,
+		"height": 898,
+		"use": "static social app phone artwork",
+		"status": "generated",
+		"origin": "ChatGPT web new chat, 2026-09-15, whole phone and screen together",
+		"fictional": true
+	},
+	{
+		"id": "phone-marriage",
+		"src": "/templates/media/phone-marriage.webp",
+		"width": 454,
+		"height": 898,
+		"use": "static marriage app phone artwork",
+		"status": "generated",
+		"origin": "ChatGPT web new chat, 2026-09-15, whole phone and screen together",
+		"fictional": true
 	}
 ]

@@ -1099,12 +1099,21 @@ h2 {
 	color: #a69b83;
 }
 .intro-stats {
-	border-color: #dfd6c7;
+	border: 1px solid #dfd6c7;
+	overflow: hidden;
 	background: #fffdf6;
 	border-radius: 20px;
 }
-.intro-stats > div {
+.intro-stats > div,
+.intro-stats > div:first-child {
+	min-width: 0;
+	padding: 28px;
 	border-color: #e5d9c6;
+}
+.intro-stats small {
+	display: block;
+	margin-top: 8px;
+	line-height: 1.7;
 }
 .intro-stats b {
 	font-size: 56px;
@@ -1174,19 +1183,38 @@ h2 {
 	font-size: 10px;
 	white-space: nowrap;
 }
+.features-grid {
+	gap: 16px;
+	align-items: start;
+}
 .feature-group {
-	border-color: #dfd3bf;
+	padding: 0;
+	min-width: 0;
+	border: 1px solid #dfd3bf;
 	background: #fffdf6;
 	border-radius: 13px;
 }
 .feature-group summary {
-	color: #645039;
+	padding: 22px 24px;
+	gap: 12px;
+	color: #554631;
 	font-size: 14px;
-	min-height: 70px;
+	line-height: 1.65;
+	min-height: 72px;
+}
+.feature-group summary > .mono {
+	min-width: 14px;
+	flex-shrink: 0;
+}
+.feature-group summary > .icon {
+	flex-shrink: 0;
 }
 .feature-group p {
-	color: #8a775e;
-	font-size: 12px;
+	padding: 0 24px 24px 50px;
+	color: #75664f;
+	font-size: 13px;
+	line-height: 1.9;
+	overflow-wrap: anywhere;
 }
 .scope-note {
 	color: #8a775e;
@@ -1752,8 +1780,8 @@ h2 {
 		min-height: 38px;
 	}
 	.mobile-nav summary {
-		min-width: 38px;
-		min-height: 42px;
+		min-width: 44px;
+		min-height: 44px;
 	}
 	.hero-actions {
 		gap: 18px;
@@ -2126,8 +2154,19 @@ h2 {
 		bottom: 13px;
 		right: 2px;
 	}
+	.product-nav .wrap {
+		width: calc(100% - 24px);
+		gap: 2px;
+		justify-content: space-between;
+	}
+	.product-nav b {
+		display: none;
+	}
 	.product-nav a {
-		font-size: 9px;
+		min-width: 44px;
+		min-height: 44px;
+		justify-content: center;
+		font-size: 11px;
 	}
 	.lab {
 		border-radius: 20px;
@@ -2138,14 +2177,18 @@ h2 {
 	.lab-hint {
 		font-size: 10px;
 	}
+	.intro-stats > div,
+	.intro-stats > div:first-child {
+		padding: 22px 18px;
+	}
 	.intro-stats b {
 		font-size: 43px;
 	}
 	.intro-stats span {
-		font-size: 10px;
+		font-size: 11px;
 	}
 	.intro-stats small {
-		font-size: 8px;
+		font-size: 10px;
 	}
 	.deliverable h3 {
 		font-size: 16px;
@@ -2159,11 +2202,13 @@ h2 {
 		min-height: 42px;
 	}
 	.feature-group summary {
-		font-size: 12px;
-		min-height: 63px;
+		padding: 20px 18px;
+		font-size: 13px;
+		min-height: 68px;
 	}
 	.feature-group p {
-		font-size: 11px;
+		padding: 0 18px 22px 44px;
+		font-size: 12px;
 	}
 	.cost-interactive .cost-controls,
 	.cost-interactive .cost-output {
@@ -2282,12 +2327,6 @@ h2 {
 	}
 	.cost-interactive .savings strong {
 		font-size: 54px;
-	}
-	.product-nav .wrap {
-		gap: 10px;
-	}
-	.product-nav a {
-		font-size: 8px;
 	}
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2442,5 +2481,103 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
 	.sculpture-backdrop {
 		animation: none;
+	}
+}
+
+/* Static product artwork keeps the device and its screen in one image. */
+.package-app.phone-visual,
+.scene-phone.phone-visual {
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+	aspect-ratio: 454 / 898;
+	height: auto;
+	overflow: visible;
+}
+.phone-visual > img {
+	width: 100%;
+	height: auto;
+	display: block;
+	mix-blend-mode: multiply;
+}
+.package-app.phone-visual {
+	width: 216px;
+}
+.scene-phone.phone-visual {
+	width: 262px;
+}
+.catalog-art.phone-image-stage {
+	background: #f8f7f3;
+	min-height: 545px;
+	padding: 64px 36px;
+}
+.phone-image-stage::after {
+	display: none;
+}
+.catalog-phone-pair {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 28px;
+	width: 100%;
+}
+.catalog-phone-pair > img {
+	display: block;
+	width: min(43%, 200px);
+	height: auto;
+	max-height: 418px;
+	object-fit: contain;
+	mix-blend-mode: multiply;
+	transition: transform 0.4s var(--exp-ease);
+}
+.catalog-phone-pair > img:first-child {
+	transform: rotate(-7deg) translateY(-6px);
+}
+.catalog-phone-pair > img:last-child {
+	transform: rotate(7deg) translateY(9px);
+}
+.catalog-card:hover .catalog-phone-pair > img:first-child {
+	transform: rotate(-9deg) translateY(-12px);
+}
+.catalog-card:hover .catalog-phone-pair > img:last-child {
+	transform: rotate(9deg) translateY(3px);
+}
+@media (max-width: 980px) {
+	.package-app.phone-visual {
+		width: 205px;
+	}
+	.scene-phone.phone-visual {
+		width: 236px;
+	}
+}
+@media (max-width: 600px) {
+	.package-app.phone-visual {
+		width: 174px;
+	}
+	.scene-phone.phone-visual {
+		width: 188px;
+	}
+	.catalog-art.phone-image-stage {
+		min-height: 384px !important;
+		padding: 58px 22px 52px;
+	}
+	.catalog-phone-pair {
+		gap: 20px;
+	}
+	.catalog-phone-pair > img {
+		width: 45%;
+	}
+}
+@media (max-width: 370px) {
+	.package-app.phone-visual {
+		width: 151px;
+	}
+	.scene-phone.phone-visual {
+		width: 170px;
+	}
+	.catalog-art.phone-image-stage {
+		min-height: 340px !important;
 	}
 }
