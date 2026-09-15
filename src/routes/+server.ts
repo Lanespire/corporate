@@ -46,5 +46,6 @@ export const GET: RequestHandler = () => {
     .replace('受託案件は企業名を非公開で掲載しています。', '業務委託・受託開発案件は企業名を非公開で掲載しています。')
     .replace('画像は既存の紹介素材を使用しています。', '企業名非公開の案件の画像は機能イメージです。')
     .replace('.works-track{scroll-snap-type:x mandatory}', '.product-media img{opacity:1!important}.works-track{scroll-snap-type:x mandatory}');
-  return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+  // Static prerendering matches this media type exactly; the HTML declares UTF-8.
+  return new Response(html, { headers: { 'Content-Type': 'text/html' } });
 };
