@@ -30,10 +30,11 @@
 
 	const stage = $('.package-stage');
 	const descriptions = {
-		all: '会員の体験と、運営の仕組みをひとつのパッケージに。',
-		app: 'iOS・Androidの会員アプリ。発見、マッチング、会話の体験を設計。',
-		api: '認証・関係管理・課金検証。API、DB、Workerまで納品対象に。',
-		admin: '会員管理・確認・審査・通報。日々の運営業務を支える管理画面。'
+		all: '会員向けアプリと運用管理システムを、ひとつのパッケージにまとめて提供します。',
+		app: '会員登録、相手検索、マッチング、メッセージなど、マッチングアプリの基本機能を備えたiOS/Androidアプリです。',
+		api: '会員データ、チャット、決済処理、プッシュ通知などを処理するAPIサーバーとデータベース設計です。',
+		admin:
+			'会員の本人確認審査、通報対応、決済履歴の照会、問い合わせ管理など、日々の運営業務を一元管理できます。'
 	};
 	if (stage)
 		$$('.package-layer', stage).forEach((node, index) => {
@@ -248,7 +249,7 @@
 				`${names[choice]} ${man(prices[choice])}万円 ＋ 追加改修${man(custom)}万円 ＋ 導入等${man(setup)}万円`;
 			$('#cost-difference-copy').textContent = negative
 				? '価格だけでなく、再利用できる機能と必要な改修範囲を見直して比較してください。'
-				: '共通機能を再利用し、独自の体験づくりに予算を回す選択肢です。';
+				: '共通機能をパッケージで揃えることで、独自の差別化機能やマーケティングに予算を配分できます。';
 			$$('.price-card').forEach((card) =>
 				card.classList.toggle('is-comparing', card.dataset.plan === choice)
 			);
