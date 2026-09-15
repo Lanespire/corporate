@@ -155,6 +155,40 @@
 	function toggleFaq(index: number) {
 		openFaq = openFaq === index ? -1 : index;
 	}
+	const structuredDataHtml = `<script type="application/ld+json">${JSON.stringify({
+		'@context': 'https://schema.org',
+		'@graph': [
+			{
+				'@type': 'Service',
+				name: 'Launch LP - LP制作サービス',
+				serviceType: 'ランディングページ制作',
+				description:
+					'低価格・短納期で成果につながるLPを制作するサービス。Light / Standard / Pro の3プラン展開。',
+				provider: {
+					'@type': 'Organization',
+					name: '株式会社Lanespire',
+					url: 'https://lanespire.com/',
+					email: 'info@lanespire.com'
+				},
+				areaServed: 'JP',
+				url: 'https://launch-lp.lanespire.com/',
+				offers: [
+					{ '@type': 'Offer', name: 'Light', price: '19800', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
+					{ '@type': 'Offer', name: 'Standard', price: '49800', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
+					{ '@type': 'Offer', name: 'Pro', price: '98000', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
+					{ '@type': 'Offer', name: '公開・運用サポート', price: '9800', priceCurrency: 'JPY', priceSpecification: { '@type': 'UnitPriceSpecification', price: '9800', priceCurrency: 'JPY', billingIncrement: 1, unitText: 'MONTH' }, availability: 'https://schema.org/InStock' }
+				]
+			},
+			{
+				'@type': 'FAQPage',
+				mainEntity: faqs.map((f) => ({
+					'@type': 'Question',
+					name: f.question,
+					acceptedAnswer: { '@type': 'Answer', text: f.answer }
+				}))
+			}
+		]
+	})}</${'script'}>`;
 </script>
 
 <svelte:head>
@@ -189,40 +223,8 @@
 	<meta name="twitter:image" content="https://launch-lp.lanespire.com/ogp/launch-lp-og.png" />
 
 	<!-- JSON-LD: Service + Offers + FAQPage -->
-	{@html `<script type="application/ld+json">${JSON.stringify({
-		'@context': 'https://schema.org',
-		'@graph': [
-			{
-				'@type': 'Service',
-				name: 'Launch LP - LP制作サービス',
-				serviceType: 'ランディングページ制作',
-				description:
-					'低価格・短納期で成果につながるLPを制作するサービス。Light / Standard / Pro の3プラン展開。',
-				provider: {
-					'@type': 'Organization',
-					name: '株式会社Lanespire',
-					url: 'https://lanespire.com/',
-					email: 'info@lanespire.com'
-				},
-				areaServed: 'JP',
-				url: 'https://launch-lp.lanespire.com/',
-				offers: [
-					{ '@type': 'Offer', name: 'Light', price: '19800', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
-					{ '@type': 'Offer', name: 'Standard', price: '49800', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
-					{ '@type': 'Offer', name: 'Pro', price: '98000', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
-					{ '@type': 'Offer', name: '公開・運用サポート', price: '9800', priceCurrency: 'JPY', priceSpecification: { '@type': 'UnitPriceSpecification', price: '9800', priceCurrency: 'JPY', billingIncrement: 1, unitText: 'MONTH' }, availability: 'https://schema.org/InStock' }
-				]
-			},
-			{
-				'@type': 'FAQPage',
-				mainEntity: faqs.map((f) => ({
-					'@type': 'Question',
-					name: f.question,
-					acceptedAnswer: { '@type': 'Answer', text: f.answer }
-				}))
-			}
-		]
-	})}</script>`}
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- JSON-LD is built only from static local content. -->
+	{@html structuredDataHtml}
 </svelte:head>
 
 <div class="lp-page">

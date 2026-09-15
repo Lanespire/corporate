@@ -49,6 +49,7 @@ jobs:
           python -m http.server 8765 --directory build > /tmp/corporate-server.log 2>&1 &
           for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8765/ > /dev/null && break; sleep 1; done
           python scripts/qa-corporate.py
+          MATCHING_QA_BASE_URL=http://127.0.0.1:8765 python scripts/qa-matching-showcase.py
       - name: Upload build and screenshots
         if: always()
         uses: actions/upload-artifact@v4
