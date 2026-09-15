@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 		<meta content="light" name="color-scheme" />
-		<title>Lanespire Templates | 開発の土台を買い、事業の独自性に投資する。</title>
+		<title>Lanespire Templates | 共通基盤を活用し、独自の事業開発に注力する。</title>
 		<meta
 			content="システムテンプレートをフルソースで。共通機能の開発コストを抑え、独自の事業づくりに投資する。第一弾はマッチングアプリ。"
 			name="description"
@@ -14,7 +14,10 @@
 		<link href="https://lanespire.com/templates/" rel="canonical" />
 		<meta content="website" property="og:type" />
 		<meta content="ja_JP" property="og:locale" />
-		<meta content="Lanespire Templates | 事業の土台を、買う。" property="og:title" />
+		<meta
+			content="Lanespire Templates | ソースコード買い切りパッケージで事業を立ち上げる。"
+			property="og:title"
+		/>
 		<meta
 			content="システムテンプレートをフルソースで。共通機能の開発コストを抑え、独自の事業づくりに投資する。第一弾はマッチングアプリ。"
 			property="og:description"
@@ -27,7 +30,7 @@
 		<link href="/templates/pages-v2.css?v=2" rel="stylesheet" />
 		<link href="/favicon.svg" rel="icon" type="image/svg+xml" />
 		<link href="/templates/experience.css?v=3" rel="stylesheet" />
-		<script defer="True" src="/templates/experience.js?v=4"></script>
+		<script defer="True" src="/templates/experience.js?v=5"></script>
 		<noscript
 			><style>
 				.enhanced-control,
@@ -54,6 +57,11 @@
 			}
 			.catalog-copy {
 				min-width: 0;
+			}
+			@media (max-width: 600px) {
+				.series-hero #hero-title {
+					font-size: clamp(23px, 7.1vw, 40px);
+				}
 			}
 		</style>
 		<link rel="stylesheet" href="/templates/atelier.css?v=5" />
@@ -116,9 +124,11 @@
 				<div class="wrap hero-grid">
 					<div class="hero-copy">
 						<p class="eyebrow">LESS BUILDING. MORE BUSINESS.</p>
-						<h1 id="hero-title">そのアイデアに、<br /><em>事業の土台を。</em></h1>
+						<h1 id="hero-title">
+							Web・アプリ事業の立ち上げ<br /><em>ソースコード買い切りで提供</em>
+						</h1>
 						<p class="lead">
-							アプリも、APIも、管理画面も。<br />事業の仕組みを、フルソースで買えるシリーズ。<br />つくる時間と予算を、あなたにしかない価値へ。
+							ネイティブアプリ、API、管理画面のソースコード一式を買い切りで提供するパッケージシリーズです。<br />汎用的な開発工程を省き、自社独自の機能やマーケティングに集中できます。
 						</p>
 						<div class="hero-actions">
 							<a class="button primary" href="#collection"
@@ -182,7 +192,7 @@
 									<div class="package-sidebar"><i></i><span></span><span></span><span></span></div>
 									<div class="package-dashboard">
 										<small>OPERATIONS / UI CONCEPT</small>
-										<h3>運営を、ひとつの画面に。</h3>
+										<h3>専用のWeb管理画面で一元管理</h3>
 										<div class="package-metrics">
 											<div><span>会員管理</span><b>Members</b></div>
 											<div><span>確認・審査</span><b>Review</b></div>
@@ -217,7 +227,7 @@
 							</button>
 						</div>
 						<p aria-live="polite" class="package-summary">
-							会員の体験と、運営の仕組みをひとつのパッケージに。
+							会員向けアプリと運用管理システムを、ひとつのパッケージにまとめて提供します。
 						</p>
 						<p class="package-disclaimer">Matching / あなたのブランドで運営するアプリと管理画面</p>
 					</div>
@@ -243,10 +253,12 @@
 					<div class="heading">
 						<div>
 							<p class="eyebrow">THE COLLECTION</p>
-							<h2 id="collection-title">ひとつ目の可能性。<br /><em>出会いをつくる、事業。</em></h2>
+							<h2 id="collection-title">
+								提供パッケージ<br /><em>恋活・婚活マッチングアプリ基盤</em>
+							</h2>
 						</div>
 						<p class="lead">
-							恋活・婚活向けのアプリ基盤から、シリーズを展開。<br />用途ごとに、事業を始める選択肢を増やしていきます。
+							iOS/Androidアプリ、API、管理画面のソースコードを同梱した、恋活・婚活マッチングアプリの事業用パッケージです。
 						</p>
 					</div>
 					<article class="catalog-card reveal">
@@ -279,7 +291,7 @@
 							<p class="catalog-kicker">恋活・婚活アプリの、フルスタック基盤</p>
 							<h3>Matching<span class="product-dot">.</span></h3>
 							<p>
-								新しい出会いのアイデアを、あなたのブランドで。<br />会員アプリも、バックエンドも、管理画面も。<br />事業運営に必要な一式を、ソースコード付きで。
+								自社ブランドで恋活・婚活サービスを立ち上げるためのシステム一式です。<br />iOS/Android会員アプリ、バックエンド、管理画面の全ソースコードを提供します。
 							</p>
 							<div class="catalog-tags">
 								<span>iOS / Android</span><span>API・DB</span><span>運営管理</span>
@@ -319,10 +331,12 @@
 					<div class="heading">
 						<div>
 							<p class="eyebrow">BUILD THE DIFFERENCE</p>
-							<h2 id="value-title">その予算を、<br /><em>事業の「らしさ」へ。</em></h2>
+							<h2 id="value-title">
+								汎用機能の開発コストを抑え<br /><em>独自の強みづくりに集中</em>
+							</h2>
 						</div>
 						<p class="lead">
-							汎用機能を再利用し、差別化する部分に集中する。<br />受託開発と、ゼロからの自社開発の間にある、<br />もうひとつの選択肢です。
+							認証や管理などの共通基盤をパッケージで活用し、自社独自の機能や運営体制の構築に専念できます。<br />個別の受託開発やゼロからのスクラッチ開発と並ぶ、実践的な選択肢です。
 						</p>
 					</div>
 					<div class="value-grid">
@@ -332,7 +346,7 @@
 								><i>FULL SOURCE</i>
 							</div>
 							<span class="mono value-index">OWN</span>
-							<h3>自社で育てられる。</h3>
+							<h3>自社環境で自由に改修可能</h3>
 							<p>
 								購入版を継続利用できる、ソース付きライセンス。自社の開発チームや、選んだパートナーと改修できます。
 							</p>
@@ -343,7 +357,7 @@
 								<div><i></i><span>独自の価値</span><b>BUILD</b></div>
 							</div>
 							<span class="mono value-index">FOCUS</span>
-							<h3>予算を、違いづくりへ。</h3>
+							<h3>共通機能の開発費を削減</h3>
 							<p>
 								認証や管理機能を繰り返し作るのではなく、ターゲットに合った体験や運営サービスに投資できます。
 							</p>
@@ -382,14 +396,16 @@
 									<span>ソース納品</span><i></i><span>ブランド設定</span><i></i
 									><span>導入支援</span>
 								</div>
-								<p>必要な支援だけを、事業に合わせて。</p>
+								<p>自社の体制に合わせて、必要な導入支援を選択できます。</p>
 							</div>
 						</div>
 						<div>
 							<p class="eyebrow">AS MUCH SUPPORT AS YOU NEED</p>
-							<h2 id="support-title">ソースだけでも。<br />立ち上げまででも。</h2>
+							<h2 id="support-title">
+								ソースコード納品から<br /><em>立ち上げ支援まで幅広く対応</em>
+							</h2>
 							<p class="lead">
-								開発チームの有無や、実現したい事業に合わせて。<br />「買って終わり」ではない選択肢をご用意します。
+								社内エンジニアの有無や運用体制に合わせて、ソースコードの納品のみから、ブランド設定・デプロイのサポートまで選択いただけます。
 							</p>
 							<ol class="support-steps">
 								<li>
@@ -409,7 +425,7 @@
 								<li>
 									<span aria-hidden="true">→</span>
 									<div>
-										<h3>公開して、育てる</h3>
+										<h3>公開後の運用・拡張</h3>
 										<p>デプロイ・ストア申請支援・技術保守は別途対応。</p>
 									</div>
 								</li>
@@ -426,7 +442,7 @@
 				<div class="wrap faq-grid">
 					<div class="faq-intro">
 						<p class="eyebrow">BEFORE YOU START</p>
-						<h2 id="faq-title">導入前の、気になること。</h2>
+						<h2 id="faq-title">導入にあたっての<br /><em>よくあるご質問</em></h2>
 						<p class="lead">
 							見た目、費用、運用、ライセンス。<br />導入後の認識違いを減らすために、<br />できることと前提を整理しています。
 						</p>
@@ -470,9 +486,11 @@
 					<div class="cta-inner reveal">
 						<div>
 							<p class="eyebrow">START WITH A FOUNDATION</p>
-							<h2 id="contact-title">つくりたい未来に、<br />近道を。</h2>
+							<h2 id="contact-title">
+								新規事業の立ち上げについて<br /><em>まずはお気軽にご相談ください</em>
+							</h2>
 							<p>
-								テンプレートの導入も、まだないシステムのご要望も。<br />実現したいことから、お聞かせください。
+								パッケージの導入検討から、個別カスタマイズや新規システム開発のご相談まで、お気軽にお問い合わせください。
 							</p>
 						</div>
 						<div class="cta-actions">

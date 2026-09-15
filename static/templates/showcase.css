@@ -231,7 +231,7 @@
 		width: 100%;
 	}
 	.live-copy h3 {
-		font-size: 32px;
+		font-size: clamp(21px, 6.6vw, 32px);
 	}
 	.live-qr {
 		gap: 18px;
