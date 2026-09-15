@@ -30,7 +30,22 @@ const captures = [
 	...adminScenes.map((scene) => `admin-${scene}`)
 ];
 const media = 'static/templates/media/showcase';
+const nativePreview = JSON.parse(
+	await readFile(path.join(captureDirectory, 'native-preview.json'), 'utf8')
+);
+const nativeUrl = new URL(nativePreview.url);
+if (!['exp:', 'exps:'].includes(nativeUrl.protocol) || nativeUrl.hostname !== 'u.expo.dev') {
+	throw new Error('QR destination must open the native Expo app');
+}
+if (nativePreview.captureRuntime !== 'Expo Go on iOS Simulator') {
+	throw new Error('App images must be captured from the running native app');
+}
 let landingPage = await readFile('static/templates/matching/index.html', 'utf8');
+landingPage = landingPage.replaceAll(
+	/exps:\/\/u\.expo\.dev\/[^"\s]+/g,
+	nativePreview.url.replaceAll('&', '&amp;')
+);
+let catalogPage = await readFile('static/templates/index.html', 'utf8');
 await mkdir(media, { recursive: true });
 for (const capture of captures) {
 	const bytes = await sharp(path.join(captureDirectory, `${capture}.png`))
@@ -40,13 +55,29 @@ for (const capture of captures) {
 	const hash = createHash('sha256').update(bytes).digest('hex').slice(0, 10);
 	const filename = `${capture}.${hash}.webp`;
 	await writeFile(path.join(media, filename), bytes);
+	if (capture === 'app-discover' || capture === 'app-marriage') {
+		const previous = capture === 'app-discover' ? 'phone-social' : 'phone-marriage';
+		catalogPage = catalogPage.replaceAll(
+			`/templates/media/${previous}.webp`,
+			`/templates/media/showcase/${filename}`
+		);
+	}
+	catalogPage = catalogPage.replaceAll(
+		new RegExp(`${capture}(?:\\.[a-f0-9]{10})?\\.webp`, 'g'),
+		filename
+	);
 	landingPage = landingPage.replaceAll(
 		new RegExp(`${capture}(?:\\.[a-f0-9]{10})?\\.webp`, 'g'),
 		filename
 	);
 }
 await writeFile('static/templates/matching/index.html', landingPage.trimEnd() + '\n');
-await QRCode.toFile(path.join(media, 'qr.svg'), 'https://lanespire.com/showcase/?capture=1', {
+await writeFile('static/templates/index.html', catalogPage.trimEnd() + '\n');
+await writeFile(
+	path.join(media, 'native-preview.json'),
+	JSON.stringify(nativePreview, null, 2) + '\n'
+);
+await QRCode.toFile(path.join(media, 'qr.svg'), nativePreview.url, {
 	type: 'svg',
 	errorCorrectionLevel: 'M',
 	margin: 4,
@@ -74,6 +105,7 @@ await writeFile(
 			publicUrl: 'https://lanespire.com/showcase/',
 			data: 'Fictional sample profiles, no API or database connection',
 			capturedAdmin: 'Local development environment with reference masters only',
+			nativePreview,
 			assets
 		},
 		null,
