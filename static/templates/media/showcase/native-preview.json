@@ -1,0 +1,24 @@
+{
+	"url": "exps://u.expo.dev/78be510e-a5ef-4f35-8ad6-761054512d24?channel-name=showcase&runtime-version=0.2.0",
+	"projectId": "78be510e-a5ef-4f35-8ad6-761054512d24",
+	"sdkVersion": "54.0.0",
+	"runtimeVersion": "0.2.0",
+	"updateGroup": "22e1d7a7-6923-4250-ac45-3bd51e6d0749",
+	"updates": {
+		"android": "01a0a426-6810-7186-9db8-edfef4fcedd4",
+		"ios": "01a0a426-6810-7703-8b5c-d26a18a889db"
+	},
+	"captureRuntime": "Expo Go on iOS Simulator",
+	"device": "iPhone 17 / iOS 26.3",
+	"verified": [
+		"public native launch",
+		"swipe",
+		"undo",
+		"like",
+		"match",
+		"send message",
+		"reopen conversation",
+		"brand preset and screen switching"
+	],
+	"capturedAt": "2026-09-15"
+}

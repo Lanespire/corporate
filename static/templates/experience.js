@@ -261,7 +261,7 @@
 				announcementTimer = setTimeout(() => {
 					$('#calc-announcement').textContent = sentence;
 				}, 220);
-			copyText = `Matching 初期費用の比較（税別・仮定）\nスクラッチ：${yen(scratch)}\n${names[choice]}ライセンス（予定価格）：${yen(prices[choice])}\n追加開発・改修：${yen(custom)}\nプラン外の導入・公開準備：${yen(setup)}\nテンプレート利用総額：${yen(total)}\n差額：${negative ? '−' : ''}${yen(Math.abs(difference))}\n\n市場相場・見積・削減保証ではありません。同じ機能・品質・公開範囲で比較し、支援作業の二重計上を除いてください。外部サービス料・ストア関連費・集客・有人運営・継続保守は双方に含みません。\nhttps://lanespire.com/templates/matching/`;
+			copyText = `Matching 初期費用の比較（税別・仮定）\nスクラッチ：${yen(scratch)}\n${names[choice]}ライセンス：${yen(prices[choice])}\n追加開発・改修：${yen(custom)}\nプラン外の導入・公開準備：${yen(setup)}\nテンプレート利用総額：${yen(total)}\n差額：${negative ? '−' : ''}${yen(Math.abs(difference))}\n\n市場相場・見積・削減保証ではありません。同じ機能・品質・公開範囲で比較し、支援作業の二重計上を除いてください。外部サービス料・ストア関連費・集客・有人運営・継続保守は双方に含みません。\nhttps://lanespire.com/templates/matching/`;
 		}
 		form.addEventListener('input', (event) => {
 			if (event.target === range) inputs.scratch.value = range.value;

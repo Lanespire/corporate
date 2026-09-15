@@ -13,6 +13,9 @@ with sync_playwright() as p:
     errors = []
     request = p.request.new_context()
     manifest = request.get(BASE + '/showcase/release.json').json()
+    native = manifest['nativePreview']
+    assert native['url'].startswith('exps://u.expo.dev/'), 'QR must open the native Expo app'
+    assert native['captureRuntime'] == 'Expo Go on iOS Simulator'
     for asset in manifest['assets']:
         response = request.get(BASE + '/' + asset['path'])
         assert response.status == 200, asset['path']
@@ -30,7 +33,9 @@ with sync_playwright() as p:
         page.goto(BASE + '/templates/matching/', wait_until='domcontentloaded', timeout=60000)
         expect(page.locator('.screen-card')).to_have_count(9)
         expect(page.locator('.admin-showcase figure')).to_have_count(4)
-        expect(page.locator('.live-qr')).to_have_attribute('href', '/showcase/?capture=1')
+        expect(page.locator('.live-qr')).to_have_attribute('href', native['url'])
+        expect(page.locator('.product-status')).to_contain_text('OEMパッケージ提供中')
+        assert '商品化準備中' not in page.locator('body').inner_text()
         assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'LP horizontal overflow'
         page.screenshot(path=str(OUT / f'lp-{width}.png'))
         page.locator('#admin-showcase').scroll_into_view_if_needed()
