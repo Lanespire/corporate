@@ -196,7 +196,9 @@
 		border-radius: var(--radius-card, 14px);
 		overflow: hidden;
 		box-shadow: var(--shadow-card, 0 8px 24px rgba(17, 17, 17, 0.08));
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
 	}
 	.portfolio-card:hover {
 		transform: translateY(-4px);
@@ -292,7 +294,10 @@
 		place-items: center;
 		cursor: pointer;
 		box-shadow: 0 6px 18px rgba(17, 17, 17, 0.08);
-		transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease,
+			transform 0.15s ease;
 		z-index: 2;
 	}
 	.portfolio__nav:hover {

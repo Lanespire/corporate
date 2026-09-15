@@ -173,10 +173,41 @@
 				areaServed: 'JP',
 				url: 'https://launch-lp.lanespire.com/',
 				offers: [
-					{ '@type': 'Offer', name: 'Light', price: '19800', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
-					{ '@type': 'Offer', name: 'Standard', price: '49800', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
-					{ '@type': 'Offer', name: 'Pro', price: '98000', priceCurrency: 'JPY', availability: 'https://schema.org/InStock' },
-					{ '@type': 'Offer', name: '公開・運用サポート', price: '9800', priceCurrency: 'JPY', priceSpecification: { '@type': 'UnitPriceSpecification', price: '9800', priceCurrency: 'JPY', billingIncrement: 1, unitText: 'MONTH' }, availability: 'https://schema.org/InStock' }
+					{
+						'@type': 'Offer',
+						name: 'Light',
+						price: '19800',
+						priceCurrency: 'JPY',
+						availability: 'https://schema.org/InStock'
+					},
+					{
+						'@type': 'Offer',
+						name: 'Standard',
+						price: '49800',
+						priceCurrency: 'JPY',
+						availability: 'https://schema.org/InStock'
+					},
+					{
+						'@type': 'Offer',
+						name: 'Pro',
+						price: '98000',
+						priceCurrency: 'JPY',
+						availability: 'https://schema.org/InStock'
+					},
+					{
+						'@type': 'Offer',
+						name: '公開・運用サポート',
+						price: '9800',
+						priceCurrency: 'JPY',
+						priceSpecification: {
+							'@type': 'UnitPriceSpecification',
+							price: '9800',
+							priceCurrency: 'JPY',
+							billingIncrement: 1,
+							unitText: 'MONTH'
+						},
+						availability: 'https://schema.org/InStock'
+					}
 				]
 			},
 			{
@@ -242,9 +273,7 @@
 			<a href="#faq">FAQ</a>
 		</nav>
 
-		<a class="header-cta" href="#contact">
-			導入相談
-		</a>
+		<a class="header-cta" href="#contact"> 導入相談 </a>
 	</header>
 
 	<main>
@@ -265,9 +294,7 @@
 
 					<p class="hero-lead">初めてでも頼みやすい<br />短納期のLP制作サービス</p>
 
-					<a class="line-button" href="#contact">
-						導入相談する
-					</a>
+					<a class="line-button" href="#contact"> 導入相談する </a>
 				</div>
 
 				<div class="hero-visual" aria-label="LP制作のイメージ">

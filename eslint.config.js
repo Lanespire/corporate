@@ -6,7 +6,13 @@ import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
 	{
-		ignores: ['build/**', 'static/showcase/**', '.svelte-kit/**', 'dist/**', 'src/service-worker.ts']
+		ignores: [
+			'build/**',
+			'static/showcase/**',
+			'.svelte-kit/**',
+			'dist/**',
+			'src/service-worker.ts'
+		]
 	},
 	js.configs.recommended,
 	...tseslint.configs.recommended,
