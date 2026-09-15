@@ -46,7 +46,3 @@ src/lib/assets/images/lp-cta-generated.png
 src/lib/assets/images/lp-cta-generated-transparent.png
 src/lib/assets/images/lp-hero-generated.png
 src/lib/assets/images/lp-hero-generated-transparent.png
-
-# Expo exports contain runtime font assets under package paths.
-!static/showcase/assets/**/
-!static/showcase/assets/**/*.ttf

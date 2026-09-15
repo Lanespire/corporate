@@ -8,12 +8,17 @@
     {
       "path": "showcase/index.html",
       "bytes": 1193,
-      "sha256": "3416bf7b723fb7a4bbc0ae4baf41b466aa730c25cd6e3473be3b090c1bd4beb6"
+      "sha256": "972203ab1517c2785480610e3367874af21451e295aeda5a73d502e2f3b006bb"
     },
     {
       "path": "showcase/metadata.json",
       "bytes": 49,
       "sha256": "aa5f19cc84d41c0f8c70ececb2bc82e863227ea1e121632aca879eb616056991"
+    },
+    {
+      "path": "showcase/assets/vendor/Ionicons.b4eb097d35f44ed943676fd56f6bdc51.ttf",
+      "bytes": 389724,
+      "sha256": "fa2ab7d2557819b2bfe5009e46844efa7170cf177be7735d43aa2ac1295f1d54"
     },
     {
       "path": "showcase/assets/assets/aoi.0ea8c772dabb67d639c3c7da0888f8bf.webp",
@@ -31,14 +36,9 @@
       "sha256": "83887b26e3a9b42cc6c0bc6cc61ff36fb7b15443e8643fa3eed8ffbbd3f6ff1e"
     },
     {
-      "path": "showcase/assets/__node_modules/.pnpm/@expo+vector-icons@15.1.1_expo-font@57.0.4_react-native@0.86.3_@babel+core@7.29.7_suppo_4876a420c9dd1f80593fbc019aea32a4/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.b4eb097d35f44ed943676fd56f6bdc51.ttf",
-      "bytes": 389724,
-      "sha256": "fa2ab7d2557819b2bfe5009e46844efa7170cf177be7735d43aa2ac1295f1d54"
-    },
-    {
-      "path": "showcase/_expo/static/js/web/index-1b390f8984939e4e1055973c4100821b.js",
-      "bytes": 2975250,
-      "sha256": "0c73ab5cd1b369c16ff1f15b1844f3c4fe8cd1581c15331b141c431ee1fc9d8c"
+      "path": "showcase/_expo/static/js/web/index-4ace88258bdc06c04c172a8a40b11e97.js",
+      "bytes": 2975038,
+      "sha256": "4ace88258bdc06c04c172a8a40b11e9791d9b662279d64aef84254eb2a9d5ca3"
     }
   ]
 }
