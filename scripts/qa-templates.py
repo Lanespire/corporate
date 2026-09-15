@@ -57,24 +57,9 @@ def main():
                     name = 'matching' if 'matching' in route else 'catalog'
                     page.screenshot(path=str(out / f'{name}-{width}.png'), full_page=True)
                 if 'matching' in route and width in (390, 1440):
-                    page.locator('label[for=preset-marriage]').click()
-                    assert page.locator('.marriage-discovery').is_visible()
-                    assert not page.locator('.social-discovery').is_visible()
-                    page.locator('#color-iris').check()
-                    assert page.locator('#demo-brand').evaluate('(e) => getComputedStyle(e).color') == 'rgb(130, 118, 160)'
-                    page.locator('label[for=view-chat]').click()
-                    assert page.locator('#chat-panel').is_visible()
-                    page.locator('label[for=view-admin]').click()
-                    assert page.locator('#admin-panel').is_visible()
-                    assert not page.locator('#demo-device').is_visible()
-                    page.locator('label[for=view-discovery]').click()
-                    page.locator('label[for=preset-social]').click()
-                    page.locator('label[for=next-profile]').click()
-                    assert page.locator('.profile-second').is_visible()
-                    page.locator('#like-profile').click()
-                    assert page.locator('#match-notice').is_visible()
-                    page.keyboard.press('Escape')
-                    assert not page.locator('#match-notice').is_visible()
+                    assert page.locator('.screen-card').count() == 9
+                    assert page.locator('.admin-showcase figure').count() == 4
+                    assert page.locator('.live-device iframe').get_attribute('src') == '/showcase/?capture=1'
                     page.locator('[data-open-license]').first.click()
                     assert page.locator('#license-dialog').is_visible()
                     page.keyboard.press('Escape')

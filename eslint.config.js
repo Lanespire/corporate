@@ -6,7 +6,13 @@ import prettier from 'eslint-config-prettier';
 
 export default tseslint.config(
 	{
-		ignores: ['build/**', '.svelte-kit/**', 'dist/**', 'src/service-worker.ts']
+		ignores: [
+			'build/**',
+			'static/showcase/**',
+			'.svelte-kit/**',
+			'dist/**',
+			'src/service-worker.ts'
+		]
 	},
 	js.configs.recommended,
 	...tseslint.configs.recommended,
@@ -57,7 +63,8 @@ export default tseslint.config(
 			'eslint.config.js',
 			'svelte.config.js',
 			'static/corporate/client.js',
-			'static/templates/experience.js'
+			'static/templates/experience.js',
+			'netlify/edge-functions/host-rewrite.js'
 		],
 		languageOptions: {
 			parserOptions: {

@@ -78,12 +78,7 @@
 		<div class="header-content">
 			<!-- Logo -->
 			<div class="logo">
-				<enhanced:img
-					src={lanespireLogo}
-					alt="Lanespire"
-					class="logo-image"
-					sizes="40px"
-				/>
+				<enhanced:img src={lanespireLogo} alt="Lanespire" class="logo-image" sizes="40px" />
 				<span class="logo-text">Lanespire</span>
 			</div>
 

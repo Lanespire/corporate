@@ -60,3 +60,13 @@
 # Host-based rewriting is handled by netlify/edge-functions/host-rewrite.js.
 # Netlify's `[[redirects]]` host condition was not honored for `/` rewrites
 # (the static index.html resolved first regardless of force=true).
+
+[[headers]]
+  for = "/showcase/_expo/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/showcase/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

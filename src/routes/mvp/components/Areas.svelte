@@ -1,12 +1,5 @@
 <script lang="ts">
-	import {
-		Globe,
-		Sparkles,
-		Workflow,
-		LayoutDashboard,
-		Database,
-		LifeBuoy
-	} from 'lucide-svelte';
+	import { Globe, Sparkles, Workflow, LayoutDashboard, Database, LifeBuoy } from 'lucide-svelte';
 
 	const areas = [
 		{

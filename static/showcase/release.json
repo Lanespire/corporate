@@ -1,0 +1,44 @@
+{
+  "format": 1,
+  "runtime": "Expo Web",
+  "publicUrl": "https://lanespire.com/showcase/",
+  "data": "Fictional sample profiles, no API or database connection",
+  "capturedAdmin": "Local development environment with reference masters only",
+  "assets": [
+    {
+      "path": "showcase/index.html",
+      "bytes": 1193,
+      "sha256": "972203ab1517c2785480610e3367874af21451e295aeda5a73d502e2f3b006bb"
+    },
+    {
+      "path": "showcase/metadata.json",
+      "bytes": 49,
+      "sha256": "aa5f19cc84d41c0f8c70ececb2bc82e863227ea1e121632aca879eb616056991"
+    },
+    {
+      "path": "showcase/assets/vendor/Ionicons.b4eb097d35f44ed943676fd56f6bdc51.ttf",
+      "bytes": 389724,
+      "sha256": "fa2ab7d2557819b2bfe5009e46844efa7170cf177be7735d43aa2ac1295f1d54"
+    },
+    {
+      "path": "showcase/assets/assets/aoi.0ea8c772dabb67d639c3c7da0888f8bf.webp",
+      "bytes": 110236,
+      "sha256": "b3251a79c18c0e1d5998f36d3a54e16cecc6b53c357059159783ca91664c2c24"
+    },
+    {
+      "path": "showcase/assets/assets/haru.82c0a825b79e65a9e12cab7de24086cf.webp",
+      "bytes": 87696,
+      "sha256": "a254ad0d4b0f3682d465a999c6a00bbdb54f51f0372fe70e82a1befec59532e7"
+    },
+    {
+      "path": "showcase/assets/assets/ren.b3b82c6f168e016ac937d6312ae44221.webp",
+      "bytes": 72172,
+      "sha256": "83887b26e3a9b42cc6c0bc6cc61ff36fb7b15443e8643fa3eed8ffbbd3f6ff1e"
+    },
+    {
+      "path": "showcase/_expo/static/js/web/index-4ace88258bdc06c04c172a8a40b11e97.js",
+      "bytes": 2975038,
+      "sha256": "4ace88258bdc06c04c172a8a40b11e9791d9b662279d64aef84254eb2a9d5ca3"
+    }
+  ]
+}

@@ -3,7 +3,10 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
-	"engines": { "node": ">=20.0.0", "npm": ">=9.0.0" },
+	"engines": {
+		"node": ">=20.0.0",
+		"npm": ">=9.0.0"
+	},
 	"scripts": {
 		"prepare:corporate": "node scripts/prepare-corporate.mjs",
 		"predev": "npm run prepare:corporate",
@@ -29,6 +32,7 @@
 		"eslint-config-prettier": "^9.1.2",
 		"prettier": "^3.0.0",
 		"prettier-plugin-svelte": "^3.0.0",
+		"qrcode": "^1.5.4",
 		"sharp": "^0.34.4",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",

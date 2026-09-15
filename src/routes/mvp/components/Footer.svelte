@@ -14,6 +14,7 @@
 	<div class="container">
 		<nav aria-label="フッターナビゲーション">
 			{#each navLinks as link}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -- Links are fixed fragments on this page. -->
 				<a href={link.href}>{link.label}</a>
 			{/each}
 			<a class="email" href="mailto:info@lanespire.com">info@lanespire.com</a>
