@@ -1,9 +1,78 @@
 [
-  {"id":"C01","src":"/templates/media/C01.svg","replacement":"/templates/media/C01.webp","width":1600,"height":1200,"use":"collection hero"},
-  {"id":"M01","src":"/templates/media/M01.svg","replacement":"/templates/media/M01.webp","width":1600,"height":1200,"use":"product visual"},
-  {"id":"M02","src":"/templates/media/M02.svg","replacement":"/templates/media/M02.webp","width":1200,"height":1500,"use":"social woman"},
-  {"id":"M03","src":"/templates/media/M03.svg","replacement":"/templates/media/M03.webp","width":1200,"height":1500,"use":"social man"},
-  {"id":"M04","src":"/templates/media/M04.svg","replacement":"/templates/media/M04.webp","width":1200,"height":1500,"use":"marriage woman"},
-  {"id":"M05","src":"/templates/media/M05.svg","replacement":"/templates/media/M05.webp","width":1200,"height":1500,"use":"marriage man"},
-  {"id":"S01","src":"/templates/media/S01.svg","replacement":"/templates/media/S01.webp","width":1600,"height":1067,"use":"support visual"}
+	{
+		"id": "C01",
+		"src": "/templates/media/C01.svg",
+		"replacement": "/templates/media/C01.webp",
+		"width": 1600,
+		"height": 1200,
+		"use": "collection hero",
+		"status": "unused legacy placeholder; active visual uses HTML/CSS"
+	},
+	{
+		"id": "M01",
+		"src": "/templates/media/M01.svg",
+		"replacement": "/templates/media/M01.webp",
+		"width": 1600,
+		"height": 1200,
+		"use": "product visual",
+		"status": "unused legacy placeholder; active visual uses HTML/CSS"
+	},
+	{
+		"id": "M02",
+		"src": "/templates/media/M02.webp",
+		"width": 720,
+		"height": 720,
+		"use": "social woman",
+		"status": "generated",
+		"origin": "ChatGPT web, new chat, 2026-09-15",
+		"fictional": true
+	},
+	{
+		"id": "M03",
+		"src": "/templates/media/M03.webp",
+		"width": 720,
+		"height": 720,
+		"use": "social man",
+		"status": "generated",
+		"origin": "ChatGPT web, new chat, 2026-09-15",
+		"fictional": true
+	},
+	{
+		"id": "M04",
+		"src": "/templates/media/M04.webp",
+		"width": 720,
+		"height": 720,
+		"use": "marriage woman",
+		"status": "generated",
+		"origin": "ChatGPT web, new chat, 2026-09-15",
+		"fictional": true
+	},
+	{
+		"id": "M05",
+		"src": "/templates/media/M05.webp",
+		"width": 720,
+		"height": 720,
+		"use": "marriage man",
+		"status": "generated",
+		"origin": "ChatGPT web, new chat, 2026-09-15",
+		"fictional": true
+	},
+	{
+		"id": "S01",
+		"src": "/templates/media/S01.svg",
+		"replacement": "/templates/media/S01.webp",
+		"width": 1600,
+		"height": 1067,
+		"use": "support visual",
+		"status": "unused legacy placeholder; active visual uses HTML/CSS"
+	},
+	{
+		"id": "foundation",
+		"src": "/templates/media/foundation.webp",
+		"width": 1440,
+		"height": 960,
+		"use": "abstract acrylic hero sculpture on both pages",
+		"status": "generated",
+		"origin": "ChatGPT web, new chat, 2026-09-15"
+	}
 ]

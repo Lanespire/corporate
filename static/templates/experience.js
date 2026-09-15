@@ -197,4 +197,14 @@
   }
   // Close native small-screen navigation after selecting a destination.
   $$('.mobile-nav a').forEach(link => link.addEventListener('click', () => { const menu = link.closest('details'); if (menu) menu.open = false; }));
+
+  const featureFilters = $$('[data-feature-filter]');
+  featureFilters.forEach(button => button.addEventListener('click', () => {
+    const category = button.dataset.featureFilter;
+    featureFilters.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    const groups = $$('.feature-group');
+    groups.forEach(group => { group.hidden = category !== 'all' && group.dataset.featureCategory !== category; });
+    $('#feature-count').textContent = `${groups.filter(group => !group.hidden).length}つの機能グループ`;
+    animate($('.features-grid'), [{ opacity: .6, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 220 });
+  }));
 })();
