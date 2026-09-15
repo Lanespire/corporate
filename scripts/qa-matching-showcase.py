@@ -16,7 +16,12 @@ with sync_playwright() as p:
     for asset in manifest['assets']:
         response = request.get(BASE + '/' + asset['path'])
         assert response.status == 200, asset['path']
-        assert hashlib.sha256(response.body()).hexdigest() == asset['sha256'], asset['path']
+        if asset['path'].endswith('.html'):
+            # Netlify injects analytics and preview tools into HTML after deployment.
+            scripts = [item['path'] for item in manifest['assets'] if item['path'].endswith('.js')]
+            assert all('/' + script in response.text() for script in scripts), asset['path']
+        else:
+            assert hashlib.sha256(response.body()).hexdigest() == asset['sha256'], asset['path']
     request.dispose()
     for width in [1440, 390]:
         context = browser.new_context(viewport={'width': width, 'height': 1000 if width > 400 else 844}, locale='ja-JP')
