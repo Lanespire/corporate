@@ -5,6 +5,7 @@ on:
     paths:
       - 'static/templates/**'
       - 'scripts/qa-templates.py'
+      - 'scripts/qa-templates-experience.py'
       - '.github/workflows/templates.yml'
   workflow_dispatch:
 permissions:
@@ -39,6 +40,7 @@ jobs:
           python -m http.server 8766 --directory build > /tmp/templates-server.log 2>&1 &
           for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8766/templates/ > /dev/null && break; sleep 1; done
           python scripts/qa-templates.py --base-url http://127.0.0.1:8766 --root build
+          python scripts/qa-templates-experience.py --base-url http://127.0.0.1:8766
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -48,6 +50,7 @@ jobs:
             build/templates/
             static/templates/
             scripts/qa-templates.py
+            scripts/qa-templates-experience.py
             docs/templates-storefront.md
             docs/templates-image-prompts.md
           retention-days: 14
