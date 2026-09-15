@@ -1,0 +1,9 @@
+[
+  {"id":"C01","src":"/templates/media/C01.svg","replacement":"/templates/media/C01.webp","width":1600,"height":1200,"use":"collection hero"},
+  {"id":"M01","src":"/templates/media/M01.svg","replacement":"/templates/media/M01.webp","width":1600,"height":1200,"use":"product visual"},
+  {"id":"M02","src":"/templates/media/M02.svg","replacement":"/templates/media/M02.webp","width":1200,"height":1500,"use":"social woman"},
+  {"id":"M03","src":"/templates/media/M03.svg","replacement":"/templates/media/M03.webp","width":1200,"height":1500,"use":"social man"},
+  {"id":"M04","src":"/templates/media/M04.svg","replacement":"/templates/media/M04.webp","width":1200,"height":1500,"use":"marriage woman"},
+  {"id":"M05","src":"/templates/media/M05.svg","replacement":"/templates/media/M05.webp","width":1200,"height":1500,"use":"marriage man"},
+  {"id":"S01","src":"/templates/media/S01.svg","replacement":"/templates/media/S01.webp","width":1600,"height":1067,"use":"support visual"}
+]

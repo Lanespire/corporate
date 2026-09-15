@@ -1,0 +1,47 @@
+name: Templates pages and browser checks
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'static/templates/**'
+      - 'scripts/qa-templates.py'
+      - '.github/workflows/templates.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: templates-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  templates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm i
+      - run: npm run check
+      - run: npm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test dependencies
+        run: |
+          pip install playwright==1.57.0
+          python -m playwright install --with-deps chromium
+      - name: Serve actual build and verify both pages
+        run: |
+          test -f build/templates/index.html
+          test -f build/templates/matching/index.html
+          python -m http.server 8766 --directory build > /tmp/templates-server.log 2>&1 &
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8766/templates/ > /dev/null && break; sleep 1; done
+          python scripts/qa-templates.py --base-url http://127.0.0.1:8766 --root build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: templates-preview-${{ github.sha }}
+          path: qa-results/templates/
+          retention-days: 14
