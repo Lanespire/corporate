@@ -53,7 +53,12 @@ export default tseslint.config(
 		}
 	},
 	{
-		files: ['eslint.config.js', 'svelte.config.js', 'static/corporate/client.js'],
+		files: [
+			'eslint.config.js',
+			'svelte.config.js',
+			'static/corporate/client.js',
+			'static/templates/experience.js'
+		],
 		languageOptions: {
 			parserOptions: {
 				project: null // Standalone browser JS and config files are outside the TypeScript project.
