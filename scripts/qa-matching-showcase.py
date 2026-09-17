@@ -33,7 +33,7 @@ with sync_playwright() as p:
         page.goto(BASE + '/templates/matching/', wait_until='domcontentloaded', timeout=60000)
         expect(page.locator('.screen-card')).to_have_count(9)
         expect(page.locator('.admin-showcase figure')).to_have_count(4)
-        expect(page.locator('.live-qr')).to_have_attribute('href', native['url'])
+        expect(page.locator('.live-qr')).to_have_attribute('href', 'https://lanespire.com/showcase/')
         expect(page.locator('.product-status')).to_contain_text('OEMパッケージ提供中')
         assert '商品化準備中' not in page.locator('body').inner_text()
         assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'LP horizontal overflow'

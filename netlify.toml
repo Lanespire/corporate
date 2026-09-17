@@ -56,18 +56,6 @@
   status = 301
   force = true
 
-# ---------- Matching Package Showcase / LP Redirect (Cloudflare) ----------
-[[redirects]]
-  from = "/templates/matching"
-  to = "https://matching-api.motoki-takahashi.workers.dev/showcase/"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/templates/matching/*"
-  to = "https://matching-api.motoki-takahashi.workers.dev/showcase/:splat"
-  status = 302
-  force = true
 
 [[redirects]]
   from = "/showcase"

@@ -11,7 +11,9 @@ export default tseslint.config(
 			'static/showcase/**',
 			'.svelte-kit/**',
 			'dist/**',
-			'src/service-worker.ts'
+			'src/service-worker.ts',
+			'.omx/**',
+			'tools/**'
 		]
 	},
 	js.configs.recommended,
