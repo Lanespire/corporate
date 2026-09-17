@@ -60,13 +60,13 @@
 [[redirects]]
   from = "/showcase"
   to = "https://matching-api.motoki-takahashi.workers.dev/showcase/"
-  status = 302
+  status = 200
   force = true
 
 [[redirects]]
   from = "/showcase/*"
   to = "https://matching-api.motoki-takahashi.workers.dev/showcase/:splat"
-  status = 302
+  status = 200
   force = true
 
 # ---------- Subdomain → internal route rewrite ----------
