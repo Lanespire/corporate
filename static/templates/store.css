@@ -3746,7 +3746,10 @@
 	flex-direction: column;
 	gap: 12px;
 	box-shadow: 0 4px 16px rgba(40, 60, 45, 0.04);
-	transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease,
+		border-color 0.2s ease;
 }
 .tech-card:hover {
 	transform: translateY(-3px);
@@ -3800,4 +3803,3 @@
 		padding: 20px 18px;
 	}
 }
-

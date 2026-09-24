@@ -1,19 +1,19 @@
 {
-  "url": "exps://matching-showcase-updates.motoki-takahashi.workers.dev",
-  "sdkVersion": "54.0.0",
-  "runtimeVersion": "0.2.0",
-  "captureRuntime": "Expo Go on iOS Simulator",
-  "device": "iPhone 16e / iOS 26.3",
-  "verified": [
-    "public native launch",
-    "swipe",
-    "undo",
-    "like",
-    "match",
-    "send message",
-    "reopen conversation",
-    "brand preset and screen switching"
-  ],
-  "capturedAt": "2026-09-24",
-  "updatesServer": "self-hosted expo-updates (Cloudflare Worker)"
+	"url": "exps://matching-showcase-updates.motoki-takahashi.workers.dev",
+	"sdkVersion": "54.0.0",
+	"runtimeVersion": "0.2.0",
+	"captureRuntime": "Expo Go on iOS Simulator",
+	"device": "iPhone 16e / iOS 26.3",
+	"verified": [
+		"public native launch",
+		"swipe",
+		"undo",
+		"like",
+		"match",
+		"send message",
+		"reopen conversation",
+		"brand preset and screen switching"
+	],
+	"capturedAt": "2026-09-24",
+	"updatesServer": "self-hosted expo-updates (Cloudflare Worker)"
 }
