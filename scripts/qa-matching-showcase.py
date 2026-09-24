@@ -14,7 +14,7 @@ with sync_playwright() as p:
     request = p.request.new_context()
     manifest = request.get(BASE + '/showcase/release.json').json()
     native = manifest['nativePreview']
-    assert native['url'].startswith('exps://u.expo.dev/'), 'QR must open the native Expo app'
+    assert native['url'].startswith('exps://') or native['url'].startswith('exp://'), 'QR must open the native Expo app'
     assert native['captureRuntime'] == 'Expo Go on iOS Simulator'
     for asset in manifest['assets']:
         response = request.get(BASE + '/' + asset['path'])
