@@ -242,15 +242,24 @@
 		padding-block: 8px;
 	}
 	.skip {
-		position: fixed;
-		top: -100px;
-		left: 16px;
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
 		background: white;
-		padding: 14px;
+		padding: 0;
 		z-index: 100;
 	}
 	.skip:focus {
+		position: fixed;
 		top: 8px;
+		left: 16px;
+		width: auto;
+		height: auto;
+		padding: 14px;
+		overflow: visible;
 	}
 	.sr-only {
 		position: absolute;
@@ -1706,6 +1715,264 @@
 		background: #e8eedf;
 		border-color: #d9e2ce;
 	}
+	.pricing-single-wrap {
+		width: 100%;
+	}
+	.price-main-card {
+		border: 1px solid #d4dec9;
+		border-radius: 16px;
+		padding: 38px 40px;
+		background: #fff;
+		display: grid;
+		grid-template-columns: 1fr 1.35fr;
+		gap: 48px;
+		align-items: stretch;
+		position: relative;
+		box-shadow: 0 8px 30px rgba(32, 40, 48, 0.06);
+	}
+	.price-main-info {
+		display: flex;
+		flex-direction: column;
+		border-right: 1px solid #e7ecdf;
+		padding-right: 44px;
+	}
+	.price-main-info .main-badge {
+		align-self: flex-start;
+		font-size: 10px;
+		font-weight: 600;
+		color: #2b3b2c;
+		background: #e4eed8;
+		border-radius: 20px;
+		padding: 4px 11px;
+		margin-bottom: 14px;
+	}
+	.price-main-info .plan-en {
+		font-size: 10px;
+		letter-spacing: 0.15em;
+		color: #7c8c71;
+		margin-bottom: 10px;
+	}
+	.price-main-info h3 {
+		font-size: 24px;
+		font-weight: 700;
+	}
+	.price-main-info .plan-desc {
+		font-size: 11px;
+		color: #78866e;
+		line-height: 1.7;
+		margin-top: 10px;
+	}
+	.price-main-info .plan-price {
+		margin-top: 22px;
+		font-size: 46px;
+		letter-spacing: -0.06em;
+		line-height: 1.1;
+		font-weight: 700;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+	}
+	.price-main-info .plan-price small {
+		font-size: 16px;
+		letter-spacing: 0;
+		font-weight: 500;
+	}
+	.price-main-info .price-tax {
+		font-size: 10px;
+		color: #87947c;
+		margin: 6px 0 20px;
+	}
+	.price-main-info .button {
+		width: 100%;
+		font-size: 13px;
+		padding: 13px 18px;
+		margin-bottom: 0;
+	}
+	.price-main-info .plan-limit {
+		font-size: 10px;
+		color: #839075;
+		line-height: 1.8;
+		margin-top: auto;
+		padding-top: 18px;
+	}
+	.price-main-content {
+		display: flex;
+		flex-direction: column;
+	}
+	.price-main-content .price-includes {
+		font-size: 10px;
+		font-weight: 600;
+		color: #75846c;
+		letter-spacing: 0.08em;
+		margin-bottom: 16px;
+	}
+	.main-includes-list {
+		list-style: none;
+		padding: 0;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px 20px;
+	}
+	.main-includes-list li {
+		display: flex;
+		gap: 12px;
+		align-items: flex-start;
+	}
+	.check-badge {
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background: #eef5e6;
+		color: #557834;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		margin-top: 1px;
+	}
+	.check-badge .icon {
+		width: 12px;
+		height: 12px;
+		stroke: currentColor;
+		stroke-width: 2.5;
+		fill: none;
+	}
+	.main-includes-list li strong {
+		display: block;
+		font-size: 12px;
+		font-weight: 650;
+		color: var(--ink);
+		line-height: 1.4;
+	}
+	.main-includes-list li span {
+		display: block;
+		font-size: 10px;
+		color: #707e69;
+		line-height: 1.5;
+		margin-top: 2px;
+	}
+	.calc-plan-fixed {
+		border: 1px solid #ccd7c1;
+		border-radius: 8px;
+		padding: 14px 18px;
+		background: #f4f7ee;
+		margin: 17px 0 22px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.calc-plan-fixed-head {
+		font-size: 12px;
+		font-weight: 600;
+		color: #2e4823;
+	}
+	.calc-plan-fixed-head span {
+		display: block;
+		font-size: 9px;
+		font-weight: 400;
+		color: #6d7d61;
+		margin-top: 3px;
+	}
+	.calc-plan-fixed-price {
+		text-align: right;
+	}
+	.calc-plan-fixed-price strong {
+		font-size: 18px;
+		font-weight: 700;
+		color: #202830;
+	}
+	.calc-plan-fixed-price small {
+		display: block;
+		font-size: 9px;
+		color: #75846c;
+		margin-top: 1px;
+	}
+	.options-section {
+		margin-top: 48px;
+		padding-top: 36px;
+		border-top: 1px solid var(--line);
+	}
+	.options-header {
+		margin-bottom: 24px;
+	}
+	.options-header .eyebrow {
+		font-size: 9px;
+		color: #75846c;
+		letter-spacing: 0.12em;
+		margin-bottom: 6px;
+	}
+	.options-header h3 {
+		font-size: 19px;
+		font-weight: 650;
+	}
+	.options-lead {
+		font-size: 11px;
+		color: var(--muted);
+		margin-top: 6px;
+	}
+	.options-group {
+		margin-top: 24px;
+	}
+	.options-group-title {
+		font-size: 11px;
+		font-weight: 600;
+		color: #75846c;
+		letter-spacing: 0.05em;
+		margin-bottom: 14px;
+	}
+	.services-grid {
+		display: grid;
+		gap: 18px;
+	}
+	.services-grid-3 {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	.services-grid-2 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.service-card {
+		border: 1px solid #dce2d4;
+		border-radius: 12px;
+		background: #fff;
+		padding: 22px;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 2px 12px rgba(32, 40, 48, 0.02);
+	}
+	.service-card .eyebrow {
+		font-size: 9px;
+		color: #75846c;
+		letter-spacing: 0.1em;
+		margin-bottom: 10px;
+	}
+	.service-card h3 {
+		font-size: 15px;
+		font-weight: 650;
+	}
+	.service-card p {
+		font-size: 11px;
+		color: var(--muted);
+		line-height: 1.6;
+		margin-top: 8px;
+	}
+	.service-card strong {
+		font-size: 19px;
+		font-weight: 650;
+		color: var(--ink);
+		display: block;
+		margin-top: auto;
+		padding-top: 16px;
+	}
+	.service-card strong small {
+		font-size: 10px;
+		font-weight: 500;
+		color: #75846c;
+	}
+	.service-card .note {
+		font-size: 9px;
+		color: #88957e;
+		line-height: 1.6;
+		margin-top: 6px;
+	}
 	.pricing-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -2517,6 +2784,22 @@
 		.pricing-grid {
 			gap: 12px;
 		}
+		.price-main-card {
+			gap: 32px;
+			padding: 30px;
+		}
+		.price-main-info {
+			padding-right: 32px;
+		}
+		.price-main-info h3 {
+			font-size: 21px;
+		}
+		.price-main-info .plan-price {
+			font-size: 38px;
+		}
+		.services-grid {
+			gap: 14px;
+		}
 		.price-card {
 			padding: 24px 18px;
 		}
@@ -3119,6 +3402,40 @@
 		.pricing-grid {
 			grid-template-columns: 1fr;
 			gap: 15px;
+		}
+		.price-main-card {
+			grid-template-columns: 1fr;
+			gap: 28px;
+			padding: 24px;
+		}
+		.price-main-info {
+			border-right: none;
+			border-bottom: 1px solid #e7ecdf;
+			padding-right: 0;
+			padding-bottom: 24px;
+		}
+		.price-main-info h3 {
+			font-size: 22px;
+		}
+		.price-main-info .plan-price {
+			font-size: 40px;
+		}
+		.main-includes-list {
+			grid-template-columns: 1fr;
+			gap: 14px;
+		}
+		.services-grid-3,
+		.services-grid-2 {
+			grid-template-columns: 1fr;
+			gap: 16px;
+		}
+		.calc-plan-fixed {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
+		}
+		.calc-plan-fixed-price {
+			text-align: left;
 		}
 		.price-card {
 			padding: 29px;

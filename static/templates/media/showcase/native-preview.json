@@ -1,13 +1,7 @@
 {
-  "url": "exps://u.expo.dev/78be510e-a5ef-4f35-8ad6-761054512d24?channel-name=showcase&runtime-version=0.2.0",
-  "projectId": "78be510e-a5ef-4f35-8ad6-761054512d24",
+  "url": "exps://matching-showcase-updates.motoki-takahashi.workers.dev",
   "sdkVersion": "54.0.0",
   "runtimeVersion": "0.2.0",
-  "updateGroup": "e7f63814-91c5-417a-8e27-a67776d570af",
-  "updates": {
-    "android": "01a0d2e7-4a9f-75b3-98a0-123a150163e9",
-    "ios": "01a0d2e7-4a9f-718c-b011-4920d01bd317"
-  },
   "captureRuntime": "Expo Go on iOS Simulator",
   "device": "iPhone 16e / iOS 26.3",
   "verified": [
@@ -20,5 +14,6 @@
     "reopen conversation",
     "brand preset and screen switching"
   ],
-  "capturedAt": "2026-09-24"
+  "capturedAt": "2026-09-24",
+  "updatesServer": "self-hosted expo-updates (Cloudflare Worker)"
 }

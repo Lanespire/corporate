@@ -167,8 +167,7 @@
 			custom: $('#custom-input'),
 			setup: $('#setup-input')
 		};
-		const prices = Object.freeze({ source: 98000, brand: 148000, launch: 198000 });
-		const names = Object.freeze({ source: 'Source', brand: 'Brand', launch: 'Launch' });
+		const packagePrice = 98000;
 		const yen = (value) => `¥${Math.round(value).toLocaleString('ja-JP')}`;
 		const man = (value) => (value / 10000).toLocaleString('ja-JP', { maximumFractionDigits: 1 });
 		let copyText = '',
@@ -204,11 +203,10 @@
 				return;
 			}
 			$('#calc-error').textContent = '';
-			const choice = $('input[name="calc-plan"]:checked', form).value;
 			const scratch = Math.round(inputs.scratch.valueAsNumber * 10000);
 			const custom = Math.round(inputs.custom.valueAsNumber * 10000);
 			const setup = Math.round(inputs.setup.valueAsNumber * 10000);
-			const total = prices[choice] + custom + setup;
+			const total = packagePrice + custom + setup;
 			const difference = scratch - total;
 			const largest = Math.max(scratch, total, 1);
 			const negative = difference < 0;
@@ -246,12 +244,12 @@
 						? `入力額より${((Math.abs(difference) / scratch) * 100).toLocaleString('ja-JP', { maximumFractionDigits: 1 })}%増`
 						: `初期費用の${((difference / scratch) * 100).toLocaleString('ja-JP', { maximumFractionDigits: 1 })}%相当`;
 			$('#calc-breakdown').textContent =
-				`${names[choice]} ${man(prices[choice])}万円 ＋ 追加改修${man(custom)}万円 ＋ 導入等${man(setup)}万円`;
+				`パッケージ ${man(packagePrice)}万円 ＋ 追加改修${man(custom)}万円 ＋ 導入等${man(setup)}万円`;
 			$('#cost-difference-copy').textContent = negative
 				? '価格だけでなく、再利用できる機能と必要な改修範囲を見直して比較してください。'
 				: '共通機能をパッケージで揃えることで、独自の差別化機能やマーケティングに予算を配分できます。';
-			$$('.price-card').forEach((card) =>
-				card.classList.toggle('is-comparing', card.dataset.plan === choice)
+			$$('.price-card, .price-main-card').forEach((card) =>
+				card.classList.toggle('is-comparing', true)
 			);
 			range.max = String(Math.max(1000, Math.ceil(inputs.scratch.valueAsNumber / 100) * 100));
 			range.value = String(inputs.scratch.valueAsNumber);
@@ -262,7 +260,7 @@
 				announcementTimer = setTimeout(() => {
 					$('#calc-announcement').textContent = sentence;
 				}, 220);
-			copyText = `Matching 初期費用の比較（税別・仮定）\nスクラッチ：${yen(scratch)}\n${names[choice]}ライセンス：${yen(prices[choice])}\n追加開発・改修：${yen(custom)}\nプラン外の導入・公開準備：${yen(setup)}\nテンプレート利用総額：${yen(total)}\n差額：${negative ? '−' : ''}${yen(Math.abs(difference))}\n\n市場相場・見積・削減保証ではありません。同じ機能・品質・公開範囲で比較し、支援作業の二重計上を除いてください。外部サービス料・ストア関連費・集客・有人運営・継続保守は双方に含みません。\nhttps://lanespire.com/templates/matching/`;
+			copyText = `Matching 初期費用の比較（税別・仮定）\nスクラッチ：${yen(scratch)}\nパッケージ購入（ソースコード納品）：${yen(packagePrice)}\n追加開発・改修：${yen(custom)}\nプラン外の導入・公開準備：${yen(setup)}\nテンプレート利用総額：${yen(total)}\n差額：${negative ? '−' : ''}${yen(Math.abs(difference))}\n\n市場相場・見積・削減保証ではありません。同じ機能・品質・公開範囲で比較し、支援作業の二重計上を除いてください。外部サービス料・ストア関連費・集客・有人運営・継続保守は双方に含みません。\nhttps://lanespire.com/templates/matching/`;
 		}
 		form.addEventListener('input', (event) => {
 			if (event.target === range) inputs.scratch.value = range.value;

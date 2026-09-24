@@ -34,15 +34,15 @@ const nativePreview = JSON.parse(
 	await readFile(path.join(captureDirectory, 'native-preview.json'), 'utf8')
 );
 const nativeUrl = new URL(nativePreview.url);
-if (!['exp:', 'exps:'].includes(nativeUrl.protocol) || nativeUrl.hostname !== 'u.expo.dev') {
-	throw new Error('QR destination must open the native Expo app');
+if (!['exp:', 'exps:'].includes(nativeUrl.protocol) || nativeUrl.hostname === 'u.expo.dev') {
+	throw new Error('QR destination must be the self-hosted Expo Go update URL');
 }
 if (nativePreview.captureRuntime !== 'Expo Go on iOS Simulator') {
 	throw new Error('App images must be captured from the running native app');
 }
 let landingPage = await readFile('static/templates/matching/index.html', 'utf8');
 landingPage = landingPage.replaceAll(
-	/exps:\/\/u\.expo\.dev\/[^"\s]+/g,
+	/exps:\/\/[^"\s]+/g,
 	nativePreview.url.replaceAll('&', '&amp;')
 );
 let catalogPage = await readFile('static/templates/index.html', 'utf8');
