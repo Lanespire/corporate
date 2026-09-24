@@ -9,13 +9,13 @@
     "projectId": "78be510e-a5ef-4f35-8ad6-761054512d24",
     "sdkVersion": "54.0.0",
     "runtimeVersion": "0.2.0",
-    "updateGroup": "22e1d7a7-6923-4250-ac45-3bd51e6d0749",
+    "updateGroup": "e7f63814-91c5-417a-8e27-a67776d570af",
     "updates": {
-      "android": "01a0a426-6810-7186-9db8-edfef4fcedd4",
-      "ios": "01a0a426-6810-7703-8b5c-d26a18a889db"
+      "android": "01a0d2e7-4a9f-75b3-98a0-123a150163e9",
+      "ios": "01a0d2e7-4a9f-718c-b011-4920d01bd317"
     },
     "captureRuntime": "Expo Go on iOS Simulator",
-    "device": "iPhone 17 / iOS 26.3",
+    "device": "iPhone 16e / iOS 26.3",
     "verified": [
       "public native launch",
       "swipe",
@@ -26,13 +26,13 @@
       "reopen conversation",
       "brand preset and screen switching"
     ],
-    "capturedAt": "2026-09-15"
+    "capturedAt": "2026-09-24"
   },
   "assets": [
     {
       "path": "showcase/index.html",
-      "bytes": 1193,
-      "sha256": "6015059024fe1aa4fcf7034c7048a84eca8bc2c4c5cef090be7848a7ac907003"
+      "bytes": 1403,
+      "sha256": "700e746db162d3a60e096361463e0fbfee4416c5ebcf3d505b8d45caeb3957ad"
     },
     {
       "path": "showcase/metadata.json",
@@ -60,9 +60,19 @@
       "sha256": "83887b26e3a9b42cc6c0bc6cc61ff36fb7b15443e8643fa3eed8ffbbd3f6ff1e"
     },
     {
-      "path": "showcase/_expo/static/js/web/index-4522d21b2a58794a5bd68621beb8566b.js",
-      "bytes": 3020274,
-      "sha256": "4522d21b2a58794a5bd68621beb8566bfb6af556997a88387742113b67fa507d"
+      "path": "showcase/assets/assets/brand/didit-mark.70625d6445f567b9f72750c969429c17.png",
+      "bytes": 27777,
+      "sha256": "967e546323dc3ef84702a55a9df58097c594cb272aa91bf39925f965418fc467"
+    },
+    {
+      "path": "showcase/_expo/static/js/web/index-0240c6b2c05c61dbacbc5c956b57695b.js",
+      "bytes": 9320804,
+      "sha256": "0240c6b2c05c61dbacbc5c956b57695b55dc1b760b747358764a525538317c57"
+    },
+    {
+      "path": "showcase/_expo/static/css/global-c400f2ab0b79eaf08e3cc3065904ea7e.css",
+      "bytes": 14733,
+      "sha256": "991c21685375c0012142586fdce6bacf08e2ebb4e871a4e6d91ef025c8028e41"
     }
   ]
 }
