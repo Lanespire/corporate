@@ -1,7 +1,7 @@
 # Matching: native preview and landing page
 
 - Landing page: https://lanespire.com/templates/matching/
-- Native Expo Go: `exps://u.expo.dev/78be510e-a5ef-4f35-8ad6-761054512d24?channel-name=showcase&runtime-version=0.2.0`
+- Native Expo Go: `exps://matching-showcase-updates.motoki-takahashi.workers.dev`
 - Browser customization: https://lanespire.com/showcase/
 - Admin gallery: landing page `#admin-showcase`.
 

@@ -597,7 +597,7 @@ em {
 	color: #5e7d45;
 }
 .product-nav ~ section[id] {
-	scroll-margin-top: 80px;
+	scroll-margin-top: 155px;
 }
 .screen-options {
 	border: 0;
@@ -1128,7 +1128,7 @@ em {
 		min-height: 617px;
 	}
 	.product-nav ~ section[id] {
-		scroll-margin-top: 65px;
+		scroll-margin-top: 135px;
 	}
 }
 @media (max-width: 600px) {
@@ -1442,7 +1442,7 @@ em {
 		margin-right: auto;
 	}
 	.product-nav ~ section[id] {
-		scroll-margin-top: 65px;
+		scroll-margin-top: 125px;
 	}
 	.lab-controls {
 		padding: 24px 20px;

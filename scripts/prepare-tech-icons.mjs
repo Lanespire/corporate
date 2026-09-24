@@ -34,4 +34,8 @@ const diditPng = /<image href="data:image\/png;base64,([^"]+)"/.exec(diditSvg)?.
 if (!diditPng) throw new Error('didit-switch.svg からマーク画像を抽出できませんでした');
 writeFileSync(join(outDir, 'didit-mark.png'), Buffer.from(diditPng, 'base64'));
 
-console.log('prepared tech icons:', simpleIcons.map(([, f]) => f).join(', '), ', openai, didit-mark');
+console.log(
+	'prepared tech icons:',
+	simpleIcons.map(([, f]) => f).join(', '),
+	', openai, didit-mark'
+);
