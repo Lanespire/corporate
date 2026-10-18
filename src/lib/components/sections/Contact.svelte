@@ -222,8 +222,7 @@
 							class="form-textarea"
 							rows="6"
 							bind:value={formData.message}
-							required
-						></textarea>
+							required></textarea>
 					</div>
 
 					{#if submitStatus !== 'idle'}

@@ -452,8 +452,7 @@
 							name="purpose"
 							rows="3"
 							placeholder="例：新サービス申込みの獲得、資料請求の獲得 など"
-							required
-						></textarea>
+							required></textarea>
 					</div>
 
 					<div class="form-group">
@@ -483,8 +482,7 @@
 							id="target"
 							name="target"
 							rows="2"
-							placeholder="例：30代女性、中小企業の経営者 など"
-						></textarea>
+							placeholder="例：30代女性、中小企業の経営者 など"></textarea>
 					</div>
 
 					<div class="form-group full">
@@ -493,8 +491,7 @@
 							id="strengths"
 							name="strengths"
 							rows="2"
-							placeholder="競合と比べた優位性、訴求したいポイント"
-						></textarea>
+							placeholder="競合と比べた優位性、訴求したいポイント"></textarea>
 					</div>
 
 					<div class="form-group full">
@@ -503,8 +500,7 @@
 							id="references"
 							name="references"
 							rows="2"
-							placeholder="参考にしたいサイトや競合のURL（複数可）"
-						></textarea>
+							placeholder="参考にしたいサイトや競合のURL（複数可）"></textarea>
 					</div>
 
 					<div class="form-group">

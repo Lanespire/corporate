@@ -198,8 +198,7 @@
 								name="message"
 								rows="5"
 								placeholder="例: 新規事業のMVPで、最短で見せる初回デモを作りたい"
-								required
-							></textarea>
+								required></textarea>
 						</label>
 					</div>
 
