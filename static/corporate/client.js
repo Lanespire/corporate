@@ -403,7 +403,7 @@
 		$('#contact-summary').replaceChildren(dl);
 		submission = new URLSearchParams(data);
 		mailBody =
-			'株式会社レーンスパイア ご担当者様\n\n以下の内容について相談を希望します。\n\n' +
+			'株式会社Lanespire ご担当者様\n\n以下の内容について相談を希望します。\n\n' +
 			pairs.map(([key, value]) => `${key}\n${value}`).join('\n\n');
 		mailSubject = `【開発・導入のご相談】${data.subject} / ${data.name.trim()}`;
 		$('.copy-status').textContent = '';
