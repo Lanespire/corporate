@@ -141,3 +141,8 @@ Netlify Formsを使用した無料のフォーム処理が設定済みです：
 
 **株式会社Lanespire**  
 〒104-0061 東京都中央区銀座１丁目１２番４号Ｎ＆ＥＢＬＤ．６Ｆ
+
+## CI（ローカル）
+
+PR / push では GitHub Actions の CI は自動実行しません（`workflow_dispatch` のみ）。
+push 前は husky pre-push の `ci:local` を回してください。重い e2e は含めません。

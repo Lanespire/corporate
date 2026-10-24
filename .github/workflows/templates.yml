@@ -1,14 +1,9 @@
 name: Templates pages and browser checks
+
+# PR/push では自動実行しない。必要なときだけ workflow_dispatch。
 on:
-  pull_request:
-    branches: [master]
-    paths:
-      - 'static/templates/**'
-      - 'scripts/qa-templates.py'
-      - 'scripts/qa-templates-experience.py'
-      - 'eslint.config.js'
-      - '.github/workflows/templates.yml'
   workflow_dispatch:
+
 permissions:
   contents: read
 concurrency:
