@@ -1,10 +1,8 @@
 name: Corporate LP build and browser checks
 
+# PR/push では自動実行しない。必要なときだけ workflow_dispatch。
 on:
-  push:
-    branches: [master, feat/corporate-v3-works-carousel]
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
 
 permissions:
   contents: read
