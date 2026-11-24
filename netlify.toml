@@ -29,6 +29,13 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
+# Stable URL written to NFC business cards. Update the destination here.
+[[redirects]]
+  from = "/card"
+  to = "/"
+  status = 302
+  force = true
+
 # ---------- Subdomain consolidation (301) ----------
 # lanespire.com/mvp* → mvp.lanespire.com (canonical)
 [[redirects]]
