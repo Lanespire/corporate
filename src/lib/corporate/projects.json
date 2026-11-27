@@ -103,5 +103,21 @@
 		"url": "https://styleframe.app/",
 		"kind": "owned",
 		"image": "work-styleframe-og.png"
+	},
+	{
+		"id": "hojin-info",
+		"name": "法人インフォ",
+		"tag": "法人データ / API",
+		"color": "#f6f4ee",
+		"description": "国税庁法人番号公表サイトやGビズインフォなどの公開情報を整備し、照合済みの公式サイトとあわせて全国の法人を検索できる法人データベースです。",
+		"roles": ["データ基盤設計", "API開発", "Webアプリ"],
+		"points": [
+			"法人名・法人番号・業種など10の条件での検索",
+			"検索結果のCSV出力とAPIでの提供",
+			"AIエージェントから検索できるMCPサーバー"
+		],
+		"url": "https://hojin-info.net/",
+		"kind": "owned",
+		"image": "work-hojin-info-og.png"
 	}
 ]
