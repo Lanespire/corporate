@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CaseArt from '$lib/corp/components/CaseArt.svelte';
-	import { casesSection, hero, site } from '$lib/corp/content';
+	import { casesSection, hero, partnerNote, site } from '$lib/corp/content';
 	import { reveal } from '$lib/corp/motion';
 
 	let { data } = $props();
@@ -98,6 +98,19 @@
 					</a>
 					<a class="mail" href="mailto:{site.email}">{site.email}</a>
 				</div>
+			</div>
+			<div class="container">
+				<aside class="partner" aria-labelledby="partner-title" data-reveal use:reveal>
+					<h2 id="partner-title">{partnerNote.title}</h2>
+					<dl>
+						{#each partnerNote.rows as row (row.k)}
+							<div>
+								<dt>{row.k}</dt>
+								<dd>{row.v}</dd>
+							</div>
+						{/each}
+					</dl>
+				</aside>
 			</div>
 		</section>
 
@@ -296,6 +309,48 @@
 		justify-content: space-between;
 		gap: 24px 40px;
 	}
+	.partner {
+		margin-top: clamp(28px, 4vw, 48px);
+		padding: clamp(20px, 2.6vw, 32px);
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: var(--r-md);
+		background: rgba(255, 255, 255, 0.05);
+		color: rgba(255, 255, 255, 0.82);
+	}
+	.partner h2 {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		font-size: 15px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		color: #8fb3ff;
+	}
+	.partner h2::before {
+		content: '';
+		width: 24px;
+		height: 2px;
+		border-radius: 2px;
+		background: currentColor;
+	}
+	.partner dl {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 8px 32px;
+		margin-top: 16px;
+	}
+	.partner dt {
+		font-size: 13px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		color: rgba(255, 255, 255, 0.62);
+	}
+	.partner dd {
+		margin-top: 4px;
+		font-size: 16px;
+		line-height: 1.8;
+		color: #fff;
+	}
 	.consult .display {
 		font-size: clamp(22px, 2.6vw, 34px);
 		color: #fff;
@@ -352,6 +407,10 @@
 		}
 		.facts {
 			position: static;
+		}
+		.partner dl {
+			grid-template-columns: 1fr;
+			gap: 14px;
 		}
 		.visual {
 			aspect-ratio: 16 / 10;

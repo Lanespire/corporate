@@ -71,6 +71,16 @@ export const casesSection = {
 	consult: '案件の概要をメールでお知らせください。'
 };
 
+// Shown only on case pages, which are opened from sales emails. Answers are copied verbatim from the deck outline.
+export const partnerNote = {
+	title: '制作会社・広告代理店・開発会社の方へ',
+	rows: [
+		{ k: '窓口', v: '窓口は貴社のままです。貴社のお客様へ直接連絡しません。' },
+		{ k: '見積りの単位', v: '案件ごとの見積りです。成果物単位で、時間売りや人月ではありません。' },
+		{ k: '返信', v: '1営業日以内に返信します。' }
+	]
+};
+
 type Asset = { card: ImageSize; detail: ImageSize };
 type ImageSize = { src: string; width: number; height: number };
 const manifest: Record<string, Asset> = JSON.parse(manifestSource);
