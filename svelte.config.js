@@ -17,6 +17,9 @@ const config = {
 			strict: true
 		}),
 
+		// Small stylesheets go into the HTML so the first paint needs no extra request.
+		inlineStyleThreshold: 40000,
+
 		// Prerender all pages for optimal performance
 		prerender: {
 			handleHttpError: 'warn',
@@ -25,8 +28,9 @@ const config = {
 		},
 
 		// Service worker configuration
+		// Only the LP layout registers the worker; the corporate pages stay without one.
 		serviceWorker: {
-			register: true
+			register: false
 		},
 
 		// Alias for clean imports

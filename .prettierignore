@@ -11,3 +11,6 @@ src/lib/corporate/generated/
 static/corporate/images/
 static/corporate/site.css
 static/google*.html
+src/lib/corp/cases.json
+src/lib/corp/display-charset.json
+static/fonts/

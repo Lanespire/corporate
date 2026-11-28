@@ -3,6 +3,11 @@ name: Corporate LP build and browser checks
 # PR/push では自動実行しない。必要なときだけ workflow_dispatch。
 on:
   workflow_dispatch:
+    inputs:
+      lighthouse_url:
+        description: 'Optional public URLs, space separated (for example a deploy preview), to measure with Lighthouse too'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -33,8 +38,10 @@ jobs:
           test -f build/mvp.html || test -f build/mvp/index.html
           test -f build/launch-lp.html || test -f build/launch-lp/index.html
           grep -q 'data-netlify="true"' build/index.html
-          grep -q '開発実績' build/index.html
-          node --check static/corporate/client.js
+          grep -q 'id="cases-title"' build/index.html
+          test -f build/cases/sso.html
+          test -f build/llms.txt
+          test -f build/googled5fb76a17ad1a66f.html
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -44,10 +51,28 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Browser regression checks (no real contact submissions)
         run: |
-          python -m http.server 8765 --directory build > /tmp/corporate-server.log 2>&1 &
+          python scripts/serve-build.py 8765 build > /tmp/corporate-server.log 2>&1 &
           for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8765/ > /dev/null && break; sleep 1; done
           python scripts/qa-corporate.py
           MATCHING_QA_BASE_URL=http://127.0.0.1:8765 python scripts/qa-matching-showcase.py
+      - name: Lighthouse on the built top page (report only)
+        if: always()
+        run: |
+          mkdir -p qa-results
+          export CHROME_PATH=$(python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); print(p.chromium.executable_path); p.stop()")
+          npx --yes lighthouse@12 http://127.0.0.1:8765/ --only-categories=performance,accessibility,seo,best-practices --screenEmulation.width=390 --screenEmulation.height=844 --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=qa-results/lighthouse-mobile.json --quiet || true
+          n=0
+          for url in ${{ inputs.lighthouse_url }}; do
+            n=$((n + 1))
+            npx --yes lighthouse@12 "$url" --only-categories=performance --screenEmulation.width=390 --screenEmulation.height=844 --blocked-url-patterns="*app.netlify.com*" --blocked-url-patterns="*/.netlify/scripts/cdp*" --blocked-url-patterns="*netlify-cdp-loader*" --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=qa-results/lighthouse-remote-$n.json --quiet || true
+          done
+      - name: Formatting and lint report (not a gate)
+        if: always()
+        run: |
+          mkdir -p qa-results
+          npx eslint src/lib/corp "src/routes/(corp)" > qa-results/eslint.txt 2>&1 || true
+          npx prettier --write src/lib/corp "src/routes/(corp)" src/app.html src/service-worker.ts svelte.config.js scripts/prepare-corporate.mjs > /dev/null 2>&1 || true
+          git diff > qa-results/prettier.patch || true
       - name: Upload build and screenshots
         if: always()
         uses: actions/upload-artifact@v4

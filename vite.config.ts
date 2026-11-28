@@ -34,7 +34,6 @@ export default defineConfig({
 				manualChunks: (id) => {
 					if (id.includes('three')) return 'three';
 					if (id.includes('gsap')) return 'gsap';
-					if (id.includes('node_modules')) return 'vendor';
 					return undefined;
 				},
 				chunkFileNames: 'assets/[name]-[hash].js',

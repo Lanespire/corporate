@@ -14,6 +14,7 @@ const ASSETS = [
 		// Skip files that might cause issues
 		return (
 			!file.includes('.DS_Store') &&
+			!/\.(mp4|webm)$/.test(file) &&
 			!file.includes('Thumbs.db') &&
 			!file.endsWith('.map') &&
 			!file.startsWith('chrome-extension://')
@@ -59,6 +60,8 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
 	if (event.request.method !== 'GET') return;
+	// Let the browser handle media range requests itself.
+	if (event.request.headers.has('range')) return;
 
 	async function respond() {
 		const url = new URL(event.request.url);
