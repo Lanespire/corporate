@@ -7,7 +7,7 @@ The root page is a prerendered Svelte page again. It replaces the single-documen
 - `src/routes/(corp)/`: the corporate site (`/` and `/cases/<slug>`). Its layout loads only `src/lib/corp/styles.css`.
 - `src/routes/(lp)/`: the two LPs with their previous shared layout. URLs are unchanged (`/mvp`, `/launch-lp`).
 - `src/lib/corp/content.ts`: every sentence on the page. Text comes from the previous site or the reviewed manuscripts; do not add facts.
-- `src/lib/corp/cases.json`: generated from the case manuscript by `python3 scripts/import-cases.py <cases.md>`. Text is copied verbatim.
+- `src/lib/corp/cases.json`: generated from the case manuscript by `python3 scripts/import-cases.py <cases.md>`. Text is copied verbatim and the manuscript's structure is kept (a line is a paragraph, `- ` lines a bullet list, `1. ` lines a numbered list). The script stops if the manuscript contains a word that must not be published, and checks that every text unit it wrote equals the manuscript. `scripts/qa-corporate.py` then checks that the six case pages and the top-page cards show exactly that text.
 - `src/lib/corp/motion.ts`: the scroll helpers (`reveal`, `parallax`, `onFrame`). No animation library is loaded on the page.
 - `static/corporate/hero/`, `sections/`, `cases/`, `process/`: the generated glass artwork, the 8 second hero loop and the Remotion process loop. Sources and notes live in `Shared/corporate/lp-renewal/assets/`.
 - `static/fonts/`: Inter (latin) and a Noto Sans JP 800 subset that only contains heading glyphs. After changing a heading, add it to `src/lib/corp/display-chars.txt` and run `python3 scripts/fetch-corp-fonts.py`. Both fonts are SIL OFL 1.1.

@@ -31,6 +31,14 @@ def check(name, value):
     assert value, name
 
 
+def texts(locator):
+    return [text.strip() for text in locator.all_text_contents()]
+
+
+def flat(blocks):
+    return [unit for block in blocks for unit in ([block['text']] if block['t'] == 'p' else block['items'])]
+
+
 with sync_playwright() as p:
     executable = os.environ.get('CHROMIUM_PATH')
     browser = p.chromium.launch(headless=True, **({'executable_path': executable} if executable else {}))
@@ -57,7 +65,14 @@ with sync_playwright() as p:
     check('featured case cards', page.locator('.stack .case').count() == len(featured))
     check('case titles follow the manuscript', [t.strip() for t in page.locator('.stack .case h3').all_text_contents()] == [c['title'] for c in featured])
     check('case links', [a.get_attribute('href') for a in page.locator('.stack .case h3 a').all()] == ['/cases/' + c['slug'] for c in featured])
+    for i, case in enumerate(featured):
+        card = page.locator('.stack .case').nth(i)
+        meta = {row['k']: row['v'] for row in case['meta']}
+        check(f'card {i + 1}: summary equals the manuscript', texts(card.locator('.summary')) == [case['summary']])
+        check(f'card {i + 1}: facts equal the manuscript', texts(card.locator('.facts dd')) == [meta[k] for k in ['期間', '体制', '担当範囲'] if k in meta])
+        check(f'card {i + 1}: result lines equal the manuscript', texts(card.locator('.results li')) == case['results'])
     check('other cases listed', page.locator('.others .row').count() == len(cases) - len(featured))
+    check('other case titles equal the manuscript', texts(page.locator('.others .row-title')) == [c['title'] for c in cases if not c['featured']])
     labels = [t.strip() for t in page.locator('#cases .tag:not(.plain)').all_text_contents()]
     check('engagement labels only where confirmed', sorted(labels) == sorted(c['label'] for c in cases if c['label']))
     check('six own services', page.locator('.products .track').first.locator('a').count() == 6)
@@ -145,6 +160,7 @@ with sync_playwright() as p:
     check('case page sections', page.locator('.story section h2').count() == len(first['sections']))
     check('case page canonical', page.locator('link[rel=canonical]').get_attribute('href') == 'https://lanespire.com/cases/' + first['slug'])
     check('case page has no placeholder words', not re.search('受託|不明', page.locator('main').inner_text()))
+    page.screenshot(path=str(out / 'desktop-case.png'))
     partner = page.locator('.partner')
     check('case page: partner note title', partner.locator('h2').inner_text().strip() == '制作会社・広告代理店・開発会社の方へ')
     check('case page: partner note answers are verbatim', [t.strip() for t in partner.locator('dd').all_text_contents()] == ['窓口は貴社のままです。貴社のお客様へ直接連絡しません。', '案件ごとの見積りです。成果物単位で、時間売りや人月ではありません。', '1営業日以内に返信します。'])
@@ -154,7 +170,26 @@ with sync_playwright() as p:
     case_displays = ''.join(page.locator('.display').all_inner_texts())
     case_missing = sorted({c for c in case_displays if ord(c) > 0x2000 and not c.isspace() and c not in charset})
     check('case page heading glyphs covered: ' + ''.join(case_missing), not case_missing)
-    page.screenshot(path=str(out / 'desktop-case.png'))
+    for index, case in enumerate(cases):
+        page.goto(base + '/cases/' + case['slug'], wait_until='networkidle')
+        slug = case['slug']
+        check(f'{slug}: title equals the manuscript', texts(page.locator('h1')) == [case['title']])
+        check(f'{slug}: lead equals the manuscript', texts(page.locator('.top .lead')) == [case['summary']])
+        check(f'{slug}: fact table equals the manuscript', list(zip(texts(page.locator('.facts dt')), texts(page.locator('.facts dd')))) == [(row['k'], row['v']) for row in case['meta']])
+        check(f'{slug}: technology list equals the manuscript', texts(page.locator('.facts .tech li')) == case['tech'])
+        check(f'{slug}: section headings equal the manuscript', texts(page.locator('.story section h2')) == [f'{n + 1:02d}{section["h"]}' for n, section in enumerate(case['sections'])])
+        for n, section in enumerate(case['sections']):
+            body = page.locator('.story section').nth(n)
+            check(f'{slug}: section {n + 1} text equals the manuscript', texts(body.locator('p, li')) == flat(section['blocks']))
+            kinds = body.locator(':scope > p, :scope > ul, :scope > ol').evaluate_all('(nodes) => nodes.map((node) => node.tagName.toLowerCase())')
+            check(f'{slug}: section {n + 1} keeps paragraphs and lists as written', kinds == [block['t'] for block in section['blocks']])
+        label = texts(page.locator('.top .kicker .tag'))
+        check(f'{slug}: engagement label', label == ([case['label']] if case['label'] else []))
+        check(f'{slug}: no placeholder words', not re.search('受託|不明|職務経歴書', page.locator('main').text_content()))
+        if slug in ('daily-report', 'media-ops'):
+            page.locator('.story').scroll_into_view_if_needed()
+            page.wait_for_timeout(900)
+            page.screenshot(path=str(out / f'desktop-case-{slug}-story.png'))
     check('zero uncaught JavaScript errors', not errors)
     context.close()
 
@@ -176,6 +211,19 @@ with sync_playwright() as p:
     page.locator('#cases').scroll_into_view_if_needed()
     page.wait_for_timeout(900)
     page.screenshot(path=str(out / 'mobile-cases.png'))
+    for width in [320, 390]:
+        page.set_viewport_size({'width': width, 'height': 844})
+        page.wait_for_timeout(250)
+        check(f'mobile {width}: case cards keep their text inside', page.locator('.stack .case-in').evaluate_all('(cards) => cards.every((card) => [card, ...card.querySelectorAll("h3, p, dd, li")].every((node) => node.scrollWidth <= node.clientWidth + 1))'))
+        page.locator('.stack .case').nth(1).scroll_into_view_if_needed()
+        page.wait_for_timeout(400)
+        page.locator('.stack .case').nth(1).screenshot(path=str(out / f'mobile-{width}-card-daily-report.png'))
+    page.set_viewport_size({'width': 390, 'height': 844})
+    page.goto(base + '/cases/daily-report', wait_until='networkidle')
+    check('mobile: case page has no overflow', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
+    page.locator('.story').scroll_into_view_if_needed()
+    page.wait_for_timeout(900)
+    page.screenshot(path=str(out / 'mobile-case-daily-report.png'))
     check('mobile: zero uncaught JavaScript errors', not mobile_errors)
     mobile.close()
 

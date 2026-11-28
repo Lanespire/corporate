@@ -137,11 +137,6 @@
 	.text {
 		font-size: 14px;
 		line-height: 1.75;
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 3;
-		line-clamp: 3;
-		overflow: hidden;
 	}
 	.go {
 		display: inline-flex;

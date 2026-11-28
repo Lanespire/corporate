@@ -9,8 +9,6 @@
 	const others = cases.filter((item) => !item.featured);
 	const metaOf = (item: (typeof cases)[number], key: string) =>
 		item.meta.find((row) => row.k === key)?.v ?? '';
-	const resultOf = (item: (typeof cases)[number]) =>
-		item.sections[item.sections.length - 1].items.slice(0, 2);
 
 	let stack: HTMLElement | undefined = $state();
 	let stacked = $state(false);
@@ -120,7 +118,7 @@
 								{/each}
 							</dl>
 							<ul class="results">
-								{#each resultOf(item) as line (line)}
+								{#each item.results as line (line)}
 									<li>{line}</li>
 								{/each}
 							</ul>
@@ -287,11 +285,6 @@
 	}
 	.summary {
 		margin-top: 10px;
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2;
-		line-clamp: 2;
-		overflow: hidden;
 	}
 	.facts {
 		display: grid;

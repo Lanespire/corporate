@@ -44,7 +44,8 @@ export const hero = {
 	]
 };
 
-export type CaseSection = { h: string; items: string[] };
+export type CaseBlock = { t: 'p'; text: string } | { t: 'ul' | 'ol'; items: string[] };
+export type CaseSection = { h: string; blocks: CaseBlock[] };
 export type CaseItem = {
 	slug: string;
 	title: string;
@@ -53,10 +54,11 @@ export type CaseItem = {
 	meta: { k: string; v: string }[];
 	tech: string[];
 	summary: string;
+	results: string[];
 	sections: CaseSection[];
 };
 
-export const cases: CaseItem[] = caseData;
+export const cases = caseData as unknown as CaseItem[];
 
 export const casesSection = {
 	eyebrow: 'CASES',

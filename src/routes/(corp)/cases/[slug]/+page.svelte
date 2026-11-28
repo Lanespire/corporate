@@ -71,15 +71,23 @@
 				{#each item.sections as section, i (section.h)}
 					<section data-reveal use:reveal>
 						<h2><span>{String(i + 1).padStart(2, '0')}</span>{section.h}</h2>
-						{#if section.items.length === 1}
-							<p>{section.items[0]}</p>
-						{:else}
-							<ul>
-								{#each section.items as line (line)}
-									<li>{line}</li>
-								{/each}
-							</ul>
-						{/if}
+						{#each section.blocks as block, b (b)}
+							{#if block.t === 'p'}
+								<p>{block.text}</p>
+							{:else if block.t === 'ol'}
+								<ol>
+									{#each block.items as line, n (n)}
+										<li>{line}</li>
+									{/each}
+								</ol>
+							{:else}
+								<ul>
+									{#each block.items as line, n (n)}
+										<li>{line}</li>
+									{/each}
+								</ul>
+							{/if}
+						{/each}
 					</section>
 				{/each}
 				<p class="note">{casesSection.note}</p>
@@ -271,19 +279,28 @@
 		color: var(--blue);
 	}
 	.story p,
-	.story ul {
+	.story ul,
+	.story ol {
 		margin-top: 18px;
 	}
-	.story ul {
+	.story p {
+		color: var(--ink);
+		text-wrap: pretty;
+	}
+	.story ul,
+	.story ol {
 		display: grid;
 		gap: 10px;
+	}
+	.story ol {
+		counter-reset: step;
 	}
 	.story li {
 		position: relative;
 		padding-left: 26px;
 		color: var(--ink);
 	}
-	.story li::before {
+	.story ul li::before {
 		content: '';
 		position: absolute;
 		left: 2px;
@@ -292,6 +309,18 @@
 		height: 2px;
 		border-radius: 2px;
 		background: var(--blue);
+	}
+	.story ol li {
+		counter-increment: step;
+		padding-left: 30px;
+	}
+	.story ol li::before {
+		content: counter(step) '.';
+		position: absolute;
+		left: 2px;
+		top: 0;
+		font-weight: 800;
+		color: var(--blue-ink);
 	}
 	.story .note {
 		margin: 0;
