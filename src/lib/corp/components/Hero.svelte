@@ -115,33 +115,33 @@
 <section class="hero" aria-labelledby="hero-title" bind:this={root}>
 	<div class="media" aria-hidden="true">
 		<div class="media-in">
-		<picture>
-			<source
-				media="(max-aspect-ratio: 4/5)"
-				srcset="/corporate/hero/poster-m.webp 556w, /corporate/hero/still-m.webp 780w"
-				sizes="100vw"
-			/>
-			<img
-				src="/corporate/hero/poster.webp"
-				srcset="/corporate/hero/poster.webp 1280w, /corporate/hero/still.webp 1920w"
-				sizes="100vw"
-				width="1280"
-				height="720"
-				alt=""
-				fetchpriority="high"
-				decoding="async"
-			/>
-		</picture>
-		<video
-			bind:this={video}
-			class:shown
-			muted
-			loop
-			playsinline
-			preload="none"
-			tabindex="-1"
-			onplaying={() => (shown = true)}
-		></video>
+			<picture>
+				<source
+					media="(max-aspect-ratio: 4/5)"
+					srcset="/corporate/hero/poster-m.webp 556w, /corporate/hero/still-m.webp 780w"
+					sizes="100vw"
+				/>
+				<img
+					src="/corporate/hero/poster.webp"
+					srcset="/corporate/hero/poster.webp 1280w, /corporate/hero/still.webp 1920w"
+					sizes="100vw"
+					width="1280"
+					height="720"
+					alt=""
+					fetchpriority="high"
+					decoding="async"
+				/>
+			</picture>
+			<video
+				bind:this={video}
+				class:shown
+				muted
+				loop
+				playsinline
+				preload="none"
+				tabindex="-1"
+				onplaying={() => (shown = true)}
+			></video>
 		</div>
 	</div>
 
