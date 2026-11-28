@@ -55,18 +55,19 @@ with sync_playwright() as p:
     page.screenshot(path=str(out / 'desktop-hero.png'))
 
     check('featured case cards', page.locator('.stack .case').count() == len(featured))
-    check('case titles follow the manuscript', [t.strip() for t in page.locator('.stack .case h3').all_inner_texts()] == [c['title'] for c in featured])
+    check('case titles follow the manuscript', [t.strip() for t in page.locator('.stack .case h3').all_text_contents()] == [c['title'] for c in featured])
     check('case links', [a.get_attribute('href') for a in page.locator('.stack .case h3 a').all()] == ['/cases/' + c['slug'] for c in featured])
     check('other cases listed', page.locator('.others .row').count() == len(cases) - len(featured))
-    labels = page.locator('#cases .tag:not(.plain)').all_inner_texts()
+    labels = [t.strip() for t in page.locator('#cases .tag:not(.plain)').all_text_contents()]
     check('engagement labels only where confirmed', sorted(labels) == sorted(c['label'] for c in cases if c['label']))
     check('six own services', page.locator('.products .track').first.locator('a').count() == 6)
     check('own services link out', page.locator('.products .track').first.locator('a').first.get_attribute('href') == 'https://night-table.com/')
     check('legacy anchors retained', all(page.locator(s).count() == 1 for s in ['#works', '#products', '#approach', '#services', '#company', '#faq', '#contact']))
-    body_text = page.locator('body').inner_text()
+    # Sections below the first screen are skipped by content-visibility until scrolled to, so read textContent.
+    body_text = page.locator('main').text_content()
     check('no placeholder words', '不明' not in body_text)
-    check('受託 appears only in the company table', body_text.count('受託') == page.locator('#company').inner_text().count('受託'))
-    displays = ''.join(page.locator('.display').all_inner_texts())
+    check('受託 appears only in the company table', body_text.count('受託') == page.locator('#company').text_content().count('受託') == 1)
+    displays = ''.join(page.locator('.display').all_text_contents())
     missing = sorted({c for c in displays if ord(c) > 0x2000 and not c.isspace() and c not in charset})
     check('heading font covers every heading glyph: ' + ''.join(missing), not missing)
 
@@ -74,7 +75,7 @@ with sync_playwright() as p:
     types = [g['@type'] for g in ld['@graph']]
     check('structured data types', types == ['Organization', 'WebSite', 'FAQPage'])
     faq_ld = [(q['name'], q['acceptedAnswer']['text']) for q in ld['@graph'][2]['mainEntity']]
-    faq_dom = list(zip(page.locator('#faq summary .question').all_inner_texts(), [t.strip() for t in page.locator('#faq details p').all_text_contents()]))
+    faq_dom = list(zip([t.strip() for t in page.locator('#faq summary .question').all_text_contents()], [t.strip() for t in page.locator('#faq details p').all_text_contents()]))
     check('FAQ markup equals visible FAQ', faq_ld == faq_dom)
     check('canonical kept', page.locator('link[rel=canonical]').get_attribute('href') == 'https://lanespire.com/')
     check('analytics loader kept', page.locator('script[src="/analytics.js"]').count() == 1)
@@ -88,6 +89,12 @@ with sync_playwright() as p:
     page.wait_for_timeout(900)
     page.screenshot(path=str(out / 'desktop-cases.png'))
     check('case cards stack on desktop', page.locator('.stack').evaluate('(e) => e.classList.contains("stacked")'))
+    check('case artwork loads', page.locator('.stack .case img').first.evaluate('(i) => i.complete && i.naturalWidth > 0'))
+    page.locator('#process .lane').scroll_into_view_if_needed()
+    page.wait_for_function('document.querySelector("#process .film").readyState >= 2', timeout=20000)
+    check('process loop plays when in view', page.locator('#process .film').evaluate('(v) => v.muted && v.loop && !v.paused'))
+    page.wait_for_function('document.querySelectorAll("#process ol li.on").length >= 2', timeout=15000)
+    check('process labels follow the loop', page.locator('#process ol li.on').count() >= 2)
 
     posts = []
 
@@ -171,6 +178,10 @@ with sync_playwright() as p:
     check('reduced motion: no pause button', page.locator('.hero .motion').count() == 0)
     check('reduced motion: headings visible', page.locator('#cases-title .ln-i').first.evaluate('(e) => getComputedStyle(e).transform === "none"'))
     check('reduced motion: cards do not stack', not page.locator('.stack').evaluate('(e) => e.classList.contains("stacked")'))
+    page.locator('#process .lane').scroll_into_view_if_needed()
+    page.wait_for_timeout(600)
+    check('reduced motion: all process steps shown lit', page.locator('#process ol li.on').count() == 5)
+    check('reduced motion: no process loop request', not page.locator('#process .film').get_attribute('src'))
     calm.close()
 
     nojs = browser.new_context(java_script_enabled=False, viewport={'width': 390, 'height': 844})
