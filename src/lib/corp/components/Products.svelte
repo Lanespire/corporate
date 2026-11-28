@@ -3,6 +3,7 @@
 	import { reveal } from '$lib/corp/motion';
 </script>
 
+<!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
 <section class="products" aria-labelledby="products-title">
 	<div class="container head" data-reveal use:reveal>
 		<h3 id="products-title" class="display">{productsSection.title}</h3>

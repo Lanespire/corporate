@@ -4,6 +4,7 @@
 	import SectionHead from './SectionHead.svelte';
 </script>
 
+<!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
 <section class="section services" id="services" aria-labelledby="services-title">
 	<div class="container grid">
 		<div class="side">
@@ -27,22 +28,22 @@
 		<div class="list">
 			{#each services.items as item, i (item.title)}
 				<div class="cell" data-reveal use:reveal style="--d:{(i % 2) * 110}ms">
-				<article class="card">
-					<p class="en"><span>{String(i + 1).padStart(2, '0')}</span>{item.en}</p>
-					<h3>{item.title}</h3>
-					<p class="text">{item.text}</p>
-					<ul>
-						{#each item.points as point (point)}
-							<li>{point}</li>
-						{/each}
-					</ul>
-					<a class="link" href="/#contact" onclick={() => contactSubject.set(item.title)}>
-						{item.cta}
-						<svg class="arr" viewBox="0 0 24 24" aria-hidden="true"
-							><path d="M4 12h15M13 6l6 6-6 6" /></svg
-						>
-					</a>
-				</article>
+					<article class="card">
+						<p class="en"><span>{String(i + 1).padStart(2, '0')}</span>{item.en}</p>
+						<h3>{item.title}</h3>
+						<p class="text">{item.text}</p>
+						<ul>
+							{#each item.points as point (point)}
+								<li>{point}</li>
+							{/each}
+						</ul>
+						<a class="link" href="/#contact" onclick={() => contactSubject.set(item.title)}>
+							{item.cta}
+							<svg class="arr" viewBox="0 0 24 24" aria-hidden="true"
+								><path d="M4 12h15M13 6l6 6-6 6" /></svg
+							>
+						</a>
+					</article>
 				</div>
 			{/each}
 			<div class="related" data-reveal use:reveal>

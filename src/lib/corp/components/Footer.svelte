@@ -3,6 +3,7 @@
 	import { privacyOpen } from '$lib/corp/motion';
 </script>
 
+<!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
 <footer class="footer">
 	<div class="container top">
 		<div class="brand-block">
@@ -25,7 +26,9 @@
 		<button type="button" onclick={() => privacyOpen.set(true)}>入力情報の取り扱い</button>
 		<a class="to-top" href="#top">
 			PAGE TOP
-			<svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6" /></svg>
+			<svg class="arr" viewBox="0 0 24 24" aria-hidden="true"
+				><path d="M12 20V5M6 11l6-6 6 6" /></svg
+			>
 		</a>
 	</div>
 </footer>

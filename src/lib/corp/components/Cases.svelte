@@ -44,6 +44,7 @@
 	});
 </script>
 
+<!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
 <section class="section cases" id="cases" aria-labelledby="cases-title">
 	<span id="works" class="anchor"></span>
 	<span id="products" class="anchor"></span>

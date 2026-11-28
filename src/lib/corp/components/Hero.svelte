@@ -88,6 +88,7 @@
 	});
 </script>
 
+<!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
 <section class="hero" aria-labelledby="hero-title" bind:this={root}>
 	<div class="media" aria-hidden="true">
 		<picture>

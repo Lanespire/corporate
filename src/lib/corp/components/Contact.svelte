@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { SvelteURLSearchParams } from 'svelte/reactivity';
 	import { contact, site } from '$lib/corp/content';
 	import { contactSubject, privacyOpen, reveal } from '$lib/corp/motion';
 	import SectionHead from './SectionHead.svelte';
@@ -40,7 +41,7 @@
 			['ご相談分野', fields.subject],
 			['ご相談内容', fields.message.trim()]
 		];
-		const params = new URLSearchParams();
+		const params = new SvelteURLSearchParams();
 		new FormData(form).forEach((value, key) => params.append(key, String(value)));
 		submission = params;
 		mailBody =
@@ -131,7 +132,9 @@
 				{#each contact.info as row (row.k)}
 					<div>
 						<dt>{row.k}</dt>
-						<dd>{row.v}{#if row.sub}<small>{row.sub}</small>{/if}</dd>
+						<dd>
+							{row.v}{#if row.sub}<small>{row.sub}</small>{/if}
+						</dd>
 					</div>
 				{/each}
 			</dl>
@@ -146,7 +149,7 @@
 				method="POST"
 				action="/"
 				data-netlify="true"
-				netlify-honeypot="bot-field"
+				data-netlify-honeypot="bot-field"
 				onsubmit={review}
 			>
 				<input type="hidden" name="form-name" value="contact" />
@@ -214,8 +217,7 @@
 						rows="4"
 						placeholder="現在の課題、実現したいこと、ご予算や希望時期などをご記入ください。"
 						bind:value={fields.message}
-						oninput={clearValidity}
-					></textarea>
+						oninput={clearValidity}></textarea>
 					<span class="help">
 						<span>機密情報は記載しないでください。</span>
 						<span id="message-count">{fields.message.length} / 1200</span>
@@ -271,7 +273,13 @@
 			{/each}
 		</dl>
 		<div class="dialog-actions">
-			<button class="btn btn-primary" id="send-contact" type="button" disabled={sending} onclick={send}>
+			<button
+				class="btn btn-primary"
+				id="send-contact"
+				type="button"
+				disabled={sending}
+				onclick={send}
+			>
 				{sending ? '送信中…' : 'この内容で送信する'}
 				<svg class="arr" viewBox="0 0 24 24" aria-hidden="true"
 					><path d="M4 12h15M13 6l6 6-6 6" /></svg
@@ -290,8 +298,7 @@
 				id="copy-fallback"
 				readonly
 				aria-label="コピー用メール本文"
-				value={fallback}
-			></textarea>
+				value={fallback}></textarea>
 		{/if}
 	</div>
 </dialog>

@@ -39,6 +39,7 @@
 	});
 </script>
 
+<!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
 <header class="header" class:scrolled class:hidden class:open>
 	<div class="container bar">
 		<a class="brand" href="/" aria-label="株式会社Lanespire トップ" onclick={close}>
@@ -52,7 +53,9 @@
 		</nav>
 		<a class="cta" href={hero.secondary.href}>
 			{hero.secondary.label}
-			<svg class="arr" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" /></svg>
+			<svg class="arr" viewBox="0 0 24 24" aria-hidden="true"
+				><path d="M4 12h15M13 6l6 6-6 6" /></svg
+			>
 		</a>
 		<button
 			class="toggle"

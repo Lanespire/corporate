@@ -9,6 +9,7 @@
 	const pageTitle = $derived(`${item.title} | 開発事例 | ${site.name}`);
 </script>
 
+<!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
 <svelte:head>
 	<title>{pageTitle}</title>
 	<meta name="description" content={item.summary} />
