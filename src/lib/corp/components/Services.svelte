@@ -5,7 +5,7 @@
 </script>
 
 <!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
-<section class="section services" id="services" aria-labelledby="services-title">
+<section class="section services cv" id="services" aria-labelledby="services-title">
 	<div class="container grid">
 		<div class="side">
 			<SectionHead

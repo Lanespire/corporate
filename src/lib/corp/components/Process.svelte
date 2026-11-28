@@ -1,26 +1,71 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { approach } from '$lib/corp/content';
-	import { clamp, onFrame, parallax, reducedMotion, reveal } from '$lib/corp/motion';
+	import { clamp, parallax, reducedMotion, reveal, whileVisible } from '$lib/corp/motion';
 	import SectionHead from './SectionHead.svelte';
 
+	// Seconds at which the light reaches each dot in the Remotion loop; it goes dark again near 7s.
+	const MARKS = [0.9, 1.8, 2.7, 3.6, 4.5];
+
 	let lane: HTMLElement | undefined = $state();
+	let film: HTMLVideoElement | undefined = $state();
+	let filmMode = $state(false);
 	let reached = $state(approach.phases.length);
 
 	onMount(() => {
 		if (reducedMotion() || !lane) return;
+		const track = lane;
+		const total = approach.phases.length;
+		const player = film;
+		if (player && matchMedia('(min-width: 901px)').matches) {
+			let frame = 0;
+			const sync = () => {
+				const time = player.currentTime;
+				reached = time > 6.9 ? 0 : MARKS.filter((mark) => time >= mark).length;
+				frame = requestAnimationFrame(sync);
+			};
+			const start = () => {
+				cancelAnimationFrame(frame);
+				frame = requestAnimationFrame(sync);
+			};
+			const pause = () => cancelAnimationFrame(frame);
+			const type = player.canPlayType('video/mp4; codecs="avc1.42E01E"') ? 'mp4' : 'webm';
+			player.addEventListener('play', start);
+			player.addEventListener('pause', pause);
+			const watcher = new IntersectionObserver(
+				([entry]) => {
+					if (!entry.isIntersecting) return player.pause();
+					if (!player.src) {
+						player.src = `/corporate/process/loop.${type}`;
+						filmMode = true;
+						reached = 0;
+					}
+					player.play().catch(() => {
+						filmMode = false;
+						reached = total;
+					});
+				},
+				{ threshold: 0.35 }
+			);
+			watcher.observe(track);
+			return () => {
+				watcher.disconnect();
+				cancelAnimationFrame(frame);
+				player.removeEventListener('play', start);
+				player.removeEventListener('pause', pause);
+			};
+		}
 		reached = 0;
-		return onFrame(() => {
-			if (!lane) return;
-			const rect = lane.getBoundingClientRect();
+		return whileVisible(track, () => {
+			const rect = track.getBoundingClientRect();
 			const progress = clamp((innerHeight * 0.82 - rect.top) / (innerHeight * 0.5));
-			lane.style.setProperty('--lp', progress.toFixed(3));
-			reached = Math.max(reached, Math.floor(progress * approach.phases.length + 0.15));
+			track.style.setProperty('--lp', progress.toFixed(3));
+			reached = Math.max(reached, Math.floor(progress * total + 0.15));
 		});
 	});
 </script>
 
-<section class="section process" id="process" aria-labelledby="process-title">
+<section class="section process cv" id="process" aria-labelledby="process-title">
 	<span id="approach" class="anchor"></span>
 	<div class="container">
 		<div class="top">
@@ -57,7 +102,18 @@
 				<h3>{approach.phasesTitle}</h3>
 				<p>{approach.phasesLead}</p>
 			</div>
-			<div class="lane" bind:this={lane}>
+			<div class="lane" class:film-mode={filmMode} bind:this={lane}>
+				<video
+					class="film"
+					bind:this={film}
+					muted
+					loop
+					playsinline
+					preload="none"
+					poster="/corporate/process/poster.webp"
+					tabindex="-1"
+					aria-hidden="true"
+				></video>
 				<span class="rail" aria-hidden="true"><i></i></span>
 				<ol>
 					{#each approach.phases as phase, i (phase.title)}
@@ -154,6 +210,27 @@
 	.lane {
 		position: relative;
 		margin-top: 36px;
+	}
+	.film {
+		display: none;
+		width: 100%;
+		aspect-ratio: 1280 / 250;
+		object-fit: cover;
+		margin-bottom: 4px;
+	}
+	.film-mode .film {
+		display: block;
+	}
+	.film-mode .rail,
+	.film-mode .dot {
+		display: none;
+	}
+	.film-mode ol {
+		gap: 0;
+	}
+	.film-mode ol li {
+		padding: 0 8px;
+		text-align: center;
 	}
 	.rail {
 		position: absolute;

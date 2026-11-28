@@ -4,7 +4,7 @@
 	import SectionHead from './SectionHead.svelte';
 </script>
 
-<section class="section company" id="company" aria-labelledby="company-title">
+<section class="section company cv" id="company" aria-labelledby="company-title">
 	<div class="container grid">
 		<SectionHead
 			id="company-title"

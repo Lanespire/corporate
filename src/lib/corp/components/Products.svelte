@@ -4,7 +4,7 @@
 </script>
 
 <!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
-<section class="products" aria-labelledby="products-title">
+<section class="products cv" aria-labelledby="products-title">
 	<div class="container head" data-reveal use:reveal>
 		<h3 id="products-title" class="display">{productsSection.title}</h3>
 		<span class="lane-rule" aria-hidden="true"></span>

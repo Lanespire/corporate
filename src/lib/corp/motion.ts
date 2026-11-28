@@ -33,6 +33,27 @@ export function onFrame(callback: FrameCallback): () => void {
 
 export const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
+/** Like onFrame, but only while the node is near the viewport, so skipped sections are never measured. */
+export function whileVisible(node: Element, callback: FrameCallback): () => void {
+	if (typeof IntersectionObserver !== 'function') return onFrame(callback);
+	let active = false;
+	const watcher = new IntersectionObserver(
+		([entry]) => {
+			active = entry.isIntersecting;
+			if (active) callback();
+		},
+		{ rootMargin: '240px 0px' }
+	);
+	watcher.observe(node);
+	const stop = onFrame(() => {
+		if (active) callback();
+	});
+	return () => {
+		watcher.disconnect();
+		stop();
+	};
+}
+
 export function reducedMotion(): boolean {
 	return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
@@ -66,9 +87,8 @@ export function reveal(node: HTMLElement) {
 /** Expose scroll position through --py on the node; children apply the transform. */
 export function parallax(node: HTMLElement, amount = 48) {
 	if (reducedMotion()) return {};
-	const stop = onFrame(() => {
+	const stop = whileVisible(node, () => {
 		const rect = node.getBoundingClientRect();
-		if (rect.bottom < -120 || rect.top > innerHeight + 120) return;
 		const progress = clamp((innerHeight - rect.top) / (innerHeight + rect.height));
 		node.style.setProperty('--py', `${((0.5 - progress) * amount).toFixed(1)}px`);
 	});

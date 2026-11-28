@@ -45,7 +45,7 @@
 					<p class="lead">{item.summary}</p>
 				</div>
 				<div class="visual">
-					<CaseArt index={data.index} chips={item.tech} large />
+					<CaseArt slug={item.slug} index={data.index} chips={item.tech} eager />
 				</div>
 			</div>
 		</header>

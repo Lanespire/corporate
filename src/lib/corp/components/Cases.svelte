@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { cases, casesSection } from '$lib/corp/content';
-	import { clamp, onFrame, parallax, reducedMotion, reveal } from '$lib/corp/motion';
+	import { clamp, parallax, reducedMotion, reveal, whileVisible } from '$lib/corp/motion';
 	import CaseArt from './CaseArt.svelte';
 	import SectionHead from './SectionHead.svelte';
 
@@ -25,8 +25,11 @@
 				query.matches &&
 				cards.every((card) => (card.firstElementChild as HTMLElement).offsetHeight <= room);
 		};
-		measure();
-		addEventListener('resize', measure, { passive: true });
+		let measured = false;
+		const remeasure = () => {
+			if (measured) measure();
+		};
+		addEventListener('resize', remeasure, { passive: true });
 		const tilt = (event: PointerEvent) => {
 			const card = (event.target as HTMLElement).closest<HTMLElement>('.case');
 			if (!card || event.pointerType !== 'mouse') return;
@@ -42,7 +45,11 @@
 		const list = stack;
 		list.addEventListener('pointermove', tilt, { passive: true });
 		list.addEventListener('pointerout', rest, { passive: true });
-		const stop = onFrame(() => {
+		const stop = whileVisible(list, () => {
+			if (!measured) {
+				measured = true;
+				measure();
+			}
 			if (!stacked) return;
 			for (let i = 0; i < cards.length - 1; i++) {
 				const current = cards[i].getBoundingClientRect();
@@ -54,7 +61,7 @@
 		});
 		return () => {
 			stop();
-			removeEventListener('resize', measure);
+			removeEventListener('resize', remeasure);
 			list.removeEventListener('pointermove', tilt);
 			list.removeEventListener('pointerout', rest);
 		};
@@ -62,7 +69,7 @@
 </script>
 
 <!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
-<section class="section cases" id="cases" aria-labelledby="cases-title">
+<section class="section cases cv" id="cases" aria-labelledby="cases-title">
 	<span id="works" class="anchor"></span>
 	<span id="products" class="anchor"></span>
 	<div class="container">
@@ -90,7 +97,7 @@
 				<li class="case" style="--i:{i}">
 					<article class="case-in">
 						<div class="visual">
-							<CaseArt index={i} chips={item.tech} />
+							<CaseArt slug={item.slug} index={i} chips={item.tech} />
 						</div>
 						<div class="body">
 							<p class="kicker">
@@ -143,6 +150,15 @@
 				{#each others as item, i (item.slug)}
 					<li data-reveal use:reveal style="--d:{i * 90}ms">
 						<a class="row" href="/cases/{item.slug}">
+							<img
+								class="row-thumb"
+								src="/corporate/cases/{item.slug}-800.webp"
+								width="800"
+								height="600"
+								alt=""
+								loading="lazy"
+								decoding="async"
+							/>
 							<span class="row-no">{String(featured.length + i + 1).padStart(2, '0')}</span>
 							<span class="row-main">
 								<span class="row-title">{item.title}</span>
@@ -256,6 +272,7 @@
 	h3 {
 		margin-top: 12px;
 		font-family: var(--font-sans);
+		word-break: auto-phrase;
 		font-size: clamp(21px, 2.1vw, 30px);
 		font-weight: 800;
 		line-height: 1.45;
@@ -399,7 +416,7 @@
 	.row {
 		position: relative;
 		display: grid;
-		grid-template-columns: auto minmax(0, 1fr) auto auto;
+		grid-template-columns: auto auto minmax(0, 1fr) auto auto;
 		align-items: center;
 		gap: clamp(14px, 2.4vw, 32px);
 		padding: 22px clamp(4px, 1.2vw, 20px);
@@ -425,6 +442,18 @@
 	.row:hover,
 	.row:focus-visible {
 		color: #fff;
+	}
+	.row-thumb {
+		width: 104px;
+		height: 78px;
+		border-radius: 12px;
+		object-fit: cover;
+		background: var(--pale);
+		transition: scale 0.6s var(--ease-out);
+	}
+	.row:hover .row-thumb,
+	.row:focus-visible .row-thumb {
+		scale: 1.06;
 	}
 	.row-no {
 		font-size: 13px;
@@ -504,6 +533,13 @@
 		}
 		.row {
 			grid-template-columns: auto minmax(0, 1fr) auto;
+		}
+		.row-thumb {
+			width: 72px;
+			height: 54px;
+		}
+		.row-no {
+			display: none;
 		}
 		.row-tag {
 			display: none;

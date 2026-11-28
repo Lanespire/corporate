@@ -9,6 +9,13 @@
 
 	onMount(() => {
 		(window as unknown as { __corpReady?: boolean }).__corpReady = true;
+		// Exact positions are needed once someone jumps to a section, so lay everything out then.
+		const exact = (event: Event) => {
+			const link = (event.target as Element | null)?.closest?.('a[href*="#"]');
+			if (link) document.documentElement.classList.add('cv-off');
+		};
+		addEventListener('click', exact, { capture: true });
+		return () => removeEventListener('click', exact, { capture: true });
 	});
 </script>
 

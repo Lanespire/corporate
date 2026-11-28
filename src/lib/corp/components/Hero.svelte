@@ -247,6 +247,7 @@
 		margin-top: 18px;
 		font-size: clamp(26px, 7.8vw, 44px);
 		line-height: 1.34;
+		word-break: normal;
 	}
 	h1 .ln-i {
 		animation: corp-line-up 0.95s var(--ease-out) both;

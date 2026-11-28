@@ -185,7 +185,6 @@ ol {
 h3,
 h4 {
 	text-wrap: balance;
-	word-break: auto-phrase;
 }
 
 /* Buttons */
@@ -370,6 +369,12 @@ h4 {
 		opacity: 0;
 		transform: translate3d(0, 24px, 0) scale(0.98);
 	}
+}
+
+/* Sections below the first screen are laid out only when they come near the viewport. */
+html:not(.cv-off) .cv {
+	content-visibility: auto;
+	contain-intrinsic-size: auto 960px;
 }
 
 .section {

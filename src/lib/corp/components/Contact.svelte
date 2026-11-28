@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
 	import { contact, site } from '$lib/corp/content';
-	import { contactSubject, privacyOpen, reveal } from '$lib/corp/motion';
+	import { contactSubject, parallax, privacyOpen, reveal } from '$lib/corp/motion';
 	import SectionHead from './SectionHead.svelte';
 
 	const empty = { company: '', name: '', email: '', subject: '', message: '' };
@@ -116,7 +116,7 @@
 	}
 </script>
 
-<section class="section contact" id="contact" aria-labelledby="contact-title">
+<section class="section contact cv" id="contact" aria-labelledby="contact-title">
 	<div class="glow" aria-hidden="true"></div>
 	<div class="container grid">
 		<div class="side">
@@ -139,6 +139,16 @@
 				{/each}
 			</dl>
 			<p class="small" data-reveal use:reveal>{contact.small}</p>
+			<div class="art" use:parallax={36} aria-hidden="true">
+				<img
+					src="/corporate/sections/04-contact-navy.webp"
+					width="1600"
+					height="1067"
+					alt=""
+					loading="lazy"
+					decoding="async"
+				/>
+			</div>
 		</div>
 
 		<div class="panel" data-reveal use:reveal>
@@ -372,6 +382,15 @@
 		margin-top: 8px;
 		font-size: 14px;
 	}
+	.art {
+		margin: 12px -6% 0 -14%;
+	}
+	.art img {
+		width: 100%;
+		height: auto;
+		transform: translate3d(0, var(--py, 0px), 0);
+		animation: contact-drift 9s var(--ease-io) infinite alternate;
+	}
 	.panel {
 		padding: clamp(22px, 3vw, 44px);
 		border-radius: var(--r-lg);
@@ -536,6 +555,12 @@
 		opacity: 0.6;
 		cursor: default;
 	}
+	@keyframes contact-drift {
+		to {
+			scale: 1.04;
+			rotate: -1.2deg;
+		}
+	}
 	@keyframes glow-drift {
 		to {
 			transform: translate3d(-8%, 10%, 0) scale(1.1);
@@ -544,6 +569,9 @@
 	@media (max-width: 900px) {
 		.grid {
 			grid-template-columns: 1fr;
+		}
+		.art {
+			display: none;
 		}
 	}
 	@media (max-width: 560px) {

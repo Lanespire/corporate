@@ -4,7 +4,7 @@
 	import SectionHead from './SectionHead.svelte';
 </script>
 
-<section class="section faq" id="faq" aria-labelledby="faq-title">
+<section class="section faq cv" id="faq" aria-labelledby="faq-title">
 	<div class="container grid">
 		<SectionHead id="faq-title" eyebrow={faq.eyebrow} lines={faq.lines} />
 		<div class="list">
