@@ -234,6 +234,7 @@ with sync_playwright() as p:
     page.locator('#cases').scroll_into_view_if_needed()
     page.wait_for_timeout(900)
     page.screenshot(path=str(out / 'mobile-cases.png'))
+    page.add_style_tag(content='.header, .skip { visibility: hidden !important; }')
     for width in [320, 390]:
         page.set_viewport_size({'width': width, 'height': 844})
         page.wait_for_timeout(250)

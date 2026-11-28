@@ -501,6 +501,12 @@
 		color: var(--muted);
 	}
 
+	@media (max-width: 380px) {
+		.facts div {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 0;
+		}
+	}
 	@media (max-width: 900px) {
 		.top {
 			grid-template-columns: minmax(0, 1fr);
