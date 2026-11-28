@@ -50,6 +50,12 @@ jobs:
           for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8765/ > /dev/null && break; sleep 1; done
           python scripts/qa-corporate.py
           MATCHING_QA_BASE_URL=http://127.0.0.1:8765 python scripts/qa-matching-showcase.py
+      - name: Lighthouse on the built top page (report only)
+        if: always()
+        run: |
+          mkdir -p qa-results
+          export CHROME_PATH=$(python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); print(p.chromium.executable_path); p.stop()")
+          npx --yes lighthouse@12 http://127.0.0.1:8765/ --only-categories=performance,accessibility,seo,best-practices --screenEmulation.width=390 --screenEmulation.height=844 --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=qa-results/lighthouse-mobile.json --quiet || true
       - name: Formatting and lint report (not a gate)
         if: always()
         run: |
