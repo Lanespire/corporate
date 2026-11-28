@@ -271,6 +271,7 @@
 		margin-top: 12px;
 		font-family: var(--font-sans);
 		word-break: auto-phrase;
+		overflow-wrap: anywhere;
 		font-size: clamp(21px, 2.1vw, 30px);
 		font-weight: 800;
 		line-height: 1.45;
@@ -502,13 +503,13 @@
 
 	@media (max-width: 900px) {
 		.top {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.top-art {
 			display: none;
 		}
 		.case-in {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.visual {
 			min-height: 0;

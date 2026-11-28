@@ -568,7 +568,7 @@
 	}
 	@media (max-width: 900px) {
 		.grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.art {
 			display: none;
@@ -577,7 +577,7 @@
 	@media (max-width: 560px) {
 		.row,
 		.side dl {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.side dl div {
 			display: flex;
@@ -595,7 +595,7 @@
 			justify-self: stretch;
 		}
 		#contact-summary div {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			gap: 2px;
 		}
 	}

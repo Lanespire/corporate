@@ -35,6 +35,27 @@ def texts(locator):
     return [text.strip() for text in locator.all_text_contents()]
 
 
+# The page clips sideways overflow, so scrollWidth alone cannot see a card that grew wider than the screen.
+BEYOND = '''() => {
+  document.documentElement.classList.add('cv-off');
+  const clipped = '.viewport, .scope-window, .media, .art, .menu, dialog, .skip, .glow, .sr-only';
+  const bad = [];
+  for (const node of document.querySelectorAll('header *, main *, footer *')) {
+    if (node.closest(clipped)) continue;
+    const rect = node.getBoundingClientRect();
+    if (!rect.width || !rect.height) continue;
+    if (rect.right > innerWidth + 1 || rect.left < -1) {
+      bad.push(node.tagName.toLowerCase() + '.' + String(node.className).split(' ')[0] + ' ' + Math.round(rect.left) + '..' + Math.round(rect.right));
+    }
+  }
+  return bad.slice(0, 6);
+}'''
+
+
+def beyond(page):
+    return page.evaluate(BEYOND)
+
+
 def flat(blocks):
     return [unit for block in blocks for unit in ([block['text']] if block['t'] == 'p' else block['items'])]
 
@@ -100,6 +121,8 @@ with sync_playwright() as p:
         page.set_viewport_size({'width': width, 'height': 900})
         page.wait_for_timeout(250)
         check(f'no page overflow {width}', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
+        outside = beyond(page)
+        check(f'nothing reaches past the screen edge at {width}: {outside}', not outside)
     page.set_viewport_size({'width': 1440, 'height': 900})
     page.locator('#cases').scroll_into_view_if_needed()
     page.wait_for_timeout(900)
@@ -218,6 +241,13 @@ with sync_playwright() as p:
         page.locator('.stack .case').nth(1).scroll_into_view_if_needed()
         page.wait_for_timeout(400)
         page.locator('.stack .case').nth(1).screenshot(path=str(out / f'mobile-{width}-card-daily-report.png'))
+    for slug in [c['slug'] for c in cases]:
+        page.goto(base + '/cases/' + slug, wait_until='networkidle')
+        for width in [320, 360, 390]:
+            page.set_viewport_size({'width': width, 'height': 844})
+            page.wait_for_timeout(200)
+            outside = beyond(page)
+            check(f'{slug}: nothing reaches past the screen edge at {width}: {outside}', not outside)
     page.set_viewport_size({'width': 390, 'height': 844})
     page.goto(base + '/cases/daily-report', wait_until='networkidle')
     check('mobile: case page has no overflow', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))

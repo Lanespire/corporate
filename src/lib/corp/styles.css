@@ -151,6 +151,7 @@ ol {
 	font-feature-settings: 'palt';
 	text-wrap: balance;
 	word-break: auto-phrase;
+	overflow-wrap: anywhere;
 }
 .h2 {
 	font-size: clamp(30px, 4.2vw, 56px);

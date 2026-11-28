@@ -303,13 +303,13 @@
 	}
 	@media (max-width: 900px) {
 		.top {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.art {
 			display: none;
 		}
 		.principles {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.rail {
 			left: 6px;
@@ -325,7 +325,7 @@
 			background: linear-gradient(180deg, #7fa8ff, #fff);
 		}
 		ol {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			gap: 22px;
 		}
 		ol li {

@@ -66,12 +66,12 @@
 	}
 	@media (max-width: 900px) {
 		.grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 	@media (max-width: 560px) {
 		dl div {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			gap: 4px;
 			padding: 18px 2px;
 		}

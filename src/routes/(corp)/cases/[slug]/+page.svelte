@@ -432,13 +432,13 @@
 	@media (max-width: 900px) {
 		.top-grid,
 		.body {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.facts {
 			position: static;
 		}
 		.partner dl {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			gap: 14px;
 		}
 		.visual {
@@ -447,7 +447,7 @@
 	}
 	@media (max-width: 560px) {
 		.pager {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.next {
 			text-align: left;

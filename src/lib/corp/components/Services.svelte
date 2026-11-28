@@ -241,7 +241,7 @@
 	}
 	@media (max-width: 1000px) {
 		.grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 		.side {
 			position: static;
@@ -252,7 +252,7 @@
 	}
 	@media (max-width: 620px) {
 		.list {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 </style>
