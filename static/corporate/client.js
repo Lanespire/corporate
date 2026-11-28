@@ -434,6 +434,7 @@
 				signal: controller.signal
 			});
 			if (!response.ok) throw new Error(`HTTP ${response.status}`);
+			window.dispatchEvent(new CustomEvent('lanespire:lead', { detail: { form: 'contact' } }));
 			submission = null;
 			form.reset();
 			$('#message-count').textContent = '0 / 1200';

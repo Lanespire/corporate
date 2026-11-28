@@ -25,23 +25,139 @@
 		<meta name="twitter:card" content="summary_large_image" />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<link rel="stylesheet" href="/corporate/site.css?v=4" />
-		<script src="/corporate/client.js?v=4" defer></script>
+		<script src="/corporate/client.js?v=5" defer></script>
+		<script src="/analytics.js" defer></script>
 		<script type="application/ld+json">
 			{
 				"@context": "https://schema.org",
-				"@type": "Organization",
-				"name": "株式会社Lanespire",
-				"alternateName": "Lanespire Inc.",
-				"url": "https://lanespire.com/",
-				"email": "info@lanespire.com",
-				"address": {
-					"@type": "PostalAddress",
-					"postalCode": "104-0061",
-					"addressRegion": "東京都",
-					"addressLocality": "中央区",
-					"streetAddress": "銀座1丁目12番4号 N&E BLD. 6F",
-					"addressCountry": "JP"
-				}
+				"@graph": [
+					{
+						"@type": "Organization",
+						"@id": "https://lanespire.com/#organization",
+						"name": "株式会社Lanespire",
+						"alternateName": "Lanespire Inc.",
+						"url": "https://lanespire.com/",
+						"description": "株式会社Lanespireは、AI導入・業務自動化・Web/SaaS開発を支援する技術パートナーです。要件整理から設計・開発、導入後の運用まで一貫して対応します。",
+						"email": "info@lanespire.com",
+						"address": {
+							"@type": "PostalAddress",
+							"postalCode": "104-0061",
+							"addressRegion": "東京都",
+							"addressLocality": "中央区",
+							"streetAddress": "銀座1丁目12番4号 N&E BLD. 6F",
+							"addressCountry": "JP"
+						},
+						"contactPoint": {
+							"@type": "ContactPoint",
+							"contactType": "お問い合わせ",
+							"email": "info@lanespire.com",
+							"url": "https://lanespire.com/#contact",
+							"availableLanguage": "ja"
+						},
+						"hasOfferCatalog": {
+							"@type": "OfferCatalog",
+							"name": "事業内容",
+							"itemListElement": [
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "AI導入・活用支援",
+										"description": "社内情報の検索や問い合わせ対応など、業務の中で活用できるAIを設計・開発します。"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "業務自動化・システム連携",
+										"description": "転記・通知・集計などの定型業務を整理し、既存のツールやシステムを連携します。"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Web・SaaS開発",
+										"description": "業務システムや新規プロダクトの企画・設計から、開発・公開・運用まで対応します。"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Webサイト・LP制作",
+										"description": "企業・サービスの情報を整理し、閲覧者の理解とお問い合わせにつながるWebサイトを制作します。"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Lanespire MVP検証パッケージ",
+										"url": "https://mvp.lanespire.com/"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Launch LP - LP制作サービス",
+										"url": "https://launch-lp.lanespire.com/"
+									}
+								}
+							]
+						}
+					},
+					{
+						"@type": "WebSite",
+						"@id": "https://lanespire.com/#website",
+						"name": "株式会社Lanespire",
+						"url": "https://lanespire.com/",
+						"inLanguage": "ja",
+						"publisher": {
+							"@id": "https://lanespire.com/#organization"
+						}
+					},
+					{
+						"@type": "FAQPage",
+						"@id": "https://lanespire.com/#faq",
+						"mainEntity": [
+							{
+								"@type": "Question",
+								"name": "要件が固まっていない段階でも相談できますか。",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "はい。現在の課題や実現したいことを伺い、対応範囲・優先度・進め方を整理するところからご相談いただけます。"
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "既存のツールやシステムとの連携は可能ですか。",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "API連携やワークフローの構築に対応しています。連携先の仕様・権限・利用条件を確認したうえで、実現方法をご提案します。"
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "開発後の保守・運用も依頼できますか。",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "導入後の運用・改善についてもご相談いただけます。対応範囲やサポート条件は、ご依頼内容に応じて事前に確認します。"
+								}
+							},
+							{
+								"@type": "Question",
+								"name": "費用や開発期間はどのように決まりますか。",
+								"acceptedAnswer": {
+									"@type": "Answer",
+									"text": "必要な機能・連携先・開発範囲・運用要件を確認して個別にご提案します。ご予算や希望時期がある場合は、ご相談時にお知らせください。"
+								}
+							}
+						]
+					}
+				]
 			}
 		</script>
 		<noscript
@@ -779,7 +895,7 @@
 					Formsを通じて情報が送信されます。送信前の入力内容をブラウザーの永続ストレージに保存する処理は行っていません。機密情報や第三者の個人情報は記載しないでください。
 				</p>
 				<p>
-					実績の紹介画像は本サイトから配信します。本ページにアクセス解析SDKは組み込んでいません。お問い合わせ先：<a
+					実績の紹介画像は本サイトから配信します。利用状況の把握のためにGoogle アナリティクスを利用しています。フォームの入力内容はGoogle アナリティクスに送信しません。お問い合わせ先：<a
 						href="mailto:info@lanespire.com"
 						>info@lanespire.com</a
 					>

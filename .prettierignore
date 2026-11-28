@@ -10,3 +10,4 @@ static/showcase/
 src/lib/corporate/generated/
 static/corporate/images/
 static/corporate/site.css
+static/google*.html

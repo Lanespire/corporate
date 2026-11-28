@@ -438,6 +438,7 @@
 				method="POST"
 				data-netlify="true"
 				data-netlify-honeypot="bot-field"
+				data-lead-on-submit="launch-lp-contact"
 			>
 				<input type="hidden" name="form-name" value="launch-lp-contact" />
 				<p class="hp-field">
@@ -536,6 +537,9 @@
 				</div>
 
 				<button type="submit" class="submit-btn">導入相談を送信</button>
+				<p class="form-note">
+					このサイトは利用状況の把握に Google アナリティクスを使っています。フォームの入力内容は送りません。
+				</p>
 			</form>
 		</section>
 	</main>
@@ -1323,6 +1327,14 @@
 		flex-direction: column;
 		gap: 16px;
 		padding: 22px 22px 24px;
+	}
+
+	.contact-form .form-note {
+		color: #6b7280;
+		font-size: 12px;
+		line-height: 1.6;
+		margin: 0;
+		text-align: center;
 	}
 
 	.contact-form .hp-field {
