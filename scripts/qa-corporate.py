@@ -95,6 +95,10 @@ with sync_playwright() as p:
     check('process loop plays when in view', page.locator('#process .film').evaluate('(v) => v.muted && v.loop && !v.paused'))
     page.wait_for_function('document.querySelectorAll("#process ol li.on").length >= 2', timeout=15000)
     check('process labels follow the loop', page.locator('#process ol li.on').count() >= 2)
+    page.locator('#process .phases').screenshot(path=str(out / 'desktop-process.png'))
+    page.locator('#contact').scroll_into_view_if_needed()
+    page.wait_for_timeout(1200)
+    page.screenshot(path=str(out / 'desktop-contact.png'))
 
     posts = []
 

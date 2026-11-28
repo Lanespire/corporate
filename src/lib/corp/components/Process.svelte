@@ -214,9 +214,9 @@
 	.film {
 		display: none;
 		width: 100%;
-		aspect-ratio: 1280 / 250;
+		aspect-ratio: 1280 / 180;
 		object-fit: cover;
-		margin-bottom: 4px;
+		margin-bottom: -22px;
 	}
 	.film-mode .film {
 		display: block;
