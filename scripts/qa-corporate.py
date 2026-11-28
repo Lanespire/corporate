@@ -34,13 +34,13 @@ with sync_playwright() as p:
     page.goto(base, wait_until='networkidle')
     page.evaluate('document.fonts.ready')
     check('approved hero copy', '企業の変革を支える。' in page.locator('h1').inner_text().replace('\n',''))
-    check('seven portfolio cards', page.locator('.work-card').count()==7)
+    check('eight portfolio cards', page.locator('.work-card').count()==8)
     check('client engagements first', page.locator('.work-card h3').all_text_contents()[:2]==['日程調整システム','営業CRM'])
-    check('two client cases and five owned labels', page.locator('.work-card .commissioned').count()==2 and page.locator('.work-card .owned').count()==5)
+    check('two client cases and six owned labels', page.locator('.work-card .commissioned').count()==2 and page.locator('.work-card .owned').count()==6)
     check('scheduling card is 業務委託', page.locator('.work-card').first.locator('.work-kind').inner_text()=='業務委託')
     check('CRM card remains 受託開発', page.locator('.work-card').nth(1).locator('.work-kind').inner_text()=='受託開発')
     check('old duplicated showcase removed', page.locator('.product-showcase,.product-grid,.filters').count()==0)
-    check('five public links retained', page.locator('.work-visit').count()==5)
+    check('six public links retained', page.locator('.work-visit').count()==6)
     check('legacy anchor retained', page.locator('#products').count()==1)
     page.screenshot(path=str(out/'desktop-hero.png'))
     for width in [320,390,768,1280,1440,1920]:
@@ -59,10 +59,10 @@ with sync_playwright() as p:
     check('previous arrow returns', track.evaluate('(e)=>e.scrollLeft')<5)
     track.focus();page.keyboard.press('End');page.wait_for_timeout(120)
     check('End reaches final cards', page.locator('[data-carousel-next]').is_disabled())
-    check('counter shows final item', '7' in page.locator('#works-position').inner_text().split('/')[0])
+    check('counter shows final item', '8' in page.locator('#works-position').inner_text().split('/')[0])
     page.keyboard.press('Home');page.wait_for_timeout(120)
     check('Home restores start', page.locator('[data-carousel-prev]').is_disabled())
-    for index in range(7):
+    for index in range(8):
         page.locator('.work-card').nth(index).locator('img').evaluate('(e)=>e.loading="eager"')
     if not args.allow_missing_images:
         page.wait_for_function('[...document.querySelectorAll(".work-card img")].every(i=>i.complete && i.naturalWidth>0)')
@@ -126,7 +126,7 @@ with sync_playwright() as p:
     check('zero uncaught JavaScript errors', not errors)
     nojs=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844})
     plain=nojs.new_page();plain.goto(base)
-    check('no-JS has seven readable works', plain.locator('.work-card').count()==7)
+    check('no-JS has eight readable works', plain.locator('.work-card').count()==8)
     check('no-JS has company information', plain.locator('#company').count()==1)
     check('no-JS scheduling label is 業務委託', plain.locator('.work-card').first.locator('.work-kind').inner_text()=='業務委託')
     check('no-JS CRM label remains 受託開発', plain.locator('.work-card').nth(1).locator('.work-kind').inner_text()=='受託開発')
