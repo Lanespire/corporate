@@ -22,7 +22,7 @@ npm run dev
 npm run build
 ```
 
-`predev` and `prebuild` run image/style preparation automatically. There are no added application dependencies. For image changes, replace the corresponding repository asset: the output filename changes automatically. No external image hotlinks, CDN scripts, font downloads or tracking SDKs are used on the new root page.
+`predev` and `prebuild` run image/style preparation automatically. There are no added application dependencies. For image changes, replace the corresponding repository asset: the output filename changes automatically. No external image hotlinks, CDN scripts or font downloads are used on the new root page. The only third-party script is GA4 (`static/analytics.js`, owner request 2026-11-28): it loads only on lanespire.com hosts, never on previews or local QA, and sends a `generate_lead` event without form field values after a successful submission.
 
 ## Interaction and accessibility
 

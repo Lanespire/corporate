@@ -32,6 +32,7 @@
 				body: body.toString()
 			});
 			if (!res.ok) throw new Error(`HTTP ${res.status}`);
+			window.dispatchEvent(new CustomEvent('lanespire:lead', { detail: { form: 'mvp-contact' } }));
 			state = 'success';
 			form = { name: '', email: '', company: '', message: '' };
 		} catch (err) {
@@ -218,6 +219,9 @@
 					{#if state === 'error'}
 						<p class="form-error" role="alert">{errorMessage}</p>
 					{/if}
+					<p class="form-note">
+						このサイトは利用状況の把握に Google アナリティクスを使っています。フォームの入力内容は送りません。
+					</p>
 				</form>
 			{/if}
 		</div>
@@ -660,6 +664,13 @@
 	.form-submit svg {
 		width: 18px;
 		height: 18px;
+	}
+
+	.form-note {
+		margin: 0;
+		color: var(--mvp-gray-500);
+		font-size: 12px;
+		line-height: 1.6;
 	}
 
 	.form-error {
