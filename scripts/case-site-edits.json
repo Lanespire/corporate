@@ -1,9 +1,5 @@
 {
-	"note": "Wording agreed with Boss on 2026-11-28 ahead of the manuscript (D-134). Each entry stops applying once the manuscript itself has the new wording; delete it then.",
-	"meta": {
-		"開発2名、全体4名。本人は開発側": "開発2名、全体4名"
-	},
-	"heading": {
-		"確かめられる納品・結果": "結果"
-	}
+	"note": "Wording agreed ahead of the manuscript goes here (exact text to replace: new text). Empty since the manuscript of 2026-11-28 (sha256 898f0d9cefd2bfbc) caught up.",
+	"meta": {},
+	"heading": {}
 }
