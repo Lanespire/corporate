@@ -19,6 +19,7 @@
 		as="font"
 		type="font/woff2"
 		crossorigin="anonymous"
+		fetchpriority="low"
 	/>
 	<meta name="color-scheme" content="light" />
 </svelte:head>

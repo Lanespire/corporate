@@ -20,7 +20,7 @@
 :root {
 	--ink: #0b1220;
 	--text: #3c4858;
-	--muted: #66758a;
+	--muted: #5b6a7f;
 	--line: #e2e8f1;
 	--paper: #fff;
 	--pale: #f3f6fb;
@@ -162,7 +162,7 @@ ol {
 	font-size: 13px;
 	font-weight: 700;
 	letter-spacing: 0.16em;
-	color: var(--blue);
+	color: var(--blue-ink);
 	line-height: 1.4;
 }
 .eyebrow::before {

@@ -3,6 +3,11 @@ name: Corporate LP build and browser checks
 # PR/push では自動実行しない。必要なときだけ workflow_dispatch。
 on:
   workflow_dispatch:
+    inputs:
+      lighthouse_url:
+        description: 'Optional public URL (for example a deploy preview) to measure with Lighthouse too'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -56,6 +61,9 @@ jobs:
           mkdir -p qa-results
           export CHROME_PATH=$(python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); print(p.chromium.executable_path); p.stop()")
           npx --yes lighthouse@12 http://127.0.0.1:8765/ --only-categories=performance,accessibility,seo,best-practices --screenEmulation.width=390 --screenEmulation.height=844 --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=qa-results/lighthouse-mobile.json --quiet || true
+          if [ -n "${{ inputs.lighthouse_url }}" ]; then
+            npx --yes lighthouse@12 "${{ inputs.lighthouse_url }}" --only-categories=performance --screenEmulation.width=390 --screenEmulation.height=844 --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=qa-results/lighthouse-remote.json --quiet || true
+          fi
       - name: Formatting and lint report (not a gate)
         if: always()
         run: |
