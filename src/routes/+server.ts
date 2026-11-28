@@ -58,7 +58,7 @@ export const GET: RequestHandler = () => {
 		.replace('<!-- PROJECT_DATA -->', json)
 		.replace(
 			'受託案件は企業名を非公開で掲載しています。',
-			'業務委託・受託開発案件は企業名を非公開で掲載しています。'
+			'業務委託の案件は企業名を非公開で掲載しています。'
 		)
 		.replace(
 			'画像は既存の紹介素材を使用しています。',

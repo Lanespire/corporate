@@ -21,6 +21,7 @@
 		"name": "営業CRM",
 		"tag": "業務システム / CRM",
 		"kind": "commissioned",
+		"engagementLabel": "業務委託",
 		"image": "work-anon-scheduling.png",
 		"color": "#eaf0f7",
 		"description": "営業活動・見積・顧客フォローを一元管理する業務システム。分散していた情報を、営業チームで共有できるCRMに整理しました。",
