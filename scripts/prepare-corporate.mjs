@@ -8,15 +8,6 @@ const root = process.cwd();
 const projects = JSON.parse(
 	await readFile(resolve(root, 'src/lib/corporate/projects.json'), 'utf8')
 );
-const css = (
-	await Promise.all(
-		['base', 'content', 'responsive', 'works'].map((name) =>
-			readFile(resolve(root, `src/lib/corporate/${name}.css`), 'utf8')
-		)
-	)
-).join('\n');
-await mkdir(resolve(root, 'static/corporate'), { recursive: true });
-await writeFile(resolve(root, 'static/corporate/site.css'), css);
 const output = resolve(root, 'static/corporate/images');
 await mkdir(output, { recursive: true });
 const manifest = {};

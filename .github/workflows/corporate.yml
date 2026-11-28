@@ -33,8 +33,10 @@ jobs:
           test -f build/mvp.html || test -f build/mvp/index.html
           test -f build/launch-lp.html || test -f build/launch-lp/index.html
           grep -q 'data-netlify="true"' build/index.html
-          grep -q '開発実績' build/index.html
-          node --check static/corporate/client.js
+          grep -q '代表が担当した' build/index.html
+          test -f build/cases/sso.html
+          test -f build/llms.txt
+          test -f build/googled5fb76a17ad1a66f.html
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -44,10 +46,17 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Browser regression checks (no real contact submissions)
         run: |
-          python -m http.server 8765 --directory build > /tmp/corporate-server.log 2>&1 &
+          python scripts/serve-build.py 8765 build > /tmp/corporate-server.log 2>&1 &
           for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8765/ > /dev/null && break; sleep 1; done
           python scripts/qa-corporate.py
           MATCHING_QA_BASE_URL=http://127.0.0.1:8765 python scripts/qa-matching-showcase.py
+      - name: Formatting and lint report (not a gate)
+        if: always()
+        run: |
+          mkdir -p qa-results
+          npx eslint src/lib/corp "src/routes/(corp)" > qa-results/eslint.txt 2>&1 || true
+          npx prettier --write src/lib/corp "src/routes/(corp)" src/app.html src/service-worker.ts svelte.config.js scripts/prepare-corporate.mjs > /dev/null 2>&1 || true
+          git diff > qa-results/prettier.patch || true
       - name: Upload build and screenshots
         if: always()
         uses: actions/upload-artifact@v4

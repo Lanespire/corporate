@@ -1,134 +1,185 @@
-"""Browser regression checks. Contact POSTs are intercepted; no messages are sent."""
+"""Browser regression checks for the corporate site. Contact POSTs are intercepted; no messages are sent."""
 import argparse
 import atexit
 import json
 import os
+import re
 from pathlib import Path
 from urllib.parse import parse_qs
 from playwright.sync_api import sync_playwright
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--url', default='http://127.0.0.1:8765')
-parser.add_argument('--allow-missing-images', action='store_true')
 args = parser.parse_args()
 base = args.url.rstrip('/')
+root = Path(__file__).resolve().parent.parent
 out = Path(os.environ.get('QA_OUTPUT', 'qa-results'))
 out.mkdir(exist_ok=True, parents=True)
+cases = json.loads((root / 'src/lib/corp/cases.json').read_text(encoding='utf-8'))
+charset = set(json.loads((root / 'src/lib/corp/display-charset.json').read_text(encoding='utf-8')))
+featured = [c for c in cases if c['featured']]
 results = []
+
 
 @atexit.register
 def write_report():
-    (out/'report.json').write_text(json.dumps({'checks':results,'image_decode_checked':not args.allow_missing_images,'contact_requests':'intercepted locally; no real messages sent'},ensure_ascii=False,indent=2))
+    (out / 'report.json').write_text(json.dumps({'checks': results, 'contact_requests': 'intercepted locally; no real messages sent'}, ensure_ascii=False, indent=2))
+
 
 def check(name, value):
     results.append({'name': name, 'passed': bool(value)})
     assert value, name
 
+
 with sync_playwright() as p:
     executable = os.environ.get('CHROMIUM_PATH')
     browser = p.chromium.launch(headless=True, **({'executable_path': executable} if executable else {}))
-    context = browser.new_context(viewport={'width':1440,'height':1000}, locale='ja-JP', reduced_motion='reduce')
+
+    context = browser.new_context(viewport={'width': 1440, 'height': 900}, locale='ja-JP')
     page = context.new_page()
     errors = []
+    media = []
     page.on('pageerror', lambda e: errors.append(str(e)))
-    page.goto(base, wait_until='networkidle')
+    page.on('request', lambda r: media.append(r.url) if '/corporate/hero/loop' in r.url else None)
+    page.goto(base + '/', wait_until='networkidle')
     page.evaluate('document.fonts.ready')
-    check('approved hero copy', '企業の変革を支える。' in page.locator('h1').inner_text().replace('\n',''))
-    check('eight portfolio cards', page.locator('.work-card').count()==8)
-    check('client engagements first', page.locator('.work-card h3').all_text_contents()[:2]==['日程調整システム','営業CRM'])
-    check('two client cases and six owned labels', page.locator('.work-card .commissioned').count()==2 and page.locator('.work-card .owned').count()==6)
-    check('scheduling card is 業務委託', page.locator('.work-card').first.locator('.work-kind').inner_text()=='業務委託')
-    check('CRM card remains 受託開発', page.locator('.work-card').nth(1).locator('.work-kind').inner_text()=='受託開発')
-    check('old duplicated showcase removed', page.locator('.product-showcase,.product-grid,.filters').count()==0)
-    check('six public links retained', page.locator('.work-visit').count()==6)
-    check('legacy anchor retained', page.locator('#products').count()==1)
-    page.screenshot(path=str(out/'desktop-hero.png'))
-    for width in [320,390,768,1280,1440,1920]:
-        page.set_viewport_size({'width':width,'height':1000})
+    check('approved hero copy', page.locator('h1').inner_text().replace('\n', '') == 'AIとシステム開発で、企業の変革を支える。')
+    check('hero buttons', [t.strip() for t in page.locator('.hero .actions a').all_inner_texts()] == ['開発事例を見る', '開発を相談する'])
+    check('hero scope list has four items', page.locator('.hero .scope-list').first.locator('li').count() == 4)
+    page.wait_for_function('document.querySelector(".hero video").readyState >= 2', timeout=20000)
+    check('hero video requested after load', bool(media))
+    check('hero video is muted and loops', page.locator('.hero video').evaluate('(v) => v.muted && v.loop && !v.paused'))
+    page.locator('.hero .motion').click()
+    check('pause button stops the loop', page.locator('.hero video').evaluate('(v) => v.paused'))
+    check('pause button reports state', page.locator('.hero .motion').get_attribute('aria-pressed') == 'false')
+    page.screenshot(path=str(out / 'desktop-hero.png'))
+
+    check('featured case cards', page.locator('.stack .case').count() == len(featured))
+    check('case titles follow the manuscript', [t.strip() for t in page.locator('.stack .case h3').all_inner_texts()] == [c['title'] for c in featured])
+    check('case links', [a.get_attribute('href') for a in page.locator('.stack .case h3 a').all()] == ['/cases/' + c['slug'] for c in featured])
+    check('other cases listed', page.locator('.others .row').count() == len(cases) - len(featured))
+    labels = page.locator('#cases .tag:not(.plain)').all_inner_texts()
+    check('engagement labels only where confirmed', sorted(labels) == sorted(c['label'] for c in cases if c['label']))
+    check('six own services', page.locator('.products .track').first.locator('a').count() == 6)
+    check('own services link out', page.locator('.products .track').first.locator('a').first.get_attribute('href') == 'https://night-table.com/')
+    check('legacy anchors retained', all(page.locator(s).count() == 1 for s in ['#works', '#products', '#approach', '#services', '#company', '#faq', '#contact']))
+    body_text = page.locator('body').inner_text()
+    check('no placeholder words', '不明' not in body_text)
+    check('受託 appears only in the company table', body_text.count('受託') == page.locator('#company').inner_text().count('受託'))
+    displays = ''.join(page.locator('.display').all_inner_texts())
+    missing = sorted({c for c in displays if ord(c) > 0x2000 and not c.isspace() and c not in charset})
+    check('heading font covers every heading glyph: ' + ''.join(missing), not missing)
+
+    ld = json.loads(page.locator('script[type="application/ld+json"]').first.inner_text())
+    types = [g['@type'] for g in ld['@graph']]
+    check('structured data types', types == ['Organization', 'WebSite', 'FAQPage'])
+    faq_ld = [(q['name'], q['acceptedAnswer']['text']) for q in ld['@graph'][2]['mainEntity']]
+    faq_dom = list(zip(page.locator('#faq summary .question').all_inner_texts(), [t.strip() for t in page.locator('#faq details p').all_text_contents()]))
+    check('FAQ markup equals visible FAQ', faq_ld == faq_dom)
+    check('canonical kept', page.locator('link[rel=canonical]').get_attribute('href') == 'https://lanespire.com/')
+    check('analytics loader kept', page.locator('script[src="/analytics.js"]').count() == 1)
+
+    for width in [320, 390, 768, 1024, 1280, 1440, 1920]:
+        page.set_viewport_size({'width': width, 'height': 900})
         page.wait_for_timeout(250)
         check(f'no page overflow {width}', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
-        check(f'horizontal carousel {width}', page.locator('#works-track').evaluate('(e)=>e.scrollWidth > e.clientWidth'))
-    page.set_viewport_size({'width':1440,'height':1000})
-    page.locator('#works').scroll_into_view_if_needed()
-    track=page.locator('#works-track')
-    page.locator('[data-carousel-next]').click()
-    page.wait_for_timeout(100)
-    check('next arrow scrolls', track.evaluate('(e)=>e.scrollLeft')>200)
-    page.locator('[data-carousel-prev]').click()
-    page.wait_for_timeout(100)
-    check('previous arrow returns', track.evaluate('(e)=>e.scrollLeft')<5)
-    track.focus();page.keyboard.press('End');page.wait_for_timeout(120)
-    check('End reaches final cards', page.locator('[data-carousel-next]').is_disabled())
-    check('counter shows final item', '8' in page.locator('#works-position').inner_text().split('/')[0])
-    page.keyboard.press('Home');page.wait_for_timeout(120)
-    check('Home restores start', page.locator('[data-carousel-prev]').is_disabled())
-    for index in range(8):
-        page.locator('.work-card').nth(index).locator('img').evaluate('(e)=>e.loading="eager"')
-    if not args.allow_missing_images:
-        page.wait_for_function('[...document.querySelectorAll(".work-card img")].every(i=>i.complete && i.naturalWidth>0)')
-        check('all actual portfolio images decode', True)
-        check('images same-origin', page.locator('.work-card img').evaluate_all('(imgs)=>imgs.every(i=>new URL(i.currentSrc).origin===location.origin)'))
-    page.locator('.work-card').first.locator('.work-detail').click()
-    check('scheduling detail dialog opens', page.locator('#project-dialog').evaluate('(e)=>e.open'))
-    check('scheduling detail label is 業務委託', page.locator('#project-dialog .work-kind').inner_text()=='業務委託')
-    check('scheduling detail note is 業務委託', page.locator('#project-dialog .dialog-note').inner_text().startswith('業務委託の実績です。'))
-    check('contract project has no invented URL', page.locator('#project-dialog a[target="_blank"]').count()==0)
-    check('contract details sourced', 'ダブルブッキング' in page.locator('#project-dialog').inner_text())
-    page.keyboard.press('Escape')
-    check('dialog restores focus', page.locator('.work-card').first.locator('.work-detail').evaluate('(e)=>document.activeElement===e'))
-    page.locator('.work-card').nth(1).locator('.work-detail').click()
-    check('CRM detail label remains 受託開発', page.locator('#project-dialog .work-kind').inner_text()=='受託開発')
-    check('CRM detail note remains 受託開発', page.locator('#project-dialog .dialog-note').inner_text().startswith('受託開発の実績です。'))
-    page.keyboard.press('Escape')
-    page.locator('.work-card').nth(2).locator('.work-detail').click()
-    check('own service links to public URL', page.locator('#project-dialog a[target="_blank"]').get_attribute('href')=='https://night-table.com/')
-    page.keyboard.press('Escape')
-    track.evaluate('(e)=>e.scrollTo({left:0,behavior:"instant"})')
-    page.wait_for_timeout(100)
-    page.locator('#works').screenshot(path=str(out/'desktop-works.png'))
-    posts=[]
+    page.set_viewport_size({'width': 1440, 'height': 900})
+    page.locator('#cases').scroll_into_view_if_needed()
+    page.wait_for_timeout(900)
+    page.screenshot(path=str(out / 'desktop-cases.png'))
+    check('case cards stack on desktop', page.locator('.stack').evaluate('(e) => e.classList.contains("stacked")'))
+
+    posts = []
+
     def post_route(route):
-        if route.request.method=='POST':
-            posts.append(parse_qs(route.request.post_data or '',keep_blank_values=True))
-            route.fulfill(status=500 if len(posts)==1 else 200, content_type='text/html', body='test response')
+        if route.request.method == 'POST':
+            posts.append(parse_qs(route.request.post_data or '', keep_blank_values=True))
+            route.fulfill(status=500 if len(posts) == 1 else 200, content_type='text/html', body='test response')
         else:
             route.continue_()
-    page.route(base+'/',post_route)
-    form=page.locator('#contact-form')
+
+    page.route(base + '/', post_route)
+    page.locator('#services .link').first.click()
+    form = page.locator('#contact-form')
+    check('service link preselects the subject', form.locator('[name="subject"]').input_value() == 'AI導入・活用支援')
     form.locator('[name="name"]').fill('動作確認担当')
     form.locator('[name="email"]').fill('qa@example.com')
     form.locator('[name="company"]').fill('テスト用（外部送信しません）')
     form.locator('[name="subject"]').select_option('Web・SaaS開発')
     form.locator('[name="message"]').fill('<script>window.unwanted = true</script>\nテスト用のお問い合わせ')
     form.locator('[type="submit"]').click()
+    check('confirmation opens', page.locator('#contact-dialog').evaluate('(e) => e.open'))
     check('confirmation sends nothing', not posts)
     check('form text safely rendered', page.evaluate('window.unwanted !== true'))
     page.locator('#send-contact').click()
     page.wait_for_function('document.querySelector("#send-status").dataset.state === "error"')
     check('failed request keeps entered message', 'テスト用のお問い合わせ' in form.locator('[name="message"]').input_value())
     check('failed request never claims success', not page.locator('#form-status').inner_text())
-    page.locator('#send-contact').evaluate('(e)=>{e.click();e.click();}')
+    page.locator('#send-contact').evaluate('(e) => { e.click(); e.click(); }')
     page.wait_for_function('!document.querySelector("#contact-dialog").open')
-    check('duplicate sends guarded', len(posts)==2)
-    check('Netlify form identifier preserved', posts[-1].get('form-name')==['contact'])
-    check('successful submission clears form', form.locator('[name="message"]').input_value()=='')
+    check('duplicate sends guarded', len(posts) == 2)
+    check('Netlify form identifier preserved', posts[-1].get('form-name') == ['contact'])
+    check('all form fields posted', all(k in posts[-1] for k in ['bot-field', 'company', 'name', 'email', 'subject', 'message']))
+    check('successful submission clears form', form.locator('[name="message"]').input_value() == '')
     check('success feedback shown', '受け付けました' in page.locator('#form-status').inner_text())
-    check('OS reduced motion respected', page.locator('body').evaluate('(e)=>e.classList.contains("reduced-motion")'))
-    page.set_viewport_size({'width':390,'height':844})
-    page.evaluate('scrollTo({top:0,behavior:"instant"})');page.wait_for_timeout(100)
-    page.screenshot(path=str(out/'mobile-hero.png'))
-    page.locator('.menu-toggle').click()
-    check('mobile menu opens', page.locator('.menu-toggle').get_attribute('aria-expanded')=='true')
+    page.locator('.footer button').click()
+    check('privacy dialog opens', page.locator('#privacy-dialog').evaluate('(e) => e.open'))
+    check('privacy text mentions analytics', 'Google アナリティクス' in page.locator('#privacy-dialog').inner_text())
     page.keyboard.press('Escape')
-    check('mobile menu Escape closes', page.locator('#mobile-menu').is_hidden())
-    page.locator('#works').scroll_into_view_if_needed();page.wait_for_timeout(100)
-    page.locator('#works').screenshot(path=str(out/'mobile-works.png'))
+
+    first = cases[0]
+    page.goto(base + '/cases/' + first['slug'], wait_until='networkidle')
+    check('case page title', page.locator('h1').inner_text().replace('\n', '') == first['title'])
+    check('case page sections', page.locator('.story section h2').count() == len(first['sections']))
+    check('case page canonical', page.locator('link[rel=canonical]').get_attribute('href') == 'https://lanespire.com/cases/' + first['slug'])
+    check('case page has no placeholder words', not re.search('受託|不明', page.locator('main').inner_text()))
+    case_displays = ''.join(page.locator('.display').all_inner_texts())
+    case_missing = sorted({c for c in case_displays if ord(c) > 0x2000 and not c.isspace() and c not in charset})
+    check('case page heading glyphs covered: ' + ''.join(case_missing), not case_missing)
+    page.screenshot(path=str(out / 'desktop-case.png'))
     check('zero uncaught JavaScript errors', not errors)
-    nojs=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844})
-    plain=nojs.new_page();plain.goto(base)
-    check('no-JS has eight readable works', plain.locator('.work-card').count()==8)
-    check('no-JS has company information', plain.locator('#company').count()==1)
-    check('no-JS scheduling label is 業務委託', plain.locator('.work-card').first.locator('.work-kind').inner_text()=='業務委託')
-    check('no-JS CRM label remains 受託開発', plain.locator('.work-card').nth(1).locator('.work-kind').inner_text()=='受託開発')
-    nojs.close();context.close();browser.close()
-print(f'PASS: {len(results)} checks. Image verification: {not args.allow_missing_images}. No actual contact submissions.')
+    context.close()
+
+    mobile = browser.new_context(viewport={'width': 390, 'height': 844}, locale='ja-JP', device_scale_factor=2)
+    page = mobile.new_page()
+    mobile_errors = []
+    page.on('pageerror', lambda e: mobile_errors.append(str(e)))
+    page.goto(base + '/', wait_until='networkidle')
+    check('mobile: no page overflow', page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1'))
+    check('mobile: body text is 16px', page.evaluate('parseFloat(getComputedStyle(document.body).fontSize) >= 16'))
+    copy_bottom = page.locator('.hero .copy').evaluate('(e) => e.getBoundingClientRect().bottom')
+    media_top = page.locator('.hero .media').evaluate('(e) => e.getBoundingClientRect().top')
+    check('mobile: hero copy sits above the picture', copy_bottom <= media_top + 1)
+    page.screenshot(path=str(out / 'mobile-hero.png'))
+    page.locator('.header .toggle').click()
+    check('mobile menu opens', page.locator('.header .toggle').get_attribute('aria-expanded') == 'true')
+    page.keyboard.press('Escape')
+    check('mobile menu Escape closes', page.locator('.header .toggle').get_attribute('aria-expanded') == 'false')
+    page.locator('#cases').scroll_into_view_if_needed()
+    page.wait_for_timeout(900)
+    page.screenshot(path=str(out / 'mobile-cases.png'))
+    check('mobile: zero uncaught JavaScript errors', not mobile_errors)
+    mobile.close()
+
+    calm = browser.new_context(viewport={'width': 1440, 'height': 900}, locale='ja-JP', reduced_motion='reduce')
+    page = calm.new_page()
+    calm_media = []
+    page.on('request', lambda r: calm_media.append(r.url) if '/corporate/hero/loop' in r.url else None)
+    page.goto(base + '/', wait_until='networkidle')
+    page.wait_for_timeout(1500)
+    check('reduced motion: no video request', not calm_media)
+    check('reduced motion: no pause button', page.locator('.hero .motion').count() == 0)
+    check('reduced motion: headings visible', page.locator('#cases-title .ln-i').first.evaluate('(e) => getComputedStyle(e).transform === "none"'))
+    check('reduced motion: cards do not stack', not page.locator('.stack').evaluate('(e) => e.classList.contains("stacked")'))
+    calm.close()
+
+    nojs = browser.new_context(java_script_enabled=False, viewport={'width': 390, 'height': 844})
+    plain = nojs.new_page()
+    plain.goto(base + '/')
+    check('no-JS has the case cards', plain.locator('.stack .case').count() == len(featured))
+    check('no-JS has company information', plain.locator('#company').count() == 1)
+    check('no-JS has the Netlify form', plain.locator('form[name="contact"][data-netlify="true"]').count() == 1)
+    check('no-JS content is not hidden', plain.locator('#cases-title .ln-i').first.evaluate('(e) => getComputedStyle(e).transform === "none"'))
+    nojs.close()
+    browser.close()
+print(f'PASS: {len(results)} checks. No actual contact submissions.')

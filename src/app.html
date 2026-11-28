@@ -16,20 +16,12 @@
 		<!-- Defaults (each route should override title/description/og:* via svelte:head) -->
 		<meta name="author" content="株式会社Lanespire" />
 
-		<!-- Preconnect for performance -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-		<!-- Optimized font loading with font-display: swap -->
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
-			rel="stylesheet"
-		/>
-
+		<script>
+			document.documentElement.classList.add('js');
+			setTimeout(function () {
+				if (!window.__corpReady) document.documentElement.classList.add('reveal-all');
+			}, 5000);
+		</script>
 		<script src="/analytics.js" defer></script>
 		%sveltekit.head%
 	</head>

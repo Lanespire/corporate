@@ -25,8 +25,9 @@ const config = {
 		},
 
 		// Service worker configuration
+		// Only the LP layout registers the worker; the corporate pages stay without one.
 		serviceWorker: {
-			register: true
+			register: false
 		},
 
 		// Alias for clean imports
