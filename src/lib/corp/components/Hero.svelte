@@ -4,67 +4,31 @@
 	import { clamp, onFrame, reducedMotion } from '$lib/corp/motion';
 
 	type Connection = { saveData?: boolean; effectiveType?: string };
-	const STORE_KEY = 'ls-hero-motion';
 
 	let root: HTMLElement | undefined = $state();
 	let video: HTMLVideoElement | undefined = $state();
-	let available = $state(false);
-	let playing = $state(false);
 	let shown = $state(false);
-	let wanted = true;
 	let visible = true;
 	let started = false;
 
-	function remember(value: string) {
-		try {
-			localStorage.setItem(STORE_KEY, value);
-		} catch {
-			// Storage can be unavailable; the choice then lasts for this view only.
-		}
-	}
-
-	async function play() {
+	function play() {
 		if (!video) return;
 		if (!video.src) {
 			const name = matchMedia('(max-aspect-ratio: 4/5)').matches ? 'loop-m' : 'loop';
 			const type = video.canPlayType('video/mp4; codecs="avc1.42E01E"') ? 'mp4' : 'webm';
 			video.src = `/corporate/hero/${name}.${type}`;
 		}
-		try {
-			await video.play();
-			playing = true;
-		} catch {
-			playing = false;
-		}
-	}
-
-	function toggle() {
-		if (!video) return;
-		if (playing) {
-			video.pause();
-			playing = false;
-			wanted = false;
-			remember('off');
-		} else {
-			wanted = true;
-			remember('on');
-			play();
-		}
+		// Autoplay can be refused (low power mode, for example); the still picture then stays.
+		video.play().catch(() => {});
 	}
 
 	onMount(() => {
 		const connection = (navigator as Navigator & { connection?: Connection }).connection;
 		const saver = !!connection?.saveData || /2g/.test(connection?.effectiveType ?? '');
 		if (reducedMotion() || saver) return;
-		available = true;
-		try {
-			wanted = localStorage.getItem(STORE_KEY) !== 'off';
-		} catch {
-			wanted = true;
-		}
 		const start = () => {
 			started = true;
-			if (wanted && visible) play();
+			if (visible) play();
 		};
 		const idle = () => setTimeout(start, 250);
 		if (document.readyState === 'complete') idle();
@@ -79,7 +43,7 @@
 			if (nowVisible === visible) return;
 			visible = nowVisible;
 			if (!visible) video?.pause();
-			else if (wanted && started) play();
+			else if (started) play();
 		});
 		let targetX = 0;
 		let targetY = 0;
@@ -184,18 +148,6 @@
 		</div>
 	</div>
 
-	{#if available}
-		<button class="motion" type="button" aria-pressed={playing} onclick={toggle}>
-			<svg viewBox="0 0 24 24" aria-hidden="true">
-				{#if playing}
-					<path d="M8 6v12M16 6v12" />
-				{:else}
-					<path d="M8 5.5v13l11-6.5z" />
-				{/if}
-			</svg>
-			{playing ? '背景の動きを止める' : '背景の動きを再生する'}
-		</button>
-	{/if}
 	<a class="cue" href={hero.primary.href} aria-hidden="true" tabindex="-1"><span>SCROLL</span></a>
 </section>
 
@@ -295,42 +247,6 @@
 	.chip {
 		background: rgba(255, 255, 255, 0.9);
 	}
-	.motion {
-		position: absolute;
-		right: var(--pad);
-		bottom: 22px;
-		z-index: 3;
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		min-height: 40px;
-		padding: 0 14px 0 10px;
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.86);
-		backdrop-filter: blur(8px);
-		-webkit-backdrop-filter: blur(8px);
-		font-size: 12px;
-		font-weight: 700;
-		color: var(--navy-2);
-		cursor: pointer;
-		transition:
-			background-color 0.3s,
-			color 0.3s;
-	}
-	.motion:hover {
-		background: var(--ink);
-		color: #fff;
-	}
-	.motion svg {
-		width: 18px;
-		height: 18px;
-		fill: none;
-		stroke: currentColor;
-		stroke-width: 2.2;
-		stroke-linecap: round;
-		stroke-linejoin: round;
-	}
 	.cue {
 		display: none;
 	}
@@ -377,10 +293,6 @@
 		}
 		.scope-list.clone {
 			display: flex;
-		}
-		.motion {
-			bottom: 14px;
-			right: 14px;
 		}
 	}
 

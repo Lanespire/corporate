@@ -62,7 +62,7 @@ export const cases = caseData as unknown as CaseItem[];
 
 export const casesSection = {
 	eyebrow: 'CASES',
-	lines: ['代表が担当した', '開発事例'],
+	lines: ['開発事例'],
 	lead: [
 		'業務委託での開発から自社サービスまで。',
 		'業務課題に応じたシステムの開発実績をご紹介します。'

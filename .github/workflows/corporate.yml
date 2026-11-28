@@ -38,7 +38,7 @@ jobs:
           test -f build/mvp.html || test -f build/mvp/index.html
           test -f build/launch-lp.html || test -f build/launch-lp/index.html
           grep -q 'data-netlify="true"' build/index.html
-          grep -q '代表が担当した' build/index.html
+          grep -q 'id="cases-title"' build/index.html
           test -f build/cases/sso.html
           test -f build/llms.txt
           test -f build/googled5fb76a17ad1a66f.html
