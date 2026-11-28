@@ -64,7 +64,7 @@ jobs:
           n=0
           for url in ${{ inputs.lighthouse_url }}; do
             n=$((n + 1))
-            npx --yes lighthouse@12 "$url" --only-categories=performance --screenEmulation.width=390 --screenEmulation.height=844 --blocked-url-patterns="https://app.netlify.com/*" --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=qa-results/lighthouse-remote-$n.json --quiet || true
+            npx --yes lighthouse@12 "$url" --only-categories=performance --screenEmulation.width=390 --screenEmulation.height=844 --blocked-url-patterns="*app.netlify.com*" --blocked-url-patterns="*/.netlify/scripts/cdp*" --blocked-url-patterns="*netlify-cdp-loader*" --chrome-flags="--headless=new --no-sandbox" --output=json --output-path=qa-results/lighthouse-remote-$n.json --quiet || true
           done
       - name: Formatting and lint report (not a gate)
         if: always()

@@ -119,7 +119,7 @@
 				<source
 					media="(max-aspect-ratio: 4/5)"
 					srcset="/corporate/hero/poster-m.webp 556w, /corporate/hero/still-m.webp 780w"
-					sizes="100vw"
+					sizes="70vw"
 				/>
 				<img
 					src="/corporate/hero/poster.webp"
