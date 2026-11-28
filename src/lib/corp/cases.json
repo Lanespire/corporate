@@ -1,145 +1,5 @@
 [
 	{
-		"slug": "sso",
-		"title": "資格対策サイトのシングルサインオン対応",
-		"label": "請負",
-		"featured": true,
-		"meta": [
-			{
-				"k": "担当範囲",
-				"v": "要件定義から実装・デプロイまで"
-			},
-			{
-				"k": "体制",
-				"v": "開発1名、全体1名"
-			},
-			{
-				"k": "期間",
-				"v": "2020年2月〜4月"
-			}
-		],
-		"tech": [
-			"PHP",
-			"MySQL RDS",
-			"Laravel",
-			"SimpleSAMLphp",
-			"AWS IAM",
-			"EC2",
-			"RDS",
-			"AmazonLinux2"
-		],
-		"summary": "資格対策サイトと姉妹サイトの認証をSSO化しました。",
-		"results": [
-			"要件定義から実装・デプロイまで一貫して担当し、IdPを構築して連携を実装しました。"
-		],
-		"sections": [
-			{
-				"h": "経緯",
-				"blocks": [
-					{
-						"t": "p",
-						"text": "資格対策サイトと姉妹サイトの認証をSSO化しました。フルリモートです。"
-					}
-				]
-			},
-			{
-				"h": "担当したこと",
-				"blocks": [
-					{
-						"t": "p",
-						"text": "請負として参画しました。要件定義から実装・デプロイまで一貫して担当しました。認証を担うIdPというサーバーを新規に構築し、Laravelとの連携を実装しました。既存不具合の修正も行いました。習得したのは、SAML認証とAWS IAM、EC2、RDSです。フルリモート案件のため、細かな報告・連絡を心掛けて進めました。"
-					}
-				]
-			},
-			{
-				"h": "結果",
-				"blocks": [
-					{
-						"t": "p",
-						"text": "要件定義から実装・デプロイまで一貫して担当し、IdPを構築して連携を実装しました。"
-					}
-				]
-			}
-		]
-	},
-	{
-		"slug": "daily-report",
-		"title": "施工会社向け日報・プロジェクト管理システムの新規開発",
-		"label": null,
-		"featured": true,
-		"meta": [
-			{
-				"k": "業種",
-				"v": "施工"
-			},
-			{
-				"k": "担当範囲",
-				"v": "顧客先でのヒアリング・要件定義から実装まで"
-			},
-			{
-				"k": "体制",
-				"v": "開発1名、全体3名"
-			},
-			{
-				"k": "期間",
-				"v": "2019年10月〜2020年3月"
-			}
-		],
-		"tech": [
-			"PHP",
-			"JavaScript",
-			"MySQL",
-			"Laravel",
-			"PHPUnit",
-			"Vue",
-			"jQuery",
-			"Vagrant",
-			"Backlog",
-			"Windows Server 2016"
-		],
-		"summary": "施工会社の日報・作業時間管理システムです。",
-		"results": [
-			"社内のアカウントを一元管理するActive Directoryを使ったLDAP認証をLaravelに実装しました。",
-			"Laravelのデフォルト認証をカスタマイズし、社内Active Directory連携を実現しました。"
-		],
-		"sections": [
-			{
-				"h": "経緯",
-				"blocks": [
-					{
-						"t": "p",
-						"text": "施工会社の日報・作業時間管理システムです。"
-					}
-				]
-			},
-			{
-				"h": "担当したこと",
-				"blocks": [
-					{
-						"t": "p",
-						"text": "顧客先でのヒアリング・要件定義から実装まで一貫して担当しました。毎週の進捗報告と顧客先への同行もしました。担当した内容は次のとおりです。"
-					},
-					{
-						"t": "ul",
-						"items": [
-							"テーブル設計、詳細設計書の作成",
-							"LDAP認証のカスタマイズを含む実装"
-						]
-					}
-				]
-			},
-			{
-				"h": "結果",
-				"blocks": [
-					{
-						"t": "p",
-						"text": "社内のアカウントを一元管理するActive Directoryを使ったLDAP認証をLaravelに実装しました。Laravelのデフォルト認証をカスタマイズし、社内Active Directory連携を実現しました。ZendFrameworkの社内システム解析も実施し、Active Directory接続情報を確認しました。顧客との密なコミュニケーションにより、仕様の齟齬なく開発を完了しました。"
-					}
-				]
-			}
-		]
-	},
-	{
 		"slug": "real-estate-ai",
 		"title": "不動産会社向け AI対話システム",
 		"label": "業務委託",
@@ -155,7 +15,7 @@
 			},
 			{
 				"k": "体制",
-				"v": "開発2名、全体4名。本人は開発側"
+				"v": "開発2名、全体4名"
 			},
 			{
 				"k": "期間",
@@ -210,11 +70,96 @@
 				]
 			},
 			{
-				"h": "確かめられる納品・結果",
+				"h": "結果",
 				"blocks": [
 					{
 						"t": "p",
 						"text": "インフラからアプリまで一貫して設計・構築し、予定どおりリリースしました。TerraformとServerless Frameworkの使い分けで、運用しやすいインフラにしました。CognitoとIP制限による認証基盤を実装しました。"
+					}
+				]
+			}
+		]
+	},
+	{
+		"slug": "ai-training",
+		"title": "toB向け AIラーニング・社員研修プラットフォーム",
+		"label": null,
+		"featured": true,
+		"meta": [
+			{
+				"k": "業種",
+				"v": "企業研修"
+			},
+			{
+				"k": "担当範囲",
+				"v": "詳細設計、実装・単体テスト、結合テスト"
+			},
+			{
+				"k": "体制",
+				"v": "全体6名、開発4名"
+			},
+			{
+				"k": "期間",
+				"v": "2026年1月〜6月"
+			}
+		],
+		"tech": [
+			"TypeScript",
+			"Next.js",
+			"FastAPI",
+			"PostgreSQL",
+			"DynamoDB",
+			"AWS ECS Fargate",
+			"CodePipeline",
+			"CodeBuild",
+			"ECR",
+			"S3",
+			"RDS",
+			"SQS",
+			"MediaConvert",
+			"Auth0",
+			"Datadog",
+			"GitHub Actions"
+		],
+		"summary": "企業の社員研修を支援する、AI駆動の研修管理SaaSです。",
+		"results": [
+			"インフラからアプリまで一貫して設計・構築し、AI研修SaaSの立ち上げに貢献しました。",
+			"AWSのマネージドサービスを使い分け、ECS Fargate、SQS、MediaConvertによる拡張性の高いAI処理基盤を構築しました。"
+		],
+		"sections": [
+			{
+				"h": "経緯",
+				"blocks": [
+					{
+						"t": "p",
+						"text": "企業の社員研修を支援する、AI駆動の研修管理SaaSです。講義動画の自動文字起こし・要約、AIテスト自動生成・記述採点、AI講師チャット、3Dアバターロールプレイを提供します。"
+					}
+				]
+			},
+			{
+				"h": "担当したこと",
+				"blocks": [
+					{
+						"t": "ul",
+						"items": [
+							"講義動画のHLS変換パイプラインと、中断・再開、続きから再生の機能",
+							"動画要約パイプライン asr_correct、section_enrich、md_format、heading の実装と、要約・メタデータ生成の統合、テスト生成の直列化",
+							"文字起こし基盤のSageMaker WhisperからAzure OpenAI Whisper APIへの移行",
+							"SQS Worker基盤のasyncioベース化、S3呼び出しの並列化、Supervisorによる複数キューの並行処理、FIFOキュー対応",
+							"SentryからDatadog APM・RUMへの移行と、CSP設定、ビルド時のenv注入",
+							"Auth0とOIDCの認証、Preview環境用モック認証、E2Eが自動ログインできる構造",
+							"API用DockerとCodeBuild構成、ECS ALBルーティング用のPATH_PREFIXミドルウェア",
+							"Alembicマイグレーションの複数head統合とdowngrade check"
+						]
+					}
+				]
+			},
+			{
+				"h": "結果",
+				"blocks": [
+					{
+						"t": "p",
+						"text": "インフラからアプリまで一貫して設計・構築し、AI研修SaaSの立ち上げに貢献しました。AWSのマネージドサービスを使い分け、ECS Fargate、SQS、MediaConvertによる拡張性の高いAI処理基盤を構築しました。講義動画のAIパイプライン、文字起こし・要約・テスト自動生成により、研修コンテンツ作成を自動化しました。Auth0とOIDCの認証基盤、GitHub ActionsとAWS CodePipelineによるCI/CDを整備しました。観測基盤をDatadogのAPM・RUMへ刷新し、運用・障害対応の効率を向上させました。"
 					}
 				]
 			}
@@ -303,7 +248,7 @@
 		"slug": "sales-crm",
 		"title": "営業向け顧客管理システム",
 		"label": "業務委託",
-		"featured": false,
+		"featured": true,
 		"meta": [
 			{
 				"k": "担当範囲",
@@ -368,7 +313,7 @@
 				]
 			},
 			{
-				"h": "確かめられる納品・結果",
+				"h": "結果",
 				"blocks": [
 					{
 						"t": "p",
@@ -379,50 +324,44 @@
 		]
 	},
 	{
-		"slug": "ai-training",
-		"title": "toB向け AIラーニング・社員研修プラットフォーム",
+		"slug": "daily-report",
+		"title": "施工会社向け日報・プロジェクト管理システムの新規開発",
 		"label": null,
 		"featured": false,
 		"meta": [
 			{
 				"k": "業種",
-				"v": "企業研修"
+				"v": "施工"
 			},
 			{
 				"k": "担当範囲",
-				"v": "詳細設計、実装・単体テスト、結合テスト"
+				"v": "顧客先でのヒアリング・要件定義から実装まで"
 			},
 			{
 				"k": "体制",
-				"v": "全体6名、開発4名"
+				"v": "開発1名、全体3名"
 			},
 			{
 				"k": "期間",
-				"v": "2026年1月〜6月"
+				"v": "2019年10月〜2020年3月"
 			}
 		],
 		"tech": [
-			"TypeScript",
-			"Next.js",
-			"FastAPI",
-			"PostgreSQL",
-			"DynamoDB",
-			"AWS ECS Fargate",
-			"CodePipeline",
-			"CodeBuild",
-			"ECR",
-			"S3",
-			"RDS",
-			"SQS",
-			"MediaConvert",
-			"Auth0",
-			"Datadog",
-			"GitHub Actions"
+			"PHP",
+			"JavaScript",
+			"MySQL",
+			"Laravel",
+			"PHPUnit",
+			"Vue",
+			"jQuery",
+			"Vagrant",
+			"Backlog",
+			"Windows Server 2016"
 		],
-		"summary": "企業の社員研修を支援する、AI駆動の研修管理SaaSです。",
+		"summary": "施工会社の日報・作業時間管理システムです。",
 		"results": [
-			"インフラからアプリまで一貫して設計・構築し、AI研修SaaSの立ち上げに貢献しました。",
-			"AWSのマネージドサービスを使い分け、ECS Fargate、SQS、MediaConvertによる拡張性の高いAI処理基盤を構築しました。"
+			"社内のアカウントを一元管理するActive Directoryを使ったLDAP認証をLaravelに実装しました。",
+			"Laravelのデフォルト認証をカスタマイズし、社内Active Directory連携を実現しました。"
 		],
 		"sections": [
 			{
@@ -430,7 +369,7 @@
 				"blocks": [
 					{
 						"t": "p",
-						"text": "企業の社員研修を支援する、AI駆動の研修管理SaaSです。講義動画の自動文字起こし・要約、AIテスト自動生成・記述採点、AI講師チャット、3Dアバターロールプレイを提供します。"
+						"text": "施工会社の日報・作業時間管理システムです。"
 					}
 				]
 			},
@@ -438,16 +377,14 @@
 				"h": "担当したこと",
 				"blocks": [
 					{
+						"t": "p",
+						"text": "顧客先でのヒアリング・要件定義から実装まで一貫して担当しました。毎週の進捗報告と顧客先への同行もしました。担当した内容は次のとおりです。"
+					},
+					{
 						"t": "ul",
 						"items": [
-							"講義動画のHLS変換パイプラインと、中断・再開、続きから再生の機能",
-							"動画要約パイプライン asr_correct、section_enrich、md_format、heading の実装と、要約・メタデータ生成の統合、テスト生成の直列化",
-							"文字起こし基盤のSageMaker WhisperからAzure OpenAI Whisper APIへの移行",
-							"SQS Worker基盤のasyncioベース化、S3呼び出しの並列化、Supervisorによる複数キューの並行処理、FIFOキュー対応",
-							"SentryからDatadog APM・RUMへの移行と、CSP設定、ビルド時のenv注入",
-							"Auth0とOIDCの認証、Preview環境用モック認証、E2Eが自動ログインできる構造",
-							"API用DockerとCodeBuild構成、ECS ALBルーティング用のPATH_PREFIXミドルウェア",
-							"Alembicマイグレーションの複数head統合とdowngrade check"
+							"テーブル設計、詳細設計書の作成",
+							"LDAP認証のカスタマイズを含む実装"
 						]
 					}
 				]
@@ -457,7 +394,70 @@
 				"blocks": [
 					{
 						"t": "p",
-						"text": "インフラからアプリまで一貫して設計・構築し、AI研修SaaSの立ち上げに貢献しました。AWSのマネージドサービスを使い分け、ECS Fargate、SQS、MediaConvertによる拡張性の高いAI処理基盤を構築しました。講義動画のAIパイプライン、文字起こし・要約・テスト自動生成により、研修コンテンツ作成を自動化しました。Auth0とOIDCの認証基盤、GitHub ActionsとAWS CodePipelineによるCI/CDを整備しました。観測基盤をDatadogのAPM・RUMへ刷新し、運用・障害対応の効率を向上させました。"
+						"text": "社内のアカウントを一元管理するActive Directoryを使ったLDAP認証をLaravelに実装しました。Laravelのデフォルト認証をカスタマイズし、社内Active Directory連携を実現しました。ZendFrameworkの社内システム解析も実施し、Active Directory接続情報を確認しました。顧客との密なコミュニケーションにより、仕様の齟齬なく開発を完了しました。"
+					}
+				]
+			}
+		]
+	},
+	{
+		"slug": "sso",
+		"title": "資格対策サイトのシングルサインオン対応",
+		"label": "請負",
+		"featured": false,
+		"meta": [
+			{
+				"k": "担当範囲",
+				"v": "要件定義から実装・デプロイまで"
+			},
+			{
+				"k": "体制",
+				"v": "開発1名、全体1名"
+			},
+			{
+				"k": "期間",
+				"v": "2020年2月〜4月"
+			}
+		],
+		"tech": [
+			"PHP",
+			"MySQL RDS",
+			"Laravel",
+			"SimpleSAMLphp",
+			"AWS IAM",
+			"EC2",
+			"RDS",
+			"AmazonLinux2"
+		],
+		"summary": "資格対策サイトと姉妹サイトの認証をSSO化しました。",
+		"results": [
+			"要件定義から実装・デプロイまで一貫して担当し、IdPを構築して連携を実装しました。"
+		],
+		"sections": [
+			{
+				"h": "経緯",
+				"blocks": [
+					{
+						"t": "p",
+						"text": "資格対策サイトと姉妹サイトの認証をSSO化しました。フルリモートです。"
+					}
+				]
+			},
+			{
+				"h": "担当したこと",
+				"blocks": [
+					{
+						"t": "p",
+						"text": "請負として参画しました。要件定義から実装・デプロイまで一貫して担当しました。認証を担うIdPというサーバーを新規に構築し、Laravelとの連携を実装しました。既存不具合の修正も行いました。習得したのは、SAML認証とAWS IAM、EC2、RDSです。フルリモート案件のため、細かな報告・連絡を心掛けて進めました。"
+					}
+				]
+			},
+			{
+				"h": "結果",
+				"blocks": [
+					{
+						"t": "p",
+						"text": "要件定義から実装・デプロイまで一貫して担当し、IdPを構築して連携を実装しました。"
 					}
 				]
 			}

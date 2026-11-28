@@ -95,7 +95,7 @@
 				<li class="case" style="--i:{i}">
 					<article class="case-in">
 						<div class="visual">
-							<CaseArt slug={item.slug} index={i} chips={item.tech} />
+							<CaseArt slug={item.slug} />
 						</div>
 						<div class="body">
 							<p class="kicker">
@@ -157,7 +157,6 @@
 								loading="lazy"
 								decoding="async"
 							/>
-							<span class="row-no">{String(featured.length + i + 1).padStart(2, '0')}</span>
 							<span class="row-main">
 								<span class="row-title">{item.title}</span>
 								<span class="row-sub">{metaOf(item, '期間')}／{metaOf(item, '担当範囲')}</span>
@@ -410,7 +409,7 @@
 	.row {
 		position: relative;
 		display: grid;
-		grid-template-columns: auto auto minmax(0, 1fr) auto auto;
+		grid-template-columns: auto minmax(0, 1fr) auto auto;
 		align-items: center;
 		gap: clamp(14px, 2.4vw, 32px);
 		padding: 22px clamp(4px, 1.2vw, 20px);
@@ -448,16 +447,6 @@
 	.row:hover .row-thumb,
 	.row:focus-visible .row-thumb {
 		scale: 1.06;
-	}
-	.row-no {
-		font-size: 13px;
-		font-weight: 800;
-		letter-spacing: 0.14em;
-		color: var(--blue);
-	}
-	.row:hover .row-no,
-	.row:focus-visible .row-no {
-		color: #9fc0ff;
 	}
 	.row-main {
 		display: grid;
@@ -537,9 +526,6 @@
 		.row-thumb {
 			width: 72px;
 			height: 54px;
-		}
-		.row-no {
-			display: none;
 		}
 		.row-tag {
 			display: none;

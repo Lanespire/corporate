@@ -13,15 +13,26 @@ from pathlib import Path
 root = Path(__file__).resolve().parent.parent
 raw = Path(sys.argv[1]).read_bytes()
 source = raw.decode('utf-8')
+# Display order on the site (Boss, 2026-11-28): recent work first. The first FEATURED are the large cards.
 SLUGS = [
-    ('シングルサインオン', 'sso', '請負'),
-    ('日報', 'daily-report', None),
     ('AI対話', 'real-estate-ai', '業務委託'),
+    ('研修', 'ai-training', None),
     ('媒体更新', 'media-ops', None),
     ('顧客管理', 'sales-crm', '業務委託'),
-    ('研修', 'ai-training', None),
+    ('日報', 'daily-report', None),
+    ('シングルサインオン', 'sso', '請負'),
 ]
 FEATURED = 4
+EDITS = json.loads((root / 'scripts/case-site-edits.json').read_text(encoding='utf-8'))
+applied = []
+
+
+def edited(kind, text):
+    if text in EDITS[kind]:
+        applied.append(text)
+        return EDITS[kind][text]
+    return text
+
 TABLE = '項目表'
 SKIPPED = {'相談'}
 FORBIDDEN = ['受託', '不明', '職務経歴書', '契約の形', 'ボリューム']
@@ -73,9 +84,9 @@ for block in re.split(r'^## ', source, flags=re.M)[1:]:
                 if key == '技術':
                     tech = [item.strip() for item in value.split('、')]
                 else:
-                    meta.append({'k': key, 'v': value})
+                    meta.append({'k': key, 'v': edited('meta', value)})
         elif heading not in SKIPPED:
-            sections.append({'h': heading, 'blocks': blocks_of(text)})
+            sections.append({'h': edited('heading', heading), 'blocks': blocks_of(text)})
     if not sections or not tech or not meta:
         raise SystemExit(f'Incomplete case: {title}')
     cases.append(
@@ -83,7 +94,7 @@ for block in re.split(r'^## ', source, flags=re.M)[1:]:
             'slug': match[1],
             'title': title,
             'label': match[2],
-            'featured': len(cases) < FEATURED,
+            'featured': False,
             'meta': meta,
             'tech': tech,
             'summary': sentences(sections[0]['blocks'])[0],
@@ -91,8 +102,10 @@ for block in re.split(r'^## ', source, flags=re.M)[1:]:
             'sections': sections,
         }
     )
-if [c['slug'] for c in cases] != [s[1] for s in SLUGS]:
-    raise SystemExit(f'Expected the cases in the agreed order, found: {[c["slug"] for c in cases]}')
+order = [s[1] for s in SLUGS]
+if sorted(c['slug'] for c in cases) != sorted(order):
+    raise SystemExit(f'Expected exactly these cases: {order}, found: {[c["slug"] for c in cases]}')
+manuscript_order = [c['slug'] for c in cases]
 
 # Self-check: every text unit of the manuscript, read a second way, must equal what was written.
 expected, skipping = [], False
@@ -115,6 +128,8 @@ for line in (line.strip() for line in source.split('\n')):
             expected.append(row.group(2))
     else:
         expected.append(re.sub(r'^(- +|\d+\. +)', '', line))
+site_edits = {**EDITS['meta'], **EDITS['heading']}
+expected = [site_edits.get(unit, unit) for unit in expected]
 written = []
 for case in cases:
     written.append(case['title'])
@@ -134,7 +149,13 @@ for case in cases:
         if sentence not in body:
             raise SystemExit(f'Card sentence is not in the manuscript: {sentence}')
 
+cases.sort(key=lambda case: order.index(case['slug']))
+for position, case in enumerate(cases):
+    case['featured'] = position < FEATURED
+
 text = json.dumps(cases, ensure_ascii=False, indent='\t') + '\n'
 (root / 'src/lib/corp/cases.json').write_text(text, encoding='utf-8')
-print(f'{len(cases)} cases, {len(written)} text units, all equal to the manuscript.')
+print(f'{len(cases)} cases, {len(written)} text units, all equal to the manuscript (apart from the agreed site-side edits below).')
 print('manuscript sha256:', hashlib.sha256(raw).hexdigest()[:16])
+print('order on the site:', ' > '.join(order), f'(the manuscript has: {" > ".join(manuscript_order)})')
+print(f'site-side edits applied: {len(applied)}', applied or '(none left: empty scripts/case-site-edits.json)')

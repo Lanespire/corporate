@@ -17,7 +17,6 @@
 	onclose={() => privacyOpen.set(false)}
 >
 	<div class="dialog-top">
-		<span>FORM INFORMATION</span>
 		<button type="button" class="close" aria-label="説明を閉じる" onclick={() => dialog?.close()}>
 			<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
 		</button>

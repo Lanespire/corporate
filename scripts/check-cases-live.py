@@ -15,6 +15,8 @@ source = Path(sys.argv[1]).read_text(encoding='utf-8')
 base = sys.argv[2].rstrip('/')
 slugs = {case['title']: case for case in json.loads((root / 'src/lib/corp/cases.json').read_text(encoding='utf-8'))}
 SKIPPED = {'相談'}
+edits = json.loads((root / 'scripts/case-site-edits.json').read_text(encoding='utf-8'))
+EDITS = {**edits['meta'], **edits['heading']}
 
 
 def page_text(path):
@@ -39,15 +41,16 @@ for block in re.split(r'^## ', source, flags=re.M)[1:]:
             heading = line[4:].strip()
             skipping = heading in SKIPPED
             if heading != '項目表' and not skipping:
-                units.append(heading)
+                units.append(EDITS.get(heading, heading))
         elif skipping:
             continue
         elif line.startswith('|'):
             cells = [cell.strip() for cell in line.strip('|').split('|')]
             if cells[0] in ('項目', '') or set(cells[0]) <= {'-', ' '}:
                 continue
-            table[cells[0]] = cells[1]
-            units.extend(cells[1].split('、') if cells[0] == '技術' else [cells[1]])
+            value = EDITS.get(cells[1], cells[1])
+            table[cells[0]] = value
+            units.extend(value.split('、') if cells[0] == '技術' else [value])
         else:
             units.append(re.sub(r'^(- +|\d+\. +)', '', line))
     text = page_text('/cases/' + case['slug'])
@@ -60,7 +63,7 @@ for block in re.split(r'^## ', source, flags=re.M)[1:]:
     print(f"{case['slug']}: {len(units)} units on the case page, {len(missing)} missing; top page {len(missing_top)} missing")
     for unit in missing + missing_top:
         print('   MISSING:', unit[:80])
-for word in ['受託', '不明', '職務経歴書', 'チーム1名、開発1名、全体1名', 'チーム3名、開発1名、全体3名', 'AD、Active Directory']:
+for word in ['受託', '不明', '職務経歴書', 'チーム1名、開発1名、全体1名', 'チーム3名、開発1名、全体3名', 'AD、Active Directory', *EDITS, '代表が担当した']:
     where = [path for path in ['/'] + ['/cases/' + case['slug'] for case in slugs.values()] if word in page_text(path) and not (word == '受託' and path == '/')]
     failures += len(where)
     print(f'old or unwanted wording "{word}":', where or 'none')

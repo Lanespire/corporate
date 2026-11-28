@@ -42,10 +42,9 @@
 						<span class="ln"><span class="ln-i">{item.title}</span></span>
 					</h1>
 					<span class="lane-rule" aria-hidden="true"></span>
-					<p class="lead">{item.summary}</p>
 				</div>
 				<div class="visual">
-					<CaseArt slug={item.slug} index={data.index} chips={item.tech} eager />
+					<CaseArt slug={item.slug} eager />
 				</div>
 			</div>
 		</header>
@@ -68,9 +67,9 @@
 				</ul>
 			</aside>
 			<div class="story">
-				{#each item.sections as section, i (section.h)}
+				{#each item.sections as section (section.h)}
 					<section data-reveal use:reveal>
-						<h2><span>{String(i + 1).padStart(2, '0')}</span>{section.h}</h2>
+						<h2>{section.h}</h2>
 						{#each section.blocks as block, b (b)}
 							{#if block.t === 'p'}
 								<p>{block.text}</p>
@@ -202,10 +201,6 @@
 		margin-top: 24px;
 		animation: corp-grow-x 1s var(--ease-out) 0.45s both;
 	}
-	.lead {
-		margin-top: 22px;
-		animation: corp-fade-up 0.9s var(--ease-out) 0.4s both;
-	}
 	.visual {
 		aspect-ratio: 5 / 4;
 		animation: corp-fade-up 1.1s var(--ease-out) 0.25s both;
@@ -271,12 +266,6 @@
 		font-weight: 800;
 		line-height: 1.5;
 		color: var(--ink);
-	}
-	.story h2 span {
-		font-family: var(--font-sans);
-		font-size: 13px;
-		letter-spacing: 0.14em;
-		color: var(--blue);
 	}
 	.story p,
 	.story ul,

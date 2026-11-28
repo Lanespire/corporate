@@ -171,7 +171,6 @@
 				</p>
 				<div class="form-title">
 					<h3>ご相談内容</h3>
-					<span>必須項目をご入力ください</span>
 				</div>
 				<div class="row">
 					<label>
@@ -261,7 +260,6 @@
 	}}
 >
 	<div class="dialog-top">
-		<span>CONTACT</span>
 		<button
 			type="button"
 			class="close"
@@ -295,11 +293,12 @@
 					><path d="M4 12h15M13 6l6 6-6 6" /></svg
 				>
 			</button>
-			<button type="button" id="copy-contact" class="btn btn-ghost" onclick={copy}>
-				本文をコピー
-			</button>
+			{#if sendState === 'error'}
+				<button type="button" id="copy-contact" class="btn btn-ghost" onclick={copy}>
+					本文をコピー
+				</button>
+			{/if}
 		</div>
-		<p class="dialog-note">「この内容で送信する」を押すと、お問い合わせ内容が送信されます。</p>
 		<p id="send-status" data-state={sendState} role="status" aria-live="polite">{sendMessage}</p>
 		<p class="copy-status" role="status" aria-live="polite">{copyMessage}</p>
 		{#if fallback}
@@ -414,10 +413,6 @@
 		font-size: 20px;
 		font-weight: 800;
 		color: var(--ink);
-	}
-	.form-title span {
-		font-size: 13px;
-		color: var(--muted);
 	}
 	.row {
 		display: grid;
@@ -535,7 +530,6 @@
 		flex-wrap: wrap;
 		gap: 12px;
 	}
-	.dialog-note,
 	.copy-status {
 		font-size: 14px;
 	}
