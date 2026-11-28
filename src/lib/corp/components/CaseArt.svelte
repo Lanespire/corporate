@@ -50,7 +50,6 @@
 	.art {
 		position: relative;
 		height: 100%;
-		min-height: 240px;
 		overflow: hidden;
 		border-radius: var(--r-md);
 		background:
@@ -93,17 +92,17 @@
 		-webkit-backdrop-filter: blur(5px);
 	}
 	.p1 {
-		left: 13%;
-		top: 20%;
-		width: 44%;
+		left: 12%;
+		top: 18%;
+		width: 46%;
 		aspect-ratio: 1 / 1.08;
 		transform: rotate(-9deg);
 		animation: art-float 7s var(--ease-io) infinite alternate;
 	}
 	.p2 {
-		left: 38%;
-		top: 34%;
-		width: 34%;
+		left: 44%;
+		top: 36%;
+		width: 33%;
 		aspect-ratio: 1 / 1.1;
 		transform: rotate(7deg);
 		background: linear-gradient(150deg, rgba(74, 128, 240, 0.72), rgba(34, 84, 196, 0.5));
@@ -124,6 +123,7 @@
 		-webkit-background-clip: text;
 		background-clip: text;
 		transform: rotate(-9deg);
+		z-index: 2;
 	}
 	.floats li {
 		position: absolute;

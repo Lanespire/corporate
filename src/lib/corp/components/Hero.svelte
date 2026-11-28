@@ -81,9 +81,32 @@
 			if (!visible) video?.pause();
 			else if (wanted && started) play();
 		});
+		let targetX = 0;
+		let targetY = 0;
+		let currentX = 0;
+		let currentY = 0;
+		let frame = 0;
+		const ease = () => {
+			currentX += (targetX - currentX) * 0.06;
+			currentY += (targetY - currentY) * 0.06;
+			root?.style.setProperty('--mx', currentX.toFixed(3));
+			root?.style.setProperty('--my', currentY.toFixed(3));
+			const moving = Math.abs(targetX - currentX) + Math.abs(targetY - currentY) > 0.002;
+			frame = moving ? requestAnimationFrame(ease) : 0;
+		};
+		const follow = (event: PointerEvent) => {
+			if (event.pointerType !== 'mouse') return;
+			targetX = event.clientX / innerWidth - 0.5;
+			targetY = event.clientY / innerHeight - 0.5;
+			if (!frame) frame = requestAnimationFrame(ease);
+		};
+		const element = root;
+		element?.addEventListener('pointermove', follow, { passive: true });
 		return () => {
 			stop();
 			removeEventListener('load', idle);
+			element?.removeEventListener('pointermove', follow);
+			cancelAnimationFrame(frame);
 		};
 	});
 </script>
@@ -91,6 +114,7 @@
 <!-- eslint-disable svelte/no-navigation-without-resolve -- Served from the domain root; links are fixed paths. -->
 <section class="hero" aria-labelledby="hero-title" bind:this={root}>
 	<div class="media" aria-hidden="true">
+		<div class="media-in">
 		<picture>
 			<source
 				media="(max-aspect-ratio: 4/5)"
@@ -118,6 +142,7 @@
 			tabindex="-1"
 			onplaying={() => (shown = true)}
 		></video>
+		</div>
 	</div>
 
 	<div class="container inner">
@@ -185,10 +210,14 @@
 		overflow: hidden;
 		background: #fff;
 	}
+	.media-in,
 	.media picture {
 		display: block;
 		width: 100%;
 		height: 100%;
+	}
+	.media-in {
+		position: relative;
 	}
 	.media img,
 	.media video {
@@ -370,8 +399,9 @@
 		.media video {
 			object-position: 70% 50%;
 		}
-		.media picture {
-			transform: scale(calc(1 + var(--hp, 0) * 0.06));
+		.media-in {
+			transform: translate3d(calc(var(--mx, 0) * -22px), calc(var(--my, 0) * -14px), 0)
+				scale(calc(1.035 + var(--hp, 0) * 0.06));
 			transform-origin: 80% 60%;
 		}
 		.inner {
@@ -501,7 +531,7 @@
 			animation: none;
 		}
 		.copy,
-		.media picture {
+		.media-in {
 			opacity: 1;
 			transform: none;
 		}

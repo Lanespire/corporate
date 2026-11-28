@@ -47,7 +47,7 @@
 	@media (min-aspect-ratio: 4/5) and (min-width: 1024px) and (min-height: 600px) {
 		.sheet {
 			border-radius: 44px 44px 0 0;
-			box-shadow: 0 -40px 90px -30px rgba(17, 41, 64, 0.28);
+			box-shadow: 0 -18px 50px -26px rgba(17, 41, 64, 0.2);
 		}
 	}
 </style>

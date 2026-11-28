@@ -27,6 +27,21 @@
 		};
 		measure();
 		addEventListener('resize', measure, { passive: true });
+		const tilt = (event: PointerEvent) => {
+			const card = (event.target as HTMLElement).closest<HTMLElement>('.case');
+			if (!card || event.pointerType !== 'mouse') return;
+			const rect = card.getBoundingClientRect();
+			card.style.setProperty('--tx', ((event.clientX - rect.left) / rect.width - 0.5).toFixed(3));
+			card.style.setProperty('--ty', ((event.clientY - rect.top) / rect.height - 0.5).toFixed(3));
+		};
+		const rest = (event: PointerEvent) => {
+			const card = (event.target as HTMLElement).closest<HTMLElement>('.case');
+			card?.style.setProperty('--tx', '0');
+			card?.style.setProperty('--ty', '0');
+		};
+		const list = stack;
+		list.addEventListener('pointermove', tilt, { passive: true });
+		list.addEventListener('pointerout', rest, { passive: true });
 		const stop = onFrame(() => {
 			if (!stacked) return;
 			for (let i = 0; i < cards.length - 1; i++) {
@@ -40,6 +55,8 @@
 		return () => {
 			stop();
 			removeEventListener('resize', measure);
+			list.removeEventListener('pointermove', tilt);
+			list.removeEventListener('pointerout', rest);
 		};
 	});
 </script>
@@ -131,7 +148,9 @@
 								<span class="row-title">{item.title}</span>
 								<span class="row-sub">{metaOf(item, '期間')}／{metaOf(item, '担当範囲')}</span>
 							</span>
-							{#if item.label}<span class="tag">{item.label}</span>{/if}
+							<span class="row-tag">
+								{#if item.label}<span class="tag">{item.label}</span>{/if}
+							</span>
 							<span class="row-go" aria-hidden="true">
 								<svg class="arr" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" /></svg>
 							</span>
@@ -205,6 +224,13 @@
 	}
 	.visual {
 		min-height: 260px;
+		transform: perspective(1000px) rotateY(calc(var(--tx, 0) * 5deg))
+			rotateX(calc(var(--ty, 0) * -4deg));
+		transition: transform 0.6s var(--ease-out);
+	}
+	.row-tag {
+		min-width: 5em;
+		text-align: right;
 	}
 	.body {
 		display: flex;
@@ -464,7 +490,7 @@
 		}
 		.visual {
 			min-height: 0;
-			aspect-ratio: 16 / 10;
+			aspect-ratio: 16 / 11;
 		}
 		.body {
 			padding: 0 4px 6px;
@@ -479,7 +505,7 @@
 		.row {
 			grid-template-columns: auto minmax(0, 1fr) auto;
 		}
-		.row .tag {
+		.row-tag {
 			display: none;
 		}
 	}
